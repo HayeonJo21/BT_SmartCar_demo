@@ -13,6 +13,8 @@ var serial : BluetoothSerial!
 //블루투스 통신을 담당할 시리얼을 클래스로 선언. CoreBlueTooth를 사용하기 위한 프로토콜 추가
 class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
+    var delegate : BluetoothSerialDelegate?
+    
     var centralManager : CBCentralManager! //주변 기기 검색, 연결
     var pendingPeripheral : CBPeripheral?  // 현재 연결을 시도하고 있는 블루투스 주변기기
     var connectedPeripheral : CBPeripheral?  // 연결에 성공된 기기. 기기와 통신을 시작할 때 사용하는 객체
@@ -100,4 +102,19 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
         // 신호 강도와 관련된 코드를 작성
     }
     
+    override init() {
+        super.init()
+        self.centralManager = CBCentralManager(delegate: self, queue: nil)
+    }
+    
+}
+
+protocol BluetoothSerialDelegate : AnyObject {
+    func serialDidDiscoverPeripheral(peripheral : CBPeripheral, RSSI : NSNumber?)
+    func serialDidConnectPeripheral(peripheral : CBPeripheral)
+}
+
+extension BluetoothSerialDelegate {
+    func serialDidDiscoverPeripheral(peripheral : CBPeripheral, RSSI : NSNumber?){}
+    func serialDidConnectPeripheral(peripheral : CBPeripheral) {}
 }
