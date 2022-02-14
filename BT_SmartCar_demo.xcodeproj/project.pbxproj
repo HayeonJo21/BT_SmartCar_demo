@@ -15,7 +15,7 @@
 		263D622B27B3AD4300713574 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 263D622927B3AD4300713574 /* LaunchScreen.storyboard */; };
 		2687C64827BA3533006C3D63 /* BluetoothDeviceListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2687C64627BA3533006C3D63 /* BluetoothDeviceListViewController.swift */; };
 		2687C64927BA3533006C3D63 /* BluetoothDeviceListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2687C64727BA3533006C3D63 /* BluetoothDeviceListViewController.xib */; };
-		2687C64B27BA3732006C3D63 /* BlueToothSerial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2687C64A27BA3732006C3D63 /* BlueToothSerial.swift */; };
+		2687C64D27BA487B006C3D63 /* BluetoothSerial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2687C64C27BA487B006C3D63 /* BluetoothSerial.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +29,7 @@
 		263D622C27B3AD4300713574 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2687C64627BA3533006C3D63 /* BluetoothDeviceListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothDeviceListViewController.swift; sourceTree = "<group>"; };
 		2687C64727BA3533006C3D63 /* BluetoothDeviceListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BluetoothDeviceListViewController.xib; sourceTree = "<group>"; };
-		2687C64A27BA3732006C3D63 /* BlueToothSerial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueToothSerial.swift; sourceTree = "<group>"; };
+		2687C64C27BA487B006C3D63 /* BluetoothSerial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothSerial.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,8 +63,8 @@
 			isa = PBXGroup;
 			children = (
 				263D621E27B3AD4200713574 /* AppDelegate.swift */,
+				2687C64C27BA487B006C3D63 /* BluetoothSerial.swift */,
 				263D622027B3AD4200713574 /* SceneDelegate.swift */,
-				2687C64A27BA3732006C3D63 /* BlueToothSerial.swift */,
 				263D622227B3AD4200713574 /* ViewController.swift */,
 				2687C64627BA3533006C3D63 /* BluetoothDeviceListViewController.swift */,
 				2687C64727BA3533006C3D63 /* BluetoothDeviceListViewController.xib */,
@@ -148,11 +148,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2687C64B27BA3732006C3D63 /* BlueToothSerial.swift in Sources */,
 				263D622327B3AD4200713574 /* ViewController.swift in Sources */,
 				263D621F27B3AD4200713574 /* AppDelegate.swift in Sources */,
 				263D622127B3AD4200713574 /* SceneDelegate.swift in Sources */,
 				2687C64827BA3533006C3D63 /* BluetoothDeviceListViewController.swift in Sources */,
+				2687C64D27BA487B006C3D63 /* BluetoothSerial.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
