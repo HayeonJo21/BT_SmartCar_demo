@@ -29,6 +29,73 @@ class BlueToothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
         connectedPeripheral = nil
     }
 
+    // 기기 검색을 시작할 함수
+    func startScan(){
+        guard centralManager.state == .poweredOn else { return }
+        
+        centralManager.scanForPeripherals(withServices: [serviceUUID], options: nil)
+        
+        let peripherals = centralManager.retrieveConnectedPeripherals(withServices: [serviceUUID])
+        for peripheral in peripherals {
+            // 검색된 기기들에 대한 처리 작성
+        }
+    }
     
+    //기기 검색 중단
+    func stopScan() {
+        centralManager.stopScan()
+        //centralManager.self
+    }
+    
+    // 파라미터로 넘어온 주변 기기를 CentralManager에 연결하도록 시도
+    
+    func connectToPeripheral(_ peripheral: CBPeripheral)
+    {
+        // 연결 실패 시 현재 연결 중인 주변 기기 저장
+        pendingPeripheral = peripheral
+        centralManager.connect(peripheral, options: nil)
+    }
+    
+    // 기기가 검색될 때 마다 호출되는 메서드
+    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+        // 기기가 검색될 때 마다 필요한 코드 여기 작성
+    }
+    
+    // 기기가 연결되면 호출되는 메서드
+    func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+        peripheral.delegate = self
+        pendingPeripheral = nil
+        connectedPeripheral = peripheral
+        
+        peripheral.discoverServices([serviceUUID])
+    }
+    
+    // service 검색에 성공 시 호출되는 메서드
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        for service in peripheral.services! {
+            peripheral.discoverCharacteristics([characteristicUUID], for: service)
+        }
+    }
+    
+    // characteristic 검색에 성공 시 호출되는 메서드
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+        for characteristic in service.characteristics! {
+            // 검색된 모든 characteristic에 대해 UUID를 한번 더 체크하고, 일치한다면 peripheral을 구독하고 통신을 위한 설정 완료
+            if characteristic.uuid == characteristicUUID {
+                peripheral.setNotifyValue(true, for: characteristic)
+                writeCharacteristic = characteristic
+                writeType = characteristic.properties.contains(.write) ? .withResponse : .withResponse
+            }
+        }
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor descriptor: CBDescriptor, error: Error?) {
+        // writeType이 .withResponse일 때, 블루투스 기기로부터의 응답이 왔을 때 호출되는 함수.
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: Error?) {
+        // 블루투스 기기의 신호 강도를 요청하는 peripheral.readRSSI가 호출하는 함수
+        // 신호 강도와 관련된 코드를 작성
+    }
     
 }
