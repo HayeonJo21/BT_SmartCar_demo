@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		263450B927BB30E000ADB3C4 /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263450B827BB30E000ADB3C4 /* ScanViewController.swift */; };
 		263D621F27B3AD4200713574 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263D621E27B3AD4200713574 /* AppDelegate.swift */; };
 		263D622127B3AD4200713574 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263D622027B3AD4200713574 /* SceneDelegate.swift */; };
 		263D622327B3AD4200713574 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263D622227B3AD4200713574 /* ViewController.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		263450B827BB30E000ADB3C4 /* ScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
 		263D621B27B3AD4200713574 /* BT_SmartCar_demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BT_SmartCar_demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		263D621E27B3AD4200713574 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		263D622027B3AD4200713574 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				2687C64C27BA487B006C3D63 /* BluetoothSerial.swift */,
 				263D622027B3AD4200713574 /* SceneDelegate.swift */,
 				263D622227B3AD4200713574 /* ViewController.swift */,
+				263450B827BB30E000ADB3C4 /* ScanViewController.swift */,
 				2687C64627BA3533006C3D63 /* BluetoothDeviceListViewController.swift */,
 				2687C64727BA3533006C3D63 /* BluetoothDeviceListViewController.xib */,
 				263D622427B3AD4200713574 /* Main.storyboard */,
@@ -153,6 +156,7 @@
 				263D622127B3AD4200713574 /* SceneDelegate.swift in Sources */,
 				2687C64827BA3533006C3D63 /* BluetoothDeviceListViewController.swift in Sources */,
 				2687C64D27BA487B006C3D63 /* BluetoothSerial.swift in Sources */,
+				263450B927BB30E000ADB3C4 /* ScanViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

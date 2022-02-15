@@ -16,23 +16,64 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XkZ-5p-05X">
-                                <rect key="frame" x="124" y="333" width="166" height="84"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XkZ-5p-05X">
+                                <rect key="frame" x="123" y="403" width="168" height="90"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="90" id="1z0-0c-n26"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="85" id="6zJ-vt-moi"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="168" id="Gn6-4v-mzX"/>
+                                    <constraint firstAttribute="width" constant="168" id="RM0-0P-RVz"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" title="BLUETOOTH 스캔"/>
                                 <connections>
                                     <action selector="btScanBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yIu-Gb-H5V"/>
+                                    <segue destination="Sim-Op-mvx" kind="presentation" id="y1v-cl-hct"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="XkZ-5p-05X" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="uuY-OO-A6Q"/>
+                            <constraint firstItem="XkZ-5p-05X" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vwA-YO-BJJ"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-645" y="88"/>
+            <point key="canvasLocation" x="-1341" y="74"/>
+        </scene>
+        <!--Scan View Controller-->
+        <scene sceneID="kuR-ol-u2G">
+            <objects>
+                <viewController storyboardIdentifier="ScanViewController" id="Sim-Op-mvx" customClass="ScanViewController" customModule="BT_SmartCar_demo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cSC-vq-c8e">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="xPX-FQ-diI">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="qmN-Yi-Fqz"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="qmN-Yi-Fqz" firstAttribute="bottom" secondItem="xPX-FQ-diI" secondAttribute="bottom" id="0oI-rC-xRr"/>
+                            <constraint firstItem="xPX-FQ-diI" firstAttribute="centerX" secondItem="cSC-vq-c8e" secondAttribute="centerX" id="INX-N7-OlN"/>
+                            <constraint firstItem="xPX-FQ-diI" firstAttribute="leading" secondItem="qmN-Yi-Fqz" secondAttribute="leading" id="ev3-wZ-Bqx"/>
+                            <constraint firstItem="xPX-FQ-diI" firstAttribute="top" secondItem="qmN-Yi-Fqz" secondAttribute="top" id="pSO-rv-VJf"/>
+                            <constraint firstItem="qmN-Yi-Fqz" firstAttribute="trailing" secondItem="xPX-FQ-diI" secondAttribute="trailing" id="v56-69-CWT"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="scanListTableView" destination="xPX-FQ-diI" id="nVy-js-8HH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IfR-yE-eOL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-461" y="74"/>
         </scene>
     </scenes>
     <resources>
