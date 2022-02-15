@@ -6,48 +6,43 @@
 //
 
 import UIKit
+import CoreBluetooth
 
-class ScanViewController: UIViewController {
+class ScanViewController: UIViewController, BluetoothSerialDelegate {
 
     @IBOutlet weak var scanListTableView: UITableView!
+    var peripheralList : [(peripheral: CBPeripheral, RSSI : Float)] = []
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        peripheralList = []
+        
+        serial.delegate = self
+        serial.startScan()
+        
         scanListTableView.delegate = self
         scanListTableView.dataSource = self
         
-
     }
 }
     extension ScanViewController: UITableViewDelegate, UITableViewDataSource {
         func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return 5
+            return peripheralList.count
         }
         
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             
-            if indexPath.row == 0 {
-                
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell", for: indexPath)
-                
-                return cell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ScanTableViewCell", for: indexPath) as? ScanTableViewCell else {
+                return UITableViewCell()
             }
             
+            let peripheralName = peripheralList[indexPath.row].peripheral.name
             
-            let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath)
+            cell.updatePeripheralsName(name: peripheralName)
             
             return cell
          
         }
-        
-        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            if indexPath.row == 0 {
-                return UITableView.automaticDimension
-            }
-            
-            return 60
-            
-        }
-
     }

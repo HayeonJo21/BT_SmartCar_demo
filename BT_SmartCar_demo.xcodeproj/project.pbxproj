@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		263450B927BB30E000ADB3C4 /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263450B827BB30E000ADB3C4 /* ScanViewController.swift */; };
+		263450BC27BB34BD00ADB3C4 /* ScanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263450BA27BB34BD00ADB3C4 /* ScanTableViewCell.swift */; };
+		263450BD27BB34BD00ADB3C4 /* ScanTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 263450BB27BB34BD00ADB3C4 /* ScanTableViewCell.xib */; };
 		263D621F27B3AD4200713574 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263D621E27B3AD4200713574 /* AppDelegate.swift */; };
 		263D622127B3AD4200713574 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263D622027B3AD4200713574 /* SceneDelegate.swift */; };
 		263D622327B3AD4200713574 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263D622227B3AD4200713574 /* ViewController.swift */; };
@@ -21,6 +23,8 @@
 
 /* Begin PBXFileReference section */
 		263450B827BB30E000ADB3C4 /* ScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
+		263450BA27BB34BD00ADB3C4 /* ScanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanTableViewCell.swift; sourceTree = "<group>"; };
+		263450BB27BB34BD00ADB3C4 /* ScanTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScanTableViewCell.xib; sourceTree = "<group>"; };
 		263D621B27B3AD4200713574 /* BT_SmartCar_demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BT_SmartCar_demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		263D621E27B3AD4200713574 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		263D622027B3AD4200713574 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -68,6 +72,8 @@
 				2687C64C27BA487B006C3D63 /* BluetoothSerial.swift */,
 				263D622027B3AD4200713574 /* SceneDelegate.swift */,
 				263D622227B3AD4200713574 /* ViewController.swift */,
+				263450BA27BB34BD00ADB3C4 /* ScanTableViewCell.swift */,
+				263450BB27BB34BD00ADB3C4 /* ScanTableViewCell.xib */,
 				263450B827BB30E000ADB3C4 /* ScanViewController.swift */,
 				2687C64627BA3533006C3D63 /* BluetoothDeviceListViewController.swift */,
 				2687C64727BA3533006C3D63 /* BluetoothDeviceListViewController.xib */,
@@ -141,6 +147,7 @@
 				263D622827B3AD4300713574 /* Assets.xcassets in Resources */,
 				263D622627B3AD4200713574 /* Main.storyboard in Resources */,
 				2687C64927BA3533006C3D63 /* BluetoothDeviceListViewController.xib in Resources */,
+				263450BD27BB34BD00ADB3C4 /* ScanTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,6 +163,7 @@
 				263D622127B3AD4200713574 /* SceneDelegate.swift in Sources */,
 				2687C64827BA3533006C3D63 /* BluetoothDeviceListViewController.swift in Sources */,
 				2687C64D27BA487B006C3D63 /* BluetoothSerial.swift in Sources */,
+				263450BC27BB34BD00ADB3C4 /* ScanTableViewCell.swift in Sources */,
 				263450B927BB30E000ADB3C4 /* ScanViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
