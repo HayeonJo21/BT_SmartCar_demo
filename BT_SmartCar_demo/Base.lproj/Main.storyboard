@@ -28,7 +28,7 @@
                                 <buttonConfiguration key="configuration" style="gray" title="BLUETOOTH 스캔"/>
                                 <connections>
                                     <action selector="btScanBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yIu-Gb-H5V"/>
-                                    <segue destination="Sim-Op-mvx" kind="presentation" id="y1v-cl-hct"/>
+                                    <segue destination="Sim-Op-mvx" kind="presentation" identifier="ScanViewController" id="61t-SK-deo"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -47,7 +47,7 @@
         <!--Scan View Controller-->
         <scene sceneID="kuR-ol-u2G">
             <objects>
-                <viewController storyboardIdentifier="ScanViewController" id="Sim-Op-mvx" customClass="ScanViewController" customModule="BT_SmartCar_demo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ScanViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Sim-Op-mvx" customClass="ScanViewController" customModule="BT_SmartCar_demo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cSC-vq-c8e">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -73,7 +73,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IfR-yE-eOL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-461" y="74"/>
+            <point key="canvasLocation" x="-371" y="58"/>
         </scene>
     </scenes>
     <resources>

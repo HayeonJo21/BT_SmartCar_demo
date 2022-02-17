@@ -13,6 +13,7 @@ var serial : BluetoothSerial!
 //블루투스 통신을 담당할 시리얼을 클래스로 선언. CoreBlueTooth를 사용하기 위한 프로토콜 추가
 class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
+    //BluetoothSerialDelegate 프로토콜에 등록된 메서드를 수행하는 delegate
     var delegate : BluetoothSerialDelegate?
     
     var centralManager : CBCentralManager! //주변 기기 검색, 연결
@@ -41,7 +42,7 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
         
         let peripherals = centralManager.retrieveConnectedPeripherals(withServices: [serviceUUID])
         for peripheral in peripherals {
-            // 검색된 기기들에 대한 처리 작성
+            delegate?.serialDidDiscoverPeripheral(peripheral: peripheral, RSSI: nil)
         }
     }
     
@@ -62,7 +63,7 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     
     // 기기가 검색될 때 마다 호출되는 메서드
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        // 기기가 검색될 때 마다 필요한 코드 여기 작성
+        delegate?.serialDidDiscoverPeripheral(peripheral: peripheral, RSSI: RSSI)
     }
     
     // 기기가 연결되면 호출되는 메서드
@@ -117,4 +118,6 @@ protocol BluetoothSerialDelegate : AnyObject {
 extension BluetoothSerialDelegate {
     func serialDidDiscoverPeripheral(peripheral : CBPeripheral, RSSI : NSNumber?){}
     func serialDidConnectPeripheral(peripheral : CBPeripheral) {}
+    func centralManagerDidUpdateState(_ central: CBCentralManager) {}
+    
 }

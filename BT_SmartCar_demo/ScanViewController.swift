@@ -26,6 +26,18 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         scanListTableView.dataSource = self
         
     }
+    
+    func serialDidDiscoverPeripheral(peripheral: CBPeripheral, RSSI: NSNumber?) {
+        for existing in peripheralList {
+            if existing.peripheral.identifier == peripheral.identifier { return }
+        }
+        
+        let fRSSI = RSSI?.floatValue ?? 0.0
+        peripheralList.append((peripheral: peripheral, RSSI: fRSSI))
+        peripheralList.sort { $0.RSSI < $1.RSSI }
+        scanListTableView.reloadData()
+    }
+    
 }
     extension ScanViewController: UITableViewDelegate, UITableViewDataSource {
         func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
