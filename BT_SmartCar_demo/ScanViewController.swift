@@ -10,6 +10,7 @@ import CoreBluetooth
 
 class ScanViewController: UIViewController, BluetoothSerialDelegate {
 
+
     @IBOutlet weak var scanListTableView: UITableView!
     var peripheralList : [(peripheral: CBPeripheral, RSSI : Float)] = []
     
@@ -19,15 +20,18 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         
         peripheralList = []
         
-        serial.delegate = self
-        serial.startScan()
-        
         scanListTableView.delegate = self
         scanListTableView.dataSource = self
+        
+        serial.delegate = self
+        serial.startScan()
+      
         
     }
     
     func serialDidDiscoverPeripheral(peripheral: CBPeripheral, RSSI: NSNumber?) {
+        
+        print("프로토콜 함수 호출")
         for existing in peripheralList {
             if existing.peripheral.identifier == peripheral.identifier { return }
         }
@@ -36,6 +40,18 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         peripheralList.append((peripheral: peripheral, RSSI: fRSSI))
         peripheralList.sort { $0.RSSI < $1.RSSI }
         scanListTableView.reloadData()
+    }
+    
+    func serialDidConnectPeripheral(peripheral: CBPeripheral) {
+        //        let connectSuccessAlert = UIAlertController(title: "블루투스 연결 성공", message: "기기와 성공적으로 연결됐습니다.", preferredStyle: .actionSheet)
+        //
+        //        let confirm = UIAlertAction(title: "확인", style: .default, handler: {_ in self.dismiss(animated: true, completion: nil)})
+        //
+        //        connectSuccessAlert.addAction(confirm)
+        //        serial.delegate = nil
+        //        present(connectSuccessAlert, animated: true, completion: nil)
+        
+        print("연결 성공!")
     }
     
 }
@@ -58,3 +74,8 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
          
         }
     }
+class func topViewController() -> UIViewController? {
+    if let keyWindow = UIApplication.shared.keyWindow{
+        // TODO
+    }
+}

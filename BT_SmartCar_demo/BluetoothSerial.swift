@@ -8,15 +8,13 @@
 import UIKit
 import CoreBluetooth
 
-var serial : BluetoothSerial!
+var manager: CBCentralManager! //주변 기기 검색, 연결
 
 //블루투스 통신을 담당할 시리얼을 클래스로 선언. CoreBlueTooth를 사용하기 위한 프로토콜 추가
 class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     //BluetoothSerialDelegate 프로토콜에 등록된 메서드를 수행하는 delegate
     var delegate : BluetoothSerialDelegate?
-    
-    var centralManager : CBCentralManager! //주변 기기 검색, 연결
     var pendingPeripheral : CBPeripheral?  // 현재 연결을 시도하고 있는 블루투스 주변기기
     var connectedPeripheral : CBPeripheral?  // 연결에 성공된 기기. 기기와 통신을 시작할 때 사용하는 객체
     
@@ -36,11 +34,11 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
 
     // 기기 검색을 시작할 함수
     func startScan(){
-        guard centralManager.state == .poweredOn else { return }
+        guard manager.state == .poweredOn else { return }
         
-        centralManager.scanForPeripherals(withServices: [serviceUUID], options: nil)
+        manager.scanForPeripherals(withServices: [serviceUUID], options: nil)
         
-        let peripherals = centralManager.retrieveConnectedPeripherals(withServices: [serviceUUID])
+        let peripherals = manager.retrieveConnectedPeripherals(withServices: [serviceUUID])
         for peripheral in peripherals {
             delegate?.serialDidDiscoverPeripheral(peripheral: peripheral, RSSI: nil)
         }
@@ -48,7 +46,7 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     
     //기기 검색 중단
     func stopScan() {
-        centralManager.stopScan()
+        manager.stopScan()
         //centralManager.self
     }
     
@@ -58,7 +56,7 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     {
         // 연결 실패 시 현재 연결 중인 주변 기기 저장
         pendingPeripheral = peripheral
-        centralManager.connect(peripheral, options: nil)
+        manager.connect(peripheral, options: nil)
     }
     
     // 기기가 검색될 때 마다 호출되는 메서드
@@ -105,19 +103,20 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     
     override init() {
         super.init()
-        self.centralManager = CBCentralManager(delegate: self, queue: nil)
+        print("=== bluetooth serial init called ===")
+        manager = CBCentralManager.init(delegate: self, queue: nil)
     }
     
 }
 
+// 블루투스를 연결하는 과정에서의 시리얼뷰와 소통을 위해 필요한 프로토콜
 protocol BluetoothSerialDelegate : AnyObject {
     func serialDidDiscoverPeripheral(peripheral : CBPeripheral, RSSI : NSNumber?)
     func serialDidConnectPeripheral(peripheral : CBPeripheral)
 }
 
-extension BluetoothSerialDelegate {
+// 프로토콜에 포함되어 있는일부 함수를 옵셔널로 설정
+extension BluetoothSerial: BluetoothSerialDelegate {
     func serialDidDiscoverPeripheral(peripheral : CBPeripheral, RSSI : NSNumber?){}
     func serialDidConnectPeripheral(peripheral : CBPeripheral) {}
-    func centralManagerDidUpdateState(_ central: CBCentralManager) {}
-    
 }

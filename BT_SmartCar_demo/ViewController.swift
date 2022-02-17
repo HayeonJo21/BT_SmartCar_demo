@@ -8,22 +8,32 @@
 import UIKit
 import CoreBluetooth
 
-class ViewController: UIViewController, BluetoothSerialDelegate {
+var serial: BluetoothSerial!
 
+class ViewController: UIViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // BluetoothSerial.swift 파일에 있는 Bluetooth Serial인 serial을 초기화
         serial = BluetoothSerial.init()
+        definesPresentationContext = true
     }
+    
+    
+    @IBAction func btScanBtn(_ sender: Any) {
+        //segue 호출하여 scanView 로드
+        self.performSegue(withIdentifier: "ScanViewController", sender: nil)
+    }
+    
     
     func checkBTPermission(){
         print("=== 블루투스 사용 권한 요청 실시 ===")
-        serial.centralManager = CBCentralManager(delegate: serial, queue: nil)
+        manager = CBCentralManager(delegate: serial, queue: nil)
     }
     
     func intentAppSettings(content: String){
         let settingAlert = UIAlertController(title: "권한 설정 알람", message: content, preferredStyle: UIAlertController.Style.alert)
-        
+
         let okAction = UIAlertAction(title: "확인", style: .default){ (action) in
             // 확인버튼 클릭 이벤트 내용 정의 실시
             if let url = URL(string: UIApplication.openSettingsURLString) {
@@ -32,13 +42,13 @@ class ViewController: UIViewController, BluetoothSerialDelegate {
             }
         }
         settingAlert.addAction(okAction)
-        
+
         let noAction = UIAlertAction(title: "취소", style: .default){ (action) in return}
-        
+
         settingAlert.addAction(noAction)
         present(settingAlert, animated: true, completion: nil)
     }
-    
+
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
         case .unknown:
@@ -57,20 +67,13 @@ class ViewController: UIViewController, BluetoothSerialDelegate {
         @unknown default:
             print("블루투스 케이스 디폴트")
         }
-        
+
     }
-    
+
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber){
         print("블루투스 스캔 NAME: \(String(peripheral.name ?? "null"))")
     }
 
-
-    @IBAction func btScanBtn(_ sender: Any) {
-        checkBTPermission()
-        //segue 호출하여 scanView 로드
-        performSegue(withIdentifier: "ScanViewController", sender: nil)
-    }
-    
 }
 
 
