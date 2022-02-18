@@ -28,7 +28,6 @@
                                 <buttonConfiguration key="configuration" style="gray" title="BLUETOOTH 스캔"/>
                                 <connections>
                                     <action selector="btScanBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yIu-Gb-H5V"/>
-                                    <segue destination="xpG-KZ-9eP" kind="presentation" identifier="ScanViewController" modalPresentationStyle="automatic" id="7Vj-dO-1PI"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -43,38 +42,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1341" y="74"/>
-        </scene>
-        <!--Scan View Controller-->
-        <scene sceneID="4w8-wK-R4t">
-            <objects>
-                <viewController storyboardIdentifier="ScanViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xpG-KZ-9eP" customClass="ScanViewController" customModule="BT_SmartCar_demo" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="GSs-d0-gYZ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Re3-IJ-aVb">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </tableView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="ixw-rt-Jio"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="Re3-IJ-aVb" firstAttribute="leading" secondItem="ixw-rt-Jio" secondAttribute="leading" id="Cmr-yc-h9r"/>
-                            <constraint firstItem="Re3-IJ-aVb" firstAttribute="top" secondItem="ixw-rt-Jio" secondAttribute="top" id="iz1-7H-k6r"/>
-                            <constraint firstItem="ixw-rt-Jio" firstAttribute="trailing" secondItem="Re3-IJ-aVb" secondAttribute="trailing" id="mWi-kJ-bzH"/>
-                            <constraint firstItem="ixw-rt-Jio" firstAttribute="bottom" secondItem="Re3-IJ-aVb" secondAttribute="bottom" id="t5J-PN-Fst"/>
-                            <constraint firstItem="Re3-IJ-aVb" firstAttribute="centerX" secondItem="GSs-d0-gYZ" secondAttribute="centerX" id="vBy-GF-7db"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="6Dm-gJ-lsv"/>
-                    <connections>
-                        <outlet property="scanListTableView" destination="Re3-IJ-aVb" id="cnL-9U-L9y"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4yQ-BS-8fZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-457" y="74"/>
         </scene>
     </scenes>
     <resources>

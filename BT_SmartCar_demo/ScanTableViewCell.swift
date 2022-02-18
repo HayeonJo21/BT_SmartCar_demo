@@ -14,10 +14,9 @@ class ScanTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        let severityImageViewHeight : CGFloat = 55
-        severityImageView.layer.cornerRadius = severityImageViewHeight / 2
+        print("=== TableCellController: 셀 어웨이크 함수 called ===")
         
-        peripheralName.sizeToFit()
+//        peripheralName.sizeToFit()
         
     }
 
