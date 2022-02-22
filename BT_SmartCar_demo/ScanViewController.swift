@@ -37,7 +37,17 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
     @IBAction func stopScanning(_ sender: Any) {
        print("=== 스캔 중지 ===")
         serial.stopScan()
-        self.dismiss(animated: true, completion: nil)
+        stopAlert()
+    }
+    
+    func stopAlert(){
+        let alert = UIAlertController(title: "블루투스 스캔을 중지합니다.", message: nil, preferredStyle: .actionSheet)
+        
+        let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.navigationController?.popViewController(animated: true)})
+        
+        alert.addAction(buttonAction)
+        self.present(alert, animated: true, completion: nil)
+
     }
     
     func serialDidDiscoverPeripheral(peripheral: CBPeripheral, RSSI: NSNumber?) {
