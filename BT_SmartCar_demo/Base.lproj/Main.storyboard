@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hUs-ky-gZy">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -16,37 +15,86 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XkZ-5p-05X">
-                                <rect key="frame" x="123" y="403" width="168" height="90"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="tbW-S0-P3A">
+                                <rect key="frame" x="169.5" y="484.5" width="75" height="160"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1xD-Ap-IHG">
+                                        <rect key="frame" x="0.0" y="0.0" width="75" height="33"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="75" id="7az-nE-H5d"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="33" id="xeQ-Yj-z6d"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Scan"/>
+                                        <connections>
+                                            <action selector="btScanBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="F6n-kf-Dhf"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J8h-K6-MQZ">
+                                        <rect key="frame" x="0.0" y="65" width="75" height="33"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="75" id="1o9-gr-lPE"/>
+                                            <constraint firstAttribute="height" constant="33" id="YvV-2s-zSX"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Login"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WOo-an-hpe">
+                                        <rect key="frame" x="0.0" y="130" width="75" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="75" id="PNq-y5-HZC"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Exit"/>
+                                    </button>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="90" id="1z0-0c-n26"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="85" id="6zJ-vt-moi"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="168" id="Gn6-4v-mzX"/>
-                                    <constraint firstAttribute="width" constant="168" id="RM0-0P-RVz"/>
+                                    <constraint firstAttribute="height" constant="160" id="r3d-oC-yx1"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="gray" title="BLUETOOTH 스캔"/>
-                                <connections>
-                                    <action selector="btScanBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yIu-Gb-H5V"/>
-                                </connections>
-                            </button>
+                            </stackView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bluetoothIcon" translatesAutoresizingMaskIntoConstraints="NO" id="7WZ-aw-mIx">
+                                <rect key="frame" x="107" y="282.5" width="200" height="125"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="Vgz-ac-yHd"/>
+                                    <constraint firstAttribute="height" constant="125" id="pk5-UH-BSZ"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="XkZ-5p-05X" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="uuY-OO-A6Q"/>
-                            <constraint firstItem="XkZ-5p-05X" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vwA-YO-BJJ"/>
+                            <constraint firstItem="7WZ-aw-mIx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="0Ua-OR-BxD"/>
+                            <constraint firstItem="7WZ-aw-mIx" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="0.77" id="VMT-UN-OjT"/>
+                            <constraint firstItem="tbW-S0-P3A" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="d4y-pz-Mwt"/>
+                            <constraint firstItem="tbW-S0-P3A" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="1.26" id="uRC-cA-Z1n"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="A30-2q-yaV"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1341" y="74"/>
+            <point key="canvasLocation" x="-431.8840579710145" y="73.660714285714278"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="XKI-2K-lbo">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hUs-ky-gZy" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="RLJ-j0-x4H">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="rIm-QL-bhW"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KIZ-ZM-dsP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1342.0289855072465" y="73.660714285714278"/>
         </scene>
     </scenes>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="bluetoothIcon" width="512" height="512"/>
     </resources>
 </document>

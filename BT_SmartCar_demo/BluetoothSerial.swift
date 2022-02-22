@@ -8,11 +8,10 @@
 import UIKit
 import CoreBluetooth
 
-var manager: CBCentralManager! //주변 기기 검색, 연결
-
 //블루투스 통신을 담당할 시리얼을 클래스로 선언. CoreBlueTooth를 사용하기 위한 프로토콜 추가
 class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
+    var manager: CBCentralManager!
     //BluetoothSerialDelegate 프로토콜에 등록된 메서드를 수행하는 delegate
     var delegate : BluetoothSerialDelegate?
     var pendingPeripheral : CBPeripheral?  // 현재 연결을 시도하고 있는 블루투스 주변기기
@@ -34,16 +33,37 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
 
     // 기기 검색을 시작할 함수
     func startScan(){
-        guard manager.state == .poweredOn else { return }
+        print("=== 스캔 시작 ===")
         
-        manager.scanForPeripherals(withServices: [serviceUUID], options: nil)
-        
-        let peripherals = manager.retrieveConnectedPeripherals(withServices: [serviceUUID])
-        for peripheral in peripherals {
-            delegate?.serialDidDiscoverPeripheral(peripheral: peripheral, RSSI: nil)
+        switch manager.state {
+        case .unknown:
+            print(">> 블루투스 상태 알 수 없음 << ")
+        case .resetting:
+            print(">> 블루투스 서비스 리셋 <<")
+        case .unsupported:
+            print(">> 기기가 블루투스를 지원하지 않음 <<")
+        case .unauthorized:
+            print(">> 블루투스 사용 권한 확인 필요 <<")
+            intentAppSettings(content: "블루투스 사용 권한을 허용해주세요.")
+        case .poweredOff:
+            print(">> 블루투스 비활성화 상태 <<")
+        case .poweredOn:
+            print(">> 블루투스 활성 상태 <<")
+            manager.scanForPeripherals(withServices: nil, options: nil)
+        @unknown default:
+            print(">> 블루투스 케이스 디폴트 <<")
         }
+        
+        
+  
+//        let peripherals = manager.retrieveConnectedPeripherals(withServices: nil)
+//
+//        for peripheral in peripherals {
+//            delegate?.serialDidDiscoverPeripheral(peripheral: peripheral, RSSI: nil)
+//            print("=== peripheral: " + peripheral.description + "===")
+//        }
     }
-    
+//
     //기기 검색 중단
     func stopScan() {
         manager.stopScan()
@@ -61,6 +81,7 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     
     // 기기가 검색될 때 마다 호출되는 메서드
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+        print("=== 기기가 검색될 때 마다 호출되는 메서드 ===")
         delegate?.serialDidDiscoverPeripheral(peripheral: peripheral, RSSI: RSSI)
     }
     
@@ -105,6 +126,25 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
         super.init()
         print("=== bluetooth serial init called ===")
         manager = CBCentralManager.init(delegate: self, queue: nil)
+    }
+    
+    
+    func intentAppSettings(content: String){
+        let settingAlert = UIAlertController(title: "권한 설정 알람", message: content, preferredStyle: UIAlertController.Style.alert)
+
+        let okAction = UIAlertAction(title: "확인", style: .default){ (action) in
+            // 확인버튼 클릭 이벤트 내용 정의 실시
+            if let url = URL(string: UIApplication.openSettingsURLString) {
+                print("앱 설정 화면 이동")
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+        settingAlert.addAction(okAction)
+
+//        let noAction = UIAlertAction(title: "취소", style: .default){ (action) in return}
+
+//        settingAlert.addAction(noAction)
+//        present(settingAlert, animated: true, completion: nil)
     }
     
 }
