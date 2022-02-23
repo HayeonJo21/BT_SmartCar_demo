@@ -30,10 +30,74 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         scanListTableView.backgroundColor = UIColor(white: 250/255, alpha: 1)
         
         serial.delegate = self
-        serial.startScan()
-      
+        self.startScan()
+        
         
     }
+    
+    // 기기 검색을 시작할 함수
+    func startScan(){
+        print("=== 스캔 시작 ===")
+        
+        switch serial.manager.state {
+        case .unknown:
+            print(">> 블루투스 상태 알 수 없음 << ")
+            self.undefinedAlert()
+        case .resetting:
+            print(">> 블루투스 서비스 리셋 <<")
+        case .unsupported:
+            print(">> 기기가 블루투스를 지원하지 않음 <<")
+        case .unauthorized:
+            print(">> 블루투스 사용 권한 확인 필요 <<")
+            self.intentAppSettings(content: "블루투스 사용 권한을 허용해주세요.")
+        case .poweredOff:
+            print(">> 블루투스 비활성화 상태 <<")
+        case .poweredOn:
+            print(">> 블루투스 활성 상태 <<")
+            serial.manager.scanForPeripherals(withServices: nil, options: nil)
+        @unknown default:
+            print(">> 블루투스 케이스 디폴트 <<")
+        }
+        
+        //        let peripherals = manager.retrieveConnectedPeripherals(withServices: nil)
+        //
+        //        for peripheral in peripherals {
+        //            delegate?.serialDidDiscoverPeripheral(peripheral: peripheral, RSSI: nil)
+        //            print("=== peripheral: " + peripheral.description + "===")
+        //        }
+        //
+    }
+    
+    func undefinedAlert(){
+        let alert = UIAlertController(title: "블루투스 상태 알람", message: "블루투스의 상태를 알 수 없습니다. 초기 화면으로 돌아갑니다.", preferredStyle: .actionSheet)
+        
+        let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.navigationController?.popViewController(animated: true)})
+        
+        alert.addAction(buttonAction)
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
+    func intentAppSettings(content: String){
+        let settingAlert = UIAlertController(title: "권한 설정 알람", message: content, preferredStyle: UIAlertController.Style.alert)
+        
+        let okAction = UIAlertAction(title: "확인", style: .default){ (action) in
+            // 확인버튼 클릭 이벤트 내용 정의 실시
+            if let url = URL(string: UIApplication.openSettingsURLString) {
+                print("앱 설정 화면 이동")
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+        settingAlert.addAction(okAction)
+        self.present(settingAlert, animated: true, completion: nil)
+
+        
+        //        let noAction = UIAlertAction(title: "취소", style: .default){ (action) in return}
+        
+        //        settingAlert.addAction(noAction)
+        //        present(settingAlert, animated: true, completion: nil)
+    }
+
     @IBAction func stopScanning(_ sender: Any) {
        print("=== 스캔 중지 ===")
         serial.stopScan()
@@ -41,7 +105,7 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
     }
     
     func stopAlert(){
-        let alert = UIAlertController(title: "블루투스 스캔을 중지합니다.", message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "블루투스 스캔을 중지하고 처음으로 돌아갑니다.", message: nil, preferredStyle: .actionSheet)
         
         let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.navigationController?.popViewController(animated: true)})
         
@@ -95,7 +159,9 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
             
             let peripheralName = peripheralList[indexPath.row].peripheral.name
             
+            if peripheralName != "(null)"{
             cell.updatePeripheralsName(name: peripheralName)
+            }
             
             return cell
          
