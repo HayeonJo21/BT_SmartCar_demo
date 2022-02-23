@@ -54,7 +54,7 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
             print(">> 블루투스 비활성화 상태 <<")
         case .poweredOn:
             print(">> 블루투스 활성 상태 <<")
-            serial.manager.scanForPeripherals(withServices: nil, options: nil)
+            serial.manager.scanForPeripherals(withServices: [CBUUID(string:"180F"), CBUUID(string: "1800"), CBUUID(string: "1801")], options: nil)
         @unknown default:
             print(">> 블루투스 케이스 디폴트 <<")
         }
