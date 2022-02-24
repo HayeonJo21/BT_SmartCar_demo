@@ -17,7 +17,8 @@ class ScanTableViewCell: UITableViewCell {
         print("=== TableCellController: 셀 어웨이크 함수 called ===")
         let severityHeight : CGFloat = 50
         severityImageView.layer.cornerRadius = severityHeight / 2
-        
+        self.backgroundColor = UIColor(patternImage: (UIImage(named: "dpbgblue_00")!))
+
 //        peripheralName.sizeToFit()
         
     }

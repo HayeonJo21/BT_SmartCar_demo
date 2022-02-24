@@ -27,7 +27,11 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         
         scanListTableView.register(UINib(nibName: "ScanTableViewCell", bundle: nil), forCellReuseIdentifier: "ScanTableViewCell")
         
-        scanListTableView.backgroundColor = UIColor(white: 250/255, alpha: 1)
+        scanListTableView.backgroundColor = UIColor(patternImage: (UIImage(named: "dpbgblue_00")!))
+        
+        self.view.backgroundColor = UIColor(patternImage: (UIImage(named: "dpbgblue_00")!))
+        
+        self.title = "Device Scan List"
         
         serial.delegate = self
         self.startScan()

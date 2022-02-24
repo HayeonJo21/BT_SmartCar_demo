@@ -14,8 +14,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // BluetoothSerial.swift 파일에 있는 Bluetooth Serial인 serial을 초기화
         //        definesPresentationContext = true
-        
-        self.title = "Device Scan"
+        self.view.backgroundColor = UIColor(patternImage: (UIImage(named: "dpbgblue_00")!))
+        self.title = "Main"
     }
     
     
