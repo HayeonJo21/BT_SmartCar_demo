@@ -31,6 +31,15 @@ class ViewController: UIViewController {
         self.navigationController?.pushViewController(scanListVC, animated: true)
       
     }
+    @IBAction func exitAction(_ sender: Any) {
+        UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
+        
+        DispatchQueue.main.asyncAfter(deadline:  .now()) {
+            exit(0)
+        }
+        
+        
+    }
     
 }
 

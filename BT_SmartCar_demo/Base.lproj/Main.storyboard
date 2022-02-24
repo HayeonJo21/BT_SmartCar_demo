@@ -46,6 +46,9 @@
                                         </constraints>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Exit"/>
+                                        <connections>
+                                            <action selector="exitAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jmG-vs-xG0"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
