@@ -54,7 +54,7 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
             print(">> 블루투스 비활성화 상태 <<")
         case .poweredOn:
             print(">> 블루투스 활성 상태 <<")
-            serial.manager.scanForPeripherals(withServices: [CBUUID(string:"180F"), CBUUID(string: "1800"), CBUUID(string: "1801")], options: nil)
+            serial.manager.scanForPeripherals(withServices: nil, options: nil)
         @unknown default:
             print(">> 블루투스 케이스 디폴트 <<")
         }
@@ -114,14 +114,24 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
 
     }
     
+    // 기기 검색때마다 호출
     func serialDidDiscoverPeripheral(peripheral: CBPeripheral, RSSI: NSNumber?) {
         
         print("=== ScanViewController: 프로토콜 함수 호출 ===")
-        for existing in peripheralList {
-            if existing.peripheral.identifier == peripheral.identifier {
+        
+        for item in peripheralList {
+            if item.peripheral.identifier == peripheral.identifier {
                 print(">> 중복 검사 <<")
+                print(">> 중복된 디바이스 이름: " + (item.peripheral.name ?? "") + " <<")
                 return
             }
+        }
+        
+        // 이름이 없는 device 걸러내기
+        if peripheral.name == nil || peripheral.name == "" {
+           print(">> 이름이 없는 디바이스 걸러내기 <<")
+            print("*** 이름 없는 디바이스 정보: " + peripheral.description + " ***")
+            return
         }
         
         let fRSSI = RSSI?.floatValue ?? 0.0

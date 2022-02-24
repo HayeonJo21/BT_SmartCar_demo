@@ -22,7 +22,7 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     
     var serviceUUID = CBUUID(string: "FFE0") // Peripheral이 가지고 있는 서비스의 UUID, 거의 모든 HM-10모듈이 갖고있는 FFE0으로 일단 설정.
     
-    var characteristicUUID = CBUUID(string: "FFE1")
+    var characteristicUUID = [CBUUID(string: "FFE1"), CBUUID(string: "2A19"), CBUUID(string: "2A1B")]
     
     
     //CBCentralManagerDelegate에 포함되어있는 메서드. central 기기의 블루투스의 on, off상태 변화때마다 호출
@@ -30,40 +30,7 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
         pendingPeripheral = nil
         connectedPeripheral = nil
     }
-
-    // 기기 검색을 시작할 함수
-    func startScan(){
-        print("=== 스캔 시작 ===")
-        
-        switch manager.state {
-        case .unknown:
-            print(">> 블루투스 상태 알 수 없음 << ")
-        case .resetting:
-            print(">> 블루투스 서비스 리셋 <<")
-        case .unsupported:
-            print(">> 기기가 블루투스를 지원하지 않음 <<")
-        case .unauthorized:
-            print(">> 블루투스 사용 권한 확인 필요 <<")
-            intentAppSettings(content: "블루투스 사용 권한을 허용해주세요.")
-        case .poweredOff:
-            print(">> 블루투스 비활성화 상태 <<")
-        case .poweredOn:
-            print(">> 블루투스 활성 상태 <<")
-            manager.scanForPeripherals(withServices: nil, options: nil)
-        @unknown default:
-            print(">> 블루투스 케이스 디폴트 <<")
-        }
-        
-        
-  
-//        let peripherals = manager.retrieveConnectedPeripherals(withServices: nil)
-//
-//        for peripheral in peripherals {
-//            delegate?.serialDidDiscoverPeripheral(peripheral: peripheral, RSSI: nil)
-//            print("=== peripheral: " + peripheral.description + "===")
-//        }
-    }
-//
+    
     //기기 검색 중단
     func stopScan() {
         manager.stopScan()
@@ -97,7 +64,7 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     // service 검색에 성공 시 호출되는 메서드
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         for service in peripheral.services! {
-            peripheral.discoverCharacteristics([characteristicUUID], for: service)
+            peripheral.discoverCharacteristics(characteristicUUID, for: service)
         }
     }
     
@@ -105,11 +72,13 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         for characteristic in service.characteristics! {
             // 검색된 모든 characteristic에 대해 UUID를 한번 더 체크하고, 일치한다면 peripheral을 구독하고 통신을 위한 설정 완료
-            if characteristic.uuid == characteristicUUID {
+            for uuid in characteristicUUID {
+            if characteristic.uuid == uuid {
                 peripheral.setNotifyValue(true, for: characteristic)
                 writeCharacteristic = characteristic
                 writeType = characteristic.properties.contains(.write) ? .withResponse : .withResponse
             }
+        }
         }
     }
     
@@ -126,25 +95,6 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
         super.init()
         print("=== bluetooth serial init called ===")
         manager = CBCentralManager.init(delegate: self, queue: nil)
-    }
-    
-    
-    func intentAppSettings(content: String){
-        let settingAlert = UIAlertController(title: "권한 설정 알람", message: content, preferredStyle: UIAlertController.Style.alert)
-
-        let okAction = UIAlertAction(title: "확인", style: .default){ (action) in
-            // 확인버튼 클릭 이벤트 내용 정의 실시
-            if let url = URL(string: UIApplication.openSettingsURLString) {
-                print("앱 설정 화면 이동")
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
-        }
-        settingAlert.addAction(okAction)
-
-//        let noAction = UIAlertAction(title: "취소", style: .default){ (action) in return}
-
-//        settingAlert.addAction(noAction)
-//        present(settingAlert, animated: true, completion: nil)
     }
     
 }
