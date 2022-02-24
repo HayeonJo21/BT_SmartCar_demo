@@ -16,27 +16,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="normaLogo" translatesAutoresizingMaskIntoConstraints="NO" id="qBh-kV-Xbh">
-                                <rect key="frame" x="7" y="233.5" width="400" height="250"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dpbgblue_00" translatesAutoresizingMaskIntoConstraints="NO" id="c62-5s-OBF">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="norma_logo" translatesAutoresizingMaskIntoConstraints="NO" id="KiC-rr-wuD">
+                                <rect key="frame" x="37" y="238.5" width="340" height="240"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="400" id="b2X-Xd-eVT"/>
-                                    <constraint firstAttribute="height" constant="250" id="evQ-VJ-MNs"/>
+                                    <constraint firstAttribute="width" constant="340" id="XIC-kF-nJU"/>
+                                    <constraint firstAttribute="height" constant="240" id="gpm-Qu-O5O"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BT_SmartCar demo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3fb-8l-5fo">
-                                <rect key="frame" x="92.5" y="493.5" width="229" height="30"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
-                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BT_SmartCar Demo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dlH-o1-k6D">
+                                <rect key="frame" x="105" y="434.5" width="204" height="27.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="23"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="3fb-8l-5fo" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="2ck-ax-g8l"/>
-                            <constraint firstItem="qBh-kV-Xbh" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="8kj-4U-rYv"/>
-                            <constraint firstItem="qBh-kV-Xbh" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" multiplier="0.8" id="AHA-e7-LSH"/>
-                            <constraint firstItem="3fb-8l-5fo" firstAttribute="top" secondItem="qBh-kV-Xbh" secondAttribute="bottom" constant="10" id="yGb-oK-nOY"/>
+                            <constraint firstItem="dlH-o1-k6D" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="GO5-sK-SFF"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="c62-5s-OBF" secondAttribute="bottom" id="IL3-AS-kys"/>
+                            <constraint firstItem="KiC-rr-wuD" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="O45-gI-ci8"/>
+                            <constraint firstItem="dlH-o1-k6D" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Qz2-mF-R6l"/>
+                            <constraint firstItem="c62-5s-OBF" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="U8E-zm-9Eq"/>
+                            <constraint firstItem="c62-5s-OBF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="a1P-23-tuz"/>
+                            <constraint firstItem="KiC-rr-wuD" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" multiplier="0.8" id="qAk-ti-zTF"/>
+                            <constraint firstItem="c62-5s-OBF" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="qkG-tZ-4Vh"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -46,7 +53,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="normaLogo" width="700" height="495"/>
+        <image name="dpbgblue_00" width="720" height="1280"/>
+        <image name="norma_logo" width="774" height="209"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
