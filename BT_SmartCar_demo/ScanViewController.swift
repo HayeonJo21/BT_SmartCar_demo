@@ -11,7 +11,7 @@ import CoreBluetooth
 var serial: BluetoothSerial! = BluetoothSerial.init()
 
 class ScanViewController: UIViewController, BluetoothSerialDelegate {
-
+    
     
     @IBOutlet weak var scanListTableView: UITableView!
     var peripheralList : [(peripheral: CBPeripheral, RSSI : Float)] = []
@@ -63,17 +63,10 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
             print(">> 블루투스 케이스 디폴트 <<")
         }
         
-        //        let peripherals = manager.retrieveConnectedPeripherals(withServices: nil)
-        //
-        //        for peripheral in peripherals {
-        //            delegate?.serialDidDiscoverPeripheral(peripheral: peripheral, RSSI: nil)
-        //            print("=== peripheral: " + peripheral.description + "===")
-        //        }
-        //
     }
     
     func undefinedAlert(){
-        let alert = UIAlertController(title: "블루투스 상태 알람", message: "블루투스의 상태를 알 수 없습니다. 초기 화면으로 돌아갑니다.", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "블루투스 상태 알림", message: "블루투스의 상태를 알 수 없습니다. 초기 화면으로 돌아갑니다.", preferredStyle: .actionSheet)
         
         let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.navigationController?.popViewController(animated: true)})
         
@@ -94,16 +87,16 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         }
         settingAlert.addAction(okAction)
         self.present(settingAlert, animated: true, completion: nil)
-
+        
         
         //        let noAction = UIAlertAction(title: "취소", style: .default){ (action) in return}
         
         //        settingAlert.addAction(noAction)
         //        present(settingAlert, animated: true, completion: nil)
     }
-
+    
     @IBAction func stopScanning(_ sender: Any) {
-       print("=== 스캔 중지 ===")
+        print("=== 스캔 중지 ===")
         serial.stopScan()
         stopAlert()
     }
@@ -115,7 +108,7 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         
         alert.addAction(buttonAction)
         self.present(alert, animated: true, completion: nil)
-
+        
     }
     
     // 기기 검색때마다 호출
@@ -133,64 +126,75 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         
         // 이름이 없는 device 걸러내기
         if peripheral.name == nil || peripheral.name == "" {
-           print(">> 이름이 없는 디바이스 걸러내기 <<")
+            print(">> 이름이 없는 디바이스 걸러내기 <<")
             print("*** 이름 없는 디바이스 정보: " + peripheral.description + " ***")
             return
         }
         
         let fRSSI = RSSI?.floatValue ?? 0.0
-        print("검색된 기기: " + peripheral.description)
+        
+        print("검색된 기기의 serviceUUID: " + peripheral.identifier.uuidString)
+        
+//        let uuid: CBUUID = CBUUID(nsuuid: peripheral.identifier)
+        
         peripheralList.append((peripheral: peripheral, RSSI: fRSSI))
         peripheralList.sort { $0.RSSI < $1.RSSI }
+       
         scanListTableView.reloadData()
     }
     
     func serialDidConnectPeripheral(peripheral: CBPeripheral) {
-                let connectSuccessAlert = UIAlertController(title: "블루투스 연결 성공", message: "기기와 성공적으로 연결됐습니다.", preferredStyle: .actionSheet)
+        let connectSuccessAlert = UIAlertController(title: "블루투스 연결 성공", message: "기기와 성공적으로 연결됐습니다.", preferredStyle: .actionSheet)
         
-                let confirm = UIAlertAction(title: "확인", style: .default, handler: {_ in self.dismiss(animated: true, completion: nil)})
+        let confirm = UIAlertAction(title: "확인", style: .default, handler: {_ in self.dismiss(animated: true, completion: nil)})
         
-                connectSuccessAlert.addAction(confirm)
-                serial.delegate = nil
-                present(connectSuccessAlert, animated: true, completion: nil)
+        connectSuccessAlert.addAction(confirm)
+        serial.delegate = nil
+        present(connectSuccessAlert, animated: true, completion: nil)
         
         print("연결 성공시 호출")
     }
-   
-
+    
+    
     
 }
-    extension ScanViewController: UITableViewDelegate, UITableViewDataSource {
-        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return peripheralList.count
+extension ScanViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return peripheralList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ScanTableViewCell", for: indexPath) as? ScanTableViewCell else {
+            return UITableViewCell()
         }
         
-        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            
-           guard let cell = tableView.dequeueReusableCell(withIdentifier: "ScanTableViewCell", for: indexPath) as? ScanTableViewCell else {
-                return UITableViewCell()
-            }
-            
-            let peripheralName = peripheralList[indexPath.row].peripheral.name
-            
-            if peripheralName != "(null)"{
+        let peripheralName = peripheralList[indexPath.row].peripheral.name
+        
+        if peripheralName != "(null)"{
             cell.updatePeripheralsName(name: peripheralName)
-            }
-            
-            return cell
-         
         }
+        
+        return cell
+        
     }
+}
 //
 //    func checkBTPermission(){
 //        print("=== 블루투스 사용 권한 요청 실시 ===")
 //    }
 
-    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber){
-        print("블루투스 스캔 NAME: \(String(peripheral.name ?? "null"))")
-    }
+func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber){
+    print("블루투스 스캔 NAME: \(String(peripheral.name ?? "null"))")
+}
 //class func topViewController() -> UIViewController? {
 //    if let keyWindow = UIApplication.shared.keyWindow{
 //        // TODO
 //    }
+//}
+//이미 연결됐을 때 사용
+//let peripherals = serial.manager.retrieveConnectedPeripherals(withServices: [uuid])
+//for peripheral in peripherals {
+//    serial.delegate?.serialDidDiscoverPeripheral(peripheral: peripheral, RSSI: NSNumber(value: fRSSI))
+//    print("=== peripheral: " + peripheral.description + "===")
 //}
