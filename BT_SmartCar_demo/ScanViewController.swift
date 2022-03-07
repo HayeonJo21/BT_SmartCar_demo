@@ -9,6 +9,9 @@ import UIKit
 import CoreBluetooth
 
 var serial: BluetoothSerial! = BluetoothSerial.init()
+var goodColor = UIColor.green.withAlphaComponent(0.5)
+var normalColor = UIColor.yellow.withAlphaComponent(0.5)
+var warningColor = UIColor.red.withAlphaComponent(0.5)
 
 class ScanViewController: UIViewController, BluetoothSerialDelegate {
     
@@ -203,6 +206,16 @@ extension ScanViewController: UITableViewDelegate, UITableViewDataSource {
         
         if peripheralName != "(null)"{
             cell.updatePeripheralsName(name: peripheralName)
+        }
+        
+        // 위험도에 따른 색 지정
+        if deviceList[indexPath.row].risk < 5 {
+            cell.severityImageView.backgroundColor = goodColor
+        }else if deviceList[indexPath.row].risk > 4 && deviceList[indexPath.row].risk < 9 {
+            cell.severityImageView.backgroundColor = normalColor
+            
+        }else if deviceList[indexPath.row].risk > 8 {
+            cell.severityImageView.backgroundColor = warningColor
         }
         
         return cell
