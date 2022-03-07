@@ -15,6 +15,8 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
     
     @IBOutlet weak var scanListTableView: UITableView!
     var peripheralList : [(peripheral: CBPeripheral, RSSI : Float)] = []
+    var deviceModel: DeviceModel!
+    var deviceList: [DeviceModel]!
     
     
     override func viewDidLoad() {
@@ -45,28 +47,31 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         
         switch serial.manager.state {
         case .unknown:
-            print(">> 블루투스 상태 알 수 없음 << ")
             self.undefinedAlert()
         case .resetting:
-            print(">> 블루투스 서비스 리셋 <<")
+           //블루투스 서비스 리셋
+            break
         case .unsupported:
-            print(">> 기기가 블루투스를 지원하지 않음 <<")
+           //기기가 블루투스를 지원하지 않음
+            break
         case .unauthorized:
-            print(">> 블루투스 사용 권한 확인 필요 <<")
-            self.intentAppSettings(content: "블루투스 사용 권한을 허용해주세요.")
+            //블루투스 사용권한 확인 필요
+            self.intentAppSettings(content: NSLocalizedString("authorization confirm msg", comment: "블루투스 권한 확인 메시지"))
         case .poweredOff:
-            print(">> 블루투스 비활성화 상태 <<")
+           //블루투스 꺼짐 상태
+            break
         case .poweredOn:
-            print(">> 블루투스 활성 상태 <<")
+            //블루투스 활성상태
             serial.manager.scanForPeripherals(withServices: nil, options: nil)
         @unknown default:
-            print(">> 블루투스 케이스 디폴트 <<")
+            //블루투스 케이스 디폴트
+            break
         }
         
     }
     
     func undefinedAlert(){
-        let alert = UIAlertController(title: "블루투스 상태 알림", message: "블루투스의 상태를 알 수 없습니다. 초기 화면으로 돌아갑니다.", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: NSLocalizedString("bluetooth status alert", comment: ""), message: NSLocalizedString("back to home alert", comment: ""), preferredStyle: .actionSheet)
         
         let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.navigationController?.popViewController(animated: true)})
         
@@ -76,12 +81,12 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
     }
     
     func intentAppSettings(content: String){
-        let settingAlert = UIAlertController(title: "권한 설정 알람", message: content, preferredStyle: UIAlertController.Style.alert)
+        let settingAlert = UIAlertController(title: NSLocalizedString("authotization alert", comment: ""), message: content, preferredStyle: UIAlertController.Style.alert)
         
         let okAction = UIAlertAction(title: "확인", style: .default){ (action) in
             // 확인버튼 클릭 이벤트 내용 정의 실시
             if let url = URL(string: UIApplication.openSettingsURLString) {
-                print("앱 설정 화면 이동")
+                //앱 설정화면 이동
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         }
@@ -102,7 +107,7 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
     }
     
     func stopAlert(){
-        let alert = UIAlertController(title: "블루투스 스캔을 중지하고 처음으로 돌아갑니다.", message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: NSLocalizedString("stop scanning", comment: ""), message: nil, preferredStyle: .actionSheet)
         
         let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.navigationController?.popViewController(animated: true)})
         
@@ -115,6 +120,8 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
     func serialDidDiscoverPeripheral(peripheral: CBPeripheral, RSSI: NSNumber?) {
         
         print("=== ScanViewController: 프로토콜 함수 호출 ===")
+        
+        deviceModel = DeviceModel()
         
         for item in peripheralList {
             if item.peripheral.identifier == peripheral.identifier {
@@ -134,17 +141,24 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         let fRSSI = RSSI?.floatValue ?? 0.0
         
         print("검색된 기기의 serviceUUID: " + peripheral.identifier.uuidString)
+        let uuidString = peripheral.identifier.uuidString
         
-//        let uuid: CBUUID = CBUUID(nsuuid: peripheral.identifier)
+        deviceModel.uuid = uuidString
+        
+        if let hasName = peripheral.name {
+            deviceModel.name = hasName
+        }else{
+            return
+        }
         
         peripheralList.append((peripheral: peripheral, RSSI: fRSSI))
         peripheralList.sort { $0.RSSI < $1.RSSI }
-       
+        
         scanListTableView.reloadData()
     }
     
     func serialDidConnectPeripheral(peripheral: CBPeripheral) {
-        let connectSuccessAlert = UIAlertController(title: "블루투스 연결 성공", message: "기기와 성공적으로 연결됐습니다.", preferredStyle: .actionSheet)
+        let connectSuccessAlert = UIAlertController(title: NSLocalizedString("connect succes", comment: ""), message: NSLocalizedString("connect success msg", comment: ""), preferredStyle: .actionSheet)
         
         let confirm = UIAlertAction(title: "확인", style: .default, handler: {_ in self.dismiss(animated: true, completion: nil)})
         
@@ -155,6 +169,12 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         print("연결 성공시 호출")
     }
     
+    func setRistOfDevice(device: DeviceModel) -> Int {
+        var rist: Int = 0
+        
+        //이름이 50자 이상이면 위험
+        if(device.name)
+    }
     
     
 }

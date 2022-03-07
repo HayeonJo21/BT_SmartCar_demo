@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  BT_SmartCar_demo
+
+  Created by Norma on 2022/03/07.
+  
+*/
+
+"authorization confirm msg" = "블루투스 사용 권한을 허용해주세요.";
+"authotization alert" = "권한 설정 알림";
+"bluetooth status alert" = "블루투스 상태 알림";
+"back to home alert" = "블루투스의 상태를 알 수 없습니다. 초기 화면으로 돌아갑니다.";
+"stop scanning" = "블루투스 스캔을 중지하고 처음으로 돌아갑니다.";
+"connect success" = "블루투스 연결 성공";
+"connect success msg" = "기기와 성공적으로 연결됐습니다.";
