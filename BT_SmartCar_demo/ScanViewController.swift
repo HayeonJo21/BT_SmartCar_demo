@@ -16,7 +16,7 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
     @IBOutlet weak var scanListTableView: UITableView!
     var peripheralList : [(peripheral: CBPeripheral, RSSI : Float)] = []
     var deviceModel: DeviceModel!
-    var deviceList: [DeviceModel]!
+    var deviceList: [DeviceModel] = []
     
     
     override func viewDidLoad() {
@@ -151,6 +151,10 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
             return
         }
         
+        deviceModel.risk = setRistOfDevice(device: deviceModel)
+        
+        deviceList.append(deviceModel)
+        
         peripheralList.append((peripheral: peripheral, RSSI: fRSSI))
         peripheralList.sort { $0.RSSI < $1.RSSI }
         
@@ -170,17 +174,23 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
     }
     
     func setRistOfDevice(device: DeviceModel) -> Int {
-        var rist: Int = 0
+        var risk: Int = 0
         
         //이름이 50자 이상이면 위험
-        if(device.name)
+        if device.name.count >= 50 {
+            risk += 2
+        }
+        else if device.name.count >= 40 && device.name.count < 50 {
+            risk += 1
+        }
+        
+        return risk
     }
-    
-    
+
 }
 extension ScanViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return peripheralList.count
+        return deviceList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -189,7 +199,7 @@ extension ScanViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let peripheralName = peripheralList[indexPath.row].peripheral.name
+        let peripheralName = deviceList[indexPath.row].name
         
         if peripheralName != "(null)"{
             cell.updatePeripheralsName(name: peripheralName)
