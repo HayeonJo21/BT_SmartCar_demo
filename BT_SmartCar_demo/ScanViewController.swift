@@ -14,7 +14,6 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
     var deviceModel: DeviceModel!
     var deviceList: [DeviceModel] = []
     var pastScanList: [DeviceModel] = []
-//    var riskList: [DeviceModel] = []
     
     
     override func viewDidLoad() {
@@ -35,8 +34,8 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         initRefresh()
         
         scanListTableView.register(UINib(nibName: "ScanTableViewCell", bundle: nil), forCellReuseIdentifier: "ScanTableViewCell")
-        
-        scanListTableView.backgroundColor = UIColor(patternImage: (UIImage(named: "dpbgblue_00")!))
+                
+        scanListTableView.backgroundColor = .clear
         
         self.view.backgroundColor = UIColor(patternImage: (UIImage(named: "dpbgblue_00")!))
         
