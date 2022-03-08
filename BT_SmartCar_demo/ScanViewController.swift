@@ -37,6 +37,7 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         self.view.backgroundColor = UIColor(patternImage: (UIImage(named: "dpbgblue_00")!))
         
         self.title = "Device Scan List"
+        self.navigationController?.navigationBar.prefersLargeTitles = false
         
         serial.delegate = self
         self.startScan()
@@ -103,7 +104,25 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         //        present(settingAlert, animated: true, completion: nil)
     }
     
-    @IBAction func stopScanning(_ sender: Any) {
+    
+    func makeNavigationItem(){
+        let stopItem = UIBarButtonItem(image: UIImage(systemName: "xmark.square"), style: .done, target: self, action: #selector(stopScanning))
+        
+        let refreshItem = UIBarButtonItem(image: UIImage(systemName: "arrow.clockwise"), style: .done, target: self, action: #selector(refresh))
+        
+        stopItem.tintColor = .black
+        
+        self.navigationItem.rightBarButtonItem = refreshItem
+        self.navigationItem.leftBarButtonItem = stopItem
+    }
+    
+    
+    @objc func refresh(){
+        startScan()
+    }
+    
+    
+    @objc func stopScanning() {
         print("=== 스캔 중지 ===")
         serial.stopScan()
         stopAlert()
@@ -140,10 +159,11 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
             print("*** 이름 없는 디바이스 정보: " + peripheral.description + " ***")
             return
         }
+    
+        print("############## 검색된 디바이스: " + peripheral.description)
         
         let fRSSI = RSSI?.floatValue ?? 0.0
         
-        print("검색된 기기의 serviceUUID: " + peripheral.identifier.uuidString)
         let uuidString = peripheral.identifier.uuidString
         
         deviceModel.uuid = uuidString
@@ -153,7 +173,6 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         }else{
             return
         }
-        
         deviceModel.risk = setRistOfDevice(device: deviceModel)
         
         deviceList.append(deviceModel)
@@ -189,6 +208,7 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         
         return risk
     }
+    
 
 }
 extension ScanViewController: UITableViewDelegate, UITableViewDataSource {

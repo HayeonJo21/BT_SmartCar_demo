@@ -18,7 +18,6 @@ class ScanTableViewCell: UITableViewCell {
         let severityHeight : CGFloat = 50
         severityImageView.layer.cornerRadius = severityHeight / 2
         self.backgroundColor = UIColor.clear
-//        peripheralName.sizeToFit()
         
     }
 
