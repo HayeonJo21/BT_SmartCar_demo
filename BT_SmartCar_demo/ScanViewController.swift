@@ -13,6 +13,8 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
     var peripheralList : [(peripheral: CBPeripheral, RSSI : Float)] = []
     var deviceModel: DeviceModel!
     var deviceList: [DeviceModel] = []
+    var pastScanList: [DeviceModel] = []
+//    var riskList: [DeviceModel] = []
     
     
     override func viewDidLoad() {
@@ -24,6 +26,9 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         makeNavigationItem()
         
         peripheralList = []
+        pastScanList = []
+        peripheralList.removeAll()
+        deviceList.removeAll()
         
         scanListTableView.delegate = self
         scanListTableView.dataSource = self
@@ -124,6 +129,8 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
     }
     
     @objc func updateTableView(refresh: UIRefreshControl){
+        peripheralList.removeAll()
+        deviceList.removeAll()
         serial.manager.scanForPeripherals(withServices: nil, options: nil)
         refresh.endRefreshing()
         scanListTableView.reloadData()
@@ -184,6 +191,7 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         deviceModel.risk = setRiskOfDevice(device: peripheral)
         
         deviceList.append(deviceModel)
+        pastScanList.append(deviceModel)
         
         peripheralList.append((peripheral: peripheral, RSSI: fRSSI))
         peripheralList.sort { $0.RSSI < $1.RSSI }
@@ -206,19 +214,19 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
             
             
             //재 스캔시 이전 스캔된 Device의 MAC Address가 변경되었는지 확인
-            if !deviceList.isEmpty{
-            for pastDevice in deviceList {
-                print(">>> 재 스캔 검사 <<<")
-                if let name = device.name {
-                    if pastDevice.name == name {
-                        if device.identifier.uuidString != pastDevice.uuid {
-                            print("!!!!!!!! MAC 주소 달라졌을 때 호출 !!!!!!!")
-                            print("!!!! 원래: " + pastDevice.name + ">> 변경: " + name + "!!!!")
-                            risk += 10
+            if !pastScanList.isEmpty{
+                for pastDevice in pastScanList {
+                    print(">>> 재 스캔 검사 <<<")
+                    if let name = device.name {
+                        if pastDevice.name == name {
+                            if device.identifier.uuidString != pastDevice.uuid {
+                                print("!!!!!!!! MAC 주소 달라졌을 때 호출 !!!!!!!")
+                                print("!!!! 원래: " + pastDevice.name + ">> 변경: " + name + "!!!!")
+                                risk += 10
+                            }
                         }
                     }
                 }
-            }
             }
         }
         return risk
@@ -269,14 +277,44 @@ extension ScanViewController: UITableViewDelegate, UITableViewDataSource {
         
     }
 }
+
+func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber){
+    print("블루투스 스캔 NAME: \(String(peripheral.name ?? "null"))")
+}
+
 //
 //    func checkBTPermission(){
 //        print("=== 블루투스 사용 권한 요청 실시 ===")
 //    }
 
-func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber){
-    print("블루투스 스캔 NAME: \(String(peripheral.name ?? "null"))")
-}
+//func addRiskList(device: DeviceModel) -> Int{
+//        if device.risk >= 9 {
+//            var eqaul = false
+//            if !riskList.isEmpty {
+//                for dev in riskList {
+//                    if dev.name == device.name {
+//                        eqaul = true
+//                        break
+//                    }
+//                }
+//            }
+//            if !eqaul {
+//                riskList.append(device)
+//            }
+//        } else {
+//            if !riskList.isEmpty{
+//                for dev in riskList {
+//                    if dev.name == device.name{
+//                        return 10
+//                    }
+//                }
+//            }
+//        }
+//
+//        deviceList.append(device)
+//        return device.risk
+//    }
+
 //class func topViewController() -> UIViewController? {
 //    if let keyWindow = UIApplication.shared.keyWindow{
 //        // TODO
