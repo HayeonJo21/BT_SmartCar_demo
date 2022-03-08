@@ -63,7 +63,9 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     
     // service 검색에 성공 시 호출되는 메서드
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        print("=== 서비스 검색에 성공할 때 마다 호출되는 메서드 ===")
         for service in peripheral.services! {
+            print("***** Service: \(service) ******")
             peripheral.discoverCharacteristics(characteristicUUID, for: service)
         }
     }

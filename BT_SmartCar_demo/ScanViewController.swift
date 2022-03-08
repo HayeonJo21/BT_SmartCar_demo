@@ -26,7 +26,6 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         
         peripheralList = []
         pastScanList = []
-        peripheralList.removeAll()
         deviceList.removeAll()
         
         scanListTableView.delegate = self
@@ -161,8 +160,7 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         
         //중복 MAC Address 검사
         for item in peripheralList {
-            if item.peripheral.identifier == peripheral.identifier {
-                return
+            if item.peripheral.identifier == peripheral.identifier {                return
             }
         }
         
@@ -273,6 +271,12 @@ extension ScanViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         return cell
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
         
     }
 }

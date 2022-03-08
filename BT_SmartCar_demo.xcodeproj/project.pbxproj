@@ -328,6 +328,8 @@
 				DEVELOPMENT_TEAM = K6R82C3VS6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BT_SmartCar_demo/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "블루투스 사용 권한을 허용해주세요.";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "블루투스 사용 권한을 허용해주세요.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -356,6 +358,8 @@
 				DEVELOPMENT_TEAM = K6R82C3VS6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BT_SmartCar_demo/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "블루투스 사용 권한을 허용해주세요.";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "블루투스 사용 권한을 허용해주세요.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
