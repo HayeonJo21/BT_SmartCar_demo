@@ -20,23 +20,34 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="5WP-EY-NCL">
-                    <rect key="frame" x="0.0" y="94" width="414" height="798"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="797"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="norma_logo" translatesAutoresizingMaskIntoConstraints="NO" id="JMZ-q9-6p0">
+                    <rect key="frame" x="281" y="846" width="100" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="KhG-bd-VWh"/>
+                        <constraint firstAttribute="height" constant="40" id="Qxj-IW-iap"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="5WP-EY-NCL" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="50" id="DC8-lJ-0a0"/>
-                <constraint firstItem="5WP-EY-NCL" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="30" id="SCL-vl-bjn"/>
+                <constraint firstItem="5WP-EY-NCL" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Cx7-Tn-IMy"/>
+                <constraint firstItem="JMZ-q9-6p0" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" multiplier="1.6" id="Jkh-OP-r3I"/>
+                <constraint firstItem="JMZ-q9-6p0" firstAttribute="top" secondItem="5WP-EY-NCL" secondAttribute="bottom" constant="5" id="PFK-Wx-51p"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="5WP-EY-NCL" secondAttribute="trailing" id="T8q-XL-EtV"/>
                 <constraint firstItem="5WP-EY-NCL" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="kyk-3G-hrU"/>
                 <constraint firstItem="5WP-EY-NCL" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="nGp-bf-Qab"/>
+                <constraint firstAttribute="bottom" secondItem="5WP-EY-NCL" secondAttribute="bottom" constant="55" id="sBj-Jq-8Ck"/>
+                <constraint firstAttribute="bottom" secondItem="JMZ-q9-6p0" secondAttribute="bottom" constant="10" id="sUW-PL-wto"/>
             </constraints>
             <point key="canvasLocation" x="399" y="-108"/>
         </view>
     </objects>
     <resources>
+        <image name="norma_logo" width="774" height="209"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

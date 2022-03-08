@@ -1,10 +1,3 @@
-//
-//  ScanViewController.swift
-//  BT_SmartCar_demo
-//
-//  Created by Hayeon at Norma on 2022/02/15.
-//
-
 import UIKit
 import CoreBluetooth
 
@@ -27,6 +20,7 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         
         self.title = "Device Scan List"
         self.navigationController?.navigationBar.prefersLargeTitles = false
+        
         makeNavigationItem()
         
         peripheralList = []
@@ -159,28 +153,26 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         
         deviceModel = DeviceModel()
         
+        //중복 MAC Address 검사
         for item in peripheralList {
             if item.peripheral.identifier == peripheral.identifier {
-                print(">> 중복 검사 <<")
-                print(">> 중복된 디바이스 이름: " + (item.peripheral.name ?? "") + " <<")
                 return
             }
         }
         
         // 이름이 없는 device 걸러내기
         if peripheral.name == nil || peripheral.name == "" {
-            print(">> 이름이 없는 디바이스 걸러내기 <<")
-            print("*** 이름 없는 디바이스 정보: " + peripheral.description + " ***")
             return
         }
         
-        print("############## 검색된 디바이스: " + peripheral.description)
+        print(">> 최종 검색된 디바이스: " + peripheral.description)
         
         let fRSSI = RSSI?.floatValue ?? 0.0
         
         let uuidString = peripheral.identifier.uuidString
         
         deviceModel.uuid = uuidString
+        deviceModel.rssi = fRSSI
         
         if let hasName = peripheral.name {
             deviceModel.name = hasName
@@ -214,16 +206,19 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
             
             
             //재 스캔시 이전 스캔된 Device의 MAC Address가 변경되었는지 확인
+            if !deviceList.isEmpty{
             for pastDevice in deviceList {
                 print(">>> 재 스캔 검사 <<<")
                 if let name = device.name {
                     if pastDevice.name == name {
                         if device.identifier.uuidString != pastDevice.uuid {
                             print("!!!!!!!! MAC 주소 달라졌을 때 호출 !!!!!!!")
+                            print("!!!! 원래: " + pastDevice.name + ">> 변경: " + name + "!!!!")
                             risk += 10
                         }
                     }
                 }
+            }
             }
         }
         return risk

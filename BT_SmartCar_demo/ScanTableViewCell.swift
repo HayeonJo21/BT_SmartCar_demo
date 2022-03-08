@@ -19,6 +19,8 @@ class ScanTableViewCell: UITableViewCell {
         severityImageView.layer.cornerRadius = severityHeight / 2
         self.backgroundColor = UIColor.clear
         
+        peripheralName.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -9,7 +9,7 @@ struct DeviceModel {
     var hashCode: Int = 0
     var type: Int = 0
     var major: Int = 0
-    var rssi: NSNumber = 0.0
+    var rssi: Float = 0.0
     var risk: Int = 0
     var icon: String = ""
 }
