@@ -25,19 +25,21 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "Device Scan List"
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+        makeNavigationItem()
+        
         peripheralList = []
         
         scanListTableView.delegate = self
         scanListTableView.dataSource = self
+        initRefresh()
         
         scanListTableView.register(UINib(nibName: "ScanTableViewCell", bundle: nil), forCellReuseIdentifier: "ScanTableViewCell")
         
         scanListTableView.backgroundColor = UIColor(patternImage: (UIImage(named: "dpbgblue_00")!))
         
         self.view.backgroundColor = UIColor(patternImage: (UIImage(named: "dpbgblue_00")!))
-        
-        self.title = "Device Scan List"
-        self.navigationController?.navigationBar.prefersLargeTitles = false
         
         serial.delegate = self
         self.startScan()
@@ -53,16 +55,16 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         case .unknown:
             self.undefinedAlert()
         case .resetting:
-           //블루투스 서비스 리셋
+            //블루투스 서비스 리셋
             break
         case .unsupported:
-           //기기가 블루투스를 지원하지 않음
+            //기기가 블루투스를 지원하지 않음
             break
         case .unauthorized:
             //블루투스 사용권한 확인 필요
             self.intentAppSettings(content: NSLocalizedString("authorization confirm msg", comment: "블루투스 권한 확인 메시지"))
         case .poweredOff:
-           //블루투스 꺼짐 상태
+            //블루투스 꺼짐 상태
             break
         case .poweredOn:
             //블루투스 활성상태
@@ -106,19 +108,31 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
     
     
     func makeNavigationItem(){
-        let stopItem = UIBarButtonItem(image: UIImage(systemName: "xmark.square"), style: .done, target: self, action: #selector(stopScanning))
-        
-        let refreshItem = UIBarButtonItem(image: UIImage(systemName: "arrow.clockwise"), style: .done, target: self, action: #selector(refresh))
+        let stopItem = UIBarButtonItem(image: UIImage(systemName: "stop.circle"), style: .done, target: self, action: #selector(stopScanning))
         
         stopItem.tintColor = .black
         
-        self.navigationItem.rightBarButtonItem = refreshItem
-        self.navigationItem.leftBarButtonItem = stopItem
+        self.navigationItem.rightBarButtonItem = stopItem
     }
     
+    //Refresh 초기 설정
+    func initRefresh(){
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self, action: #selector(updateTableView(refresh:)), for: .valueChanged)
+        
+        refresh.attributedTitle = NSAttributedString(string: "새로고침")
+        
+        if #available(iOS 10.0, *){
+            scanListTableView.refreshControl = refresh
+        }else{
+            scanListTableView.addSubview(refresh)
+        }
+    }
     
-    @objc func refresh(){
-        startScan()
+    @objc func updateTableView(refresh: UIRefreshControl){
+        serial.manager.scanForPeripherals(withServices: nil, options: nil)
+        refresh.endRefreshing()
+        scanListTableView.reloadData()
     }
     
     
@@ -159,7 +173,7 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
             print("*** 이름 없는 디바이스 정보: " + peripheral.description + " ***")
             return
         }
-    
+        
         print("############## 검색된 디바이스: " + peripheral.description)
         
         let fRSSI = RSSI?.floatValue ?? 0.0
@@ -173,7 +187,9 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         }else{
             return
         }
-        deviceModel.risk = setRistOfDevice(device: deviceModel)
+        
+        // 이름 길이 및 Mac Address 변경 여부 확인하여 risk 측정
+        deviceModel.risk = setRiskOfDevice(device: peripheral)
         
         deviceList.append(deviceModel)
         
@@ -182,6 +198,37 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         
         scanListTableView.reloadData()
     }
+    
+    
+    // 기기 위험도 측정
+    func setRiskOfDevice(device: CBPeripheral) -> Int {
+        var risk: Int = 0
+        
+        //이름이 50자 이상이면 위험
+        if let name = device.name{
+            if name.count >= 50 {
+                risk += 2
+            } else if name.count >= 40 && name.count < 50 {
+                risk += 1
+            }
+            
+            
+            //재 스캔시 이전 스캔된 Device의 MAC Address가 변경되었는지 확인
+            for pastDevice in deviceList {
+                print(">>> 재 스캔 검사 <<<")
+                if let name = device.name {
+                    if pastDevice.name == name {
+                        if device.identifier.uuidString != pastDevice.uuid {
+                            print("!!!!!!!! MAC 주소 달라졌을 때 호출 !!!!!!!")
+                            risk += 10
+                        }
+                    }
+                }
+            }
+        }
+        return risk
+    }
+    
     
     func serialDidConnectPeripheral(peripheral: CBPeripheral) {
         let connectSuccessAlert = UIAlertController(title: NSLocalizedString("connect succes", comment: ""), message: NSLocalizedString("connect success msg", comment: ""), preferredStyle: .actionSheet)
@@ -194,23 +241,8 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         
         print("연결 성공시 호출")
     }
-    
-    func setRistOfDevice(device: DeviceModel) -> Int {
-        var risk: Int = 0
-        
-        //이름이 50자 이상이면 위험
-        if device.name.count >= 50 {
-            risk += 2
-        }
-        else if device.name.count >= 40 && device.name.count < 50 {
-            risk += 1
-        }
-        
-        return risk
-    }
-    
-
 }
+
 extension ScanViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return deviceList.count
@@ -224,9 +256,9 @@ extension ScanViewController: UITableViewDelegate, UITableViewDataSource {
         
         let peripheralName = deviceList[indexPath.row].name
         
-        if peripheralName != "(null)"{
-            cell.updatePeripheralsName(name: peripheralName)
-        }
+        
+        cell.updatePeripheralsName(name: peripheralName)
+        
         
         // 위험도에 따른 색 지정
         if deviceList[indexPath.row].risk < 5 {
