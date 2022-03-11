@@ -16,13 +16,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="tbW-S0-P3A">
-                                <rect key="frame" x="169.5" y="484.5" width="75" height="160"/>
+                                <rect key="frame" x="169.5" y="498.5" width="75" height="132"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1xD-Ap-IHG">
-                                        <rect key="frame" x="0.0" y="0.0" width="75" height="33"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="75" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="75" id="7az-nE-H5d"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="33" id="xeQ-Yj-z6d"/>
+                                            <constraint firstAttribute="height" constant="50" id="U8d-Q2-bYi"/>
                                         </constraints>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Scan"/>
@@ -30,18 +30,10 @@
                                             <action selector="btScanBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="F6n-kf-Dhf"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J8h-K6-MQZ">
-                                        <rect key="frame" x="0.0" y="65" width="75" height="33"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="75" id="1o9-gr-lPE"/>
-                                            <constraint firstAttribute="height" constant="33" id="YvV-2s-zSX"/>
-                                        </constraints>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="Login"/>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WOo-an-hpe">
-                                        <rect key="frame" x="0.0" y="130" width="75" height="30"/>
+                                        <rect key="frame" x="0.0" y="82" width="75" height="50"/>
                                         <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="JFb-Rv-GWq"/>
                                             <constraint firstAttribute="width" constant="75" id="PNq-y5-HZC"/>
                                         </constraints>
                                         <state key="normal" title="Button"/>
@@ -51,9 +43,6 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="160" id="r3d-oC-yx1"/>
-                                </constraints>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bluetoothIcon" translatesAutoresizingMaskIntoConstraints="NO" id="7WZ-aw-mIx">
                                 <rect key="frame" x="107" y="282.5" width="200" height="125"/>
@@ -62,13 +51,22 @@
                                     <constraint firstAttribute="height" constant="125" id="pk5-UH-BSZ"/>
                                 </constraints>
                             </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="norma_logo" translatesAutoresizingMaskIntoConstraints="NO" id="xYC-v7-yxM">
+                                <rect key="frame" x="281" y="840" width="100" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="2Ai-XP-RHY"/>
+                                    <constraint firstAttribute="width" constant="100" id="daF-UY-7uZ"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <constraints>
                             <constraint firstItem="7WZ-aw-mIx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="0Ua-OR-BxD"/>
                             <constraint firstItem="7WZ-aw-mIx" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="0.77" id="VMT-UN-OjT"/>
                             <constraint firstItem="tbW-S0-P3A" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="d4y-pz-Mwt"/>
+                            <constraint firstItem="xYC-v7-yxM" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="1.92" id="qCl-m6-Vla"/>
                             <constraint firstItem="tbW-S0-P3A" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="1.26" id="uRC-cA-Z1n"/>
+                            <constraint firstItem="xYC-v7-yxM" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" multiplier="1.6" id="xTo-2W-1rP"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="A30-2q-yaV"/>
@@ -98,5 +96,6 @@
     </scenes>
     <resources>
         <image name="bluetoothIcon" width="512" height="512"/>
+        <image name="norma_logo" width="774" height="209"/>
     </resources>
 </document>

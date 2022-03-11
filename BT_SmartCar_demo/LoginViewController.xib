@@ -11,6 +11,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="BT_SmartCar_demo" customModuleProvider="target">
             <connections>
                 <outlet property="deviceNameLabel" destination="3dZ-1Z-hKS" id="ybH-Ex-acn"/>
+                <outlet property="emailTextField" destination="2HX-Uc-OcW" id="Zhr-gI-hrj"/>
+                <outlet property="loginButton" destination="gZB-py-uvL" id="kEB-Z5-awn"/>
                 <outlet property="titleText" destination="fk7-TE-wIO" id="cCI-MB-ttm"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -63,9 +65,17 @@
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="filled" title="LOG IN"/>
                 </button>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="norma_logo" translatesAutoresizingMaskIntoConstraints="NO" id="1L8-U8-zlE">
+                    <rect key="frame" x="281" y="840" width="100" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="dPL-RV-EzO"/>
+                        <constraint firstAttribute="height" constant="40" id="tQj-OU-1cy"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="6CP-h6-pj2" secondAttribute="trailing" constant="20" id="0ch-A2-KPp"/>
                 <constraint firstItem="6CP-h6-pj2" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="2wZ-Oe-gtV"/>
@@ -76,15 +86,26 @@
                 <constraint firstItem="4P1-lG-GvR" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="HBF-5b-NOg"/>
                 <constraint firstItem="2HX-Uc-OcW" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="Hs6-Li-Moy"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="gZB-py-uvL" secondAttribute="trailing" constant="20" id="Jo0-vv-yp9"/>
+                <constraint firstItem="1L8-U8-zlE" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" multiplier="1.6" id="QPm-Cr-oNl"/>
                 <constraint firstItem="gZB-py-uvL" firstAttribute="top" secondItem="2HX-Uc-OcW" secondAttribute="bottom" constant="15" id="SEC-gF-hct"/>
                 <constraint firstItem="4P1-lG-GvR" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="0.98" id="bgw-03-ioR"/>
                 <constraint firstItem="2HX-Uc-OcW" firstAttribute="top" secondItem="4P1-lG-GvR" secondAttribute="bottom" constant="80" id="cER-1K-Nhb"/>
+                <constraint firstItem="1L8-U8-zlE" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="1.92" id="hEJ-2U-sdZ"/>
             </constraints>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="BwG-7h-9Ha" appends="YES" id="iN2-FU-zl9"/>
+            </connections>
             <point key="canvasLocation" x="137.68115942028987" y="110.49107142857143"/>
         </view>
+        <tapGestureRecognizer id="BwG-7h-9Ha">
+            <connections>
+                <action selector="tapBackgroundView:" destination="-1" id="sHE-Qa-Wo3"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="app_carimg" width="480" height="270"/>
+        <image name="norma_logo" width="774" height="209"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

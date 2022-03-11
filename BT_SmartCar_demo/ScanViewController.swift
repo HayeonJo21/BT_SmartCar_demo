@@ -219,8 +219,8 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
                     if let name = device.name {
                         if pastDevice.name == name {
                             if device.identifier.uuidString != pastDevice.uuid {
-                                print("!!!!!!!! MAC 주소 달라졌을 때 호출 !!!!!!!")
-                                print("!!!! 원래: " + "( " + pastDevice.name + " ) " + pastDevice.uuid + ">> 변경: " + " ( " +  name + " ) " + device.identifier.uuidString + "!!!!")
+//                                print("!!!!!!!! MAC 주소 달라졌을 때 호출 !!!!!!!")
+//                                print("!!!! 원래: " + "( " + pastDevice.name + " ) " + pastDevice.uuid + ">> 변경: " + " ( " +  name + " ) " + device.identifier.uuidString + "!!!!")
                                 risk += 10
                             }
                         }
