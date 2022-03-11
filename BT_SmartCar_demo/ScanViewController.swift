@@ -33,7 +33,7 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         initRefresh()
         
         scanListTableView.register(UINib(nibName: "ScanTableViewCell", bundle: nil), forCellReuseIdentifier: "ScanTableViewCell")
-                
+        
         scanListTableView.backgroundColor = .clear
         
         self.view.backgroundColor = UIColor(patternImage: (UIImage(named: "dpbgblue_00")!))
@@ -160,7 +160,8 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         
         //중복 MAC Address 검사
         for item in peripheralList {
-            if item.peripheral.identifier == peripheral.identifier {                return
+            if item.peripheral.identifier == peripheral.identifier {
+                return
             }
         }
         
@@ -186,6 +187,7 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         
         // 이름 길이 및 Mac Address 변경 여부 확인하여 risk 측정
         deviceModel.risk = setRiskOfDevice(device: peripheral)
+        deviceModel.peripheral = peripheral
         
         deviceList.append(deviceModel)
         pastScanList.append(deviceModel)
@@ -218,7 +220,7 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
                         if pastDevice.name == name {
                             if device.identifier.uuidString != pastDevice.uuid {
                                 print("!!!!!!!! MAC 주소 달라졌을 때 호출 !!!!!!!")
-                                print("!!!! 원래: " + pastDevice.name + ">> 변경: " + name + "!!!!")
+                                print("!!!! 원래: " + "( " + pastDevice.name + " ) " + pastDevice.uuid + ">> 변경: " + " ( " +  name + " ) " + device.identifier.uuidString + "!!!!")
                                 risk += 10
                             }
                         }
@@ -231,6 +233,8 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
     
     
     func serialDidConnectPeripheral(peripheral: CBPeripheral) {
+        print("연결 성공시 호출")
+        
         let connectSuccessAlert = UIAlertController(title: NSLocalizedString("connect succes", comment: ""), message: NSLocalizedString("connect success msg", comment: ""), preferredStyle: .actionSheet)
         
         let confirm = UIAlertAction(title: "확인", style: .default, handler: {_ in self.dismiss(animated: true, completion: nil)})
@@ -238,8 +242,6 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         connectSuccessAlert.addAction(confirm)
         serial.delegate = nil
         present(connectSuccessAlert, animated: true, completion: nil)
-        
-        print("연결 성공시 호출")
     }
 }
 
@@ -278,6 +280,26 @@ extension ScanViewController: UITableViewDelegate, UITableViewDataSource {
         
         tableView.deselectRow(at: indexPath, animated: true)
         
+        serial.stopScan()
+        
+        let loginVC = LoginViewController(nibName: "LoginViewController", bundle: nil)
+        
+        loginVC.device = deviceList[indexPath.row]
+        
+        if let selectedPeripheral = deviceList[indexPath.row].peripheral {
+            
+            print("연결 시도 >>> " + selectedPeripheral.description + "<<<")
+            
+            serial.connectToPeripheral(selectedPeripheral)
+            
+        } else { return }
+        
+        self.navigationController?.pushViewController(loginVC, animated: true)
+        
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 78
     }
 }
 

@@ -4,6 +4,7 @@ import CoreBluetooth
 struct DeviceModel {
     var name: String = ""
     var bssid: String?
+    var peripheral: CBPeripheral?
     var vendor: String = ""
     var uuid: String = ""
     var hashCode: Int = 0

@@ -15,9 +15,9 @@ class ScanTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         print("=== TableCellController: 셀 어웨이크 함수 called ===")
-        let severityHeight : CGFloat = 44
+        let severityHeight : CGFloat = 34
         severityImageView.layer.cornerRadius = severityHeight / 2
-        self.backgroundColor = UIColor.clear
+        self.backgroundColor = UIColor.darkGray.withAlphaComponent(0.25)
         
         peripheralName.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         

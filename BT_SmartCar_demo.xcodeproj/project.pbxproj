@@ -22,6 +22,8 @@
 		26B4FF5C27BF55BD004E05B8 /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B4FF5A27BF55BD004E05B8 /* ScanViewController.swift */; };
 		26B4FF5D27BF55BD004E05B8 /* ScanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26B4FF5B27BF55BD004E05B8 /* ScanViewController.xib */; };
 		26B8F47827D593F10031A300 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 26B8F47727D593F10031A300 /* Localizable.strings */; };
+		26DA6F7427DAFFC0001BF091 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DA6F7227DAFFC0001BF091 /* LoginViewController.swift */; };
+		26DA6F7527DAFFC0001BF091 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26DA6F7327DAFFC0001BF091 /* LoginViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,8 @@
 		26B4FF5A27BF55BD004E05B8 /* ScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
 		26B4FF5B27BF55BD004E05B8 /* ScanViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScanViewController.xib; sourceTree = "<group>"; };
 		26B8F47727D593F10031A300 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		26DA6F7227DAFFC0001BF091 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		26DA6F7327DAFFC0001BF091 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +62,6 @@
 		263D621227B3AD4200713574 = {
 			isa = PBXGroup;
 			children = (
-				26B8F47727D593F10031A300 /* Localizable.strings */,
 				263D621D27B3AD4200713574 /* BT_SmartCar_demo */,
 				263D621C27B3AD4200713574 /* Products */,
 			);
@@ -75,6 +78,9 @@
 		263D621D27B3AD4200713574 /* BT_SmartCar_demo */ = {
 			isa = PBXGroup;
 			children = (
+				26B8F47727D593F10031A300 /* Localizable.strings */,
+				26DA6F7227DAFFC0001BF091 /* LoginViewController.swift */,
+				26DA6F7327DAFFC0001BF091 /* LoginViewController.xib */,
 				263D621E27B3AD4200713574 /* AppDelegate.swift */,
 				2687C64C27BA487B006C3D63 /* BluetoothSerial.swift */,
 				263D622027B3AD4200713574 /* SceneDelegate.swift */,
@@ -152,6 +158,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26DA6F7527DAFFC0001BF091 /* LoginViewController.xib in Resources */,
 				263D622B27B3AD4300713574 /* LaunchScreen.storyboard in Resources */,
 				263D622827B3AD4300713574 /* Assets.xcassets in Resources */,
 				263D622627B3AD4200713574 /* Main.storyboard in Resources */,
@@ -169,6 +176,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26DA6F7427DAFFC0001BF091 /* LoginViewController.swift in Sources */,
 				263D622327B3AD4200713574 /* ViewController.swift in Sources */,
 				26B4FF5C27BF55BD004E05B8 /* ScanViewController.swift in Sources */,
 				263D621F27B3AD4200713574 /* AppDelegate.swift in Sources */,

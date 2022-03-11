@@ -41,6 +41,7 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     
     func connectToPeripheral(_ peripheral: CBPeripheral)
     {
+        print("~~~ 기기 연결 시도중... ~~~")
         // 연결 실패 시 현재 연결 중인 주변 기기 저장
         pendingPeripheral = peripheral
         manager.connect(peripheral, options: nil)
