@@ -1,11 +1,36 @@
-//
-//  LoginViewController.swift
-//  BT_SmartCar_demo
-//
-//  Created by Norma on 2022/03/11.
-//
-
 import UIKit
+import Foundation
+
+class LoadingSerivce{
+    static func showLoading(){
+        DispatchQueue.main.async {
+            guard let window = UIApplication.shared.windows.last else { return }
+            
+            let loadingIndicatorView: UIActivityIndicatorView
+            
+            if let existedView = window.subviews.first(where: {$0 is UIActivityIndicatorView}) as? UIActivityIndicatorView{
+                loadingIndicatorView = existedView
+            }else{
+                loadingIndicatorView = UIActivityIndicatorView(style: .large)
+                
+                loadingIndicatorView.frame = window.frame
+                loadingIndicatorView.color = .black
+                
+                window.addSubview(loadingIndicatorView)
+            }
+            loadingIndicatorView.startAnimating()
+        }
+    }
+    
+    static func hideLoading(){
+        DispatchQueue.main.async {
+            guard let window = UIApplication.shared.windows.last else { return }
+            
+            window.subviews.filter({$0 is UIActivityIndicatorView})
+                .forEach{ $0.removeFromSuperview() }
+        }
+    }
+}
 
 class LoginViewController: UIViewController {
     
@@ -37,6 +62,12 @@ class LoginViewController: UIViewController {
         
         titleText.textColor = .white
         deviceNameLabel.textColor = .white
+        
+        LoadingSerivce.showLoading()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+            LoadingSerivce.hideLoading()
+        }
         
     }
     
