@@ -15,6 +15,10 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
     var deviceList: [DeviceModel] = []
     var pastScanList: [DeviceModel] = []
     
+    let options: [String : Any] = [CBCentralManagerScanOptionAllowDuplicatesKey:NSNumber(value: false)]
+
+//    let matchingOptions = [CBConnectionEventMatchingOption.serviceUUIDs:[CBUUID(string: "1108"), CBUUID(string: "110A"), CBUUID(string: "110B"), CBUUID(string: "110C"), CBUUID(string: "110D"), CBUUID(string: "110E"), CBUUID(string: "110F"), CBUUID(string: "111F"), CBUUID(string: "1203"), CBUUID(string: "1204"), CBUUID(string: "111E"), CBUUID(string: "0017"),  CBUUID(string: "0019")]]
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,7 +69,8 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
             break
         case .poweredOn:
             //블루투스 활성상태
-            serial.manager.scanForPeripherals(withServices: nil, options: nil)
+            serial.manager.scanForPeripherals(withServices: nil, options: options)
+//            serial.manager.registerForConnectionEvents(options: matchingOptions)
         @unknown default:
             //블루투스 케이스 디폴트
             break
@@ -167,6 +172,7 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         
         // 이름이 없는 device 걸러내기
         if peripheral.name == nil || peripheral.name == "" {
+//            print("@@@ 이름이 없는 device: " + peripheral.description + " @@@")
             return
         }
         
@@ -235,13 +241,18 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
     func serialDidConnectPeripheral(peripheral: CBPeripheral) {
         print("연결 성공시 호출")
         
-        let connectSuccessAlert = UIAlertController(title: NSLocalizedString("connect succes", comment: ""), message: NSLocalizedString("connect success msg", comment: ""), preferredStyle: .actionSheet)
+        let connectSuccessAlert = UIAlertController(title: NSLocalizedString("connect success", comment: ""), message: NSLocalizedString("connect success msg", comment: ""), preferredStyle: .actionSheet)
         
         let confirm = UIAlertAction(title: "확인", style: .default, handler: {_ in self.dismiss(animated: true, completion: nil)})
         
         connectSuccessAlert.addAction(confirm)
         serial.delegate = nil
-        present(connectSuccessAlert, animated: true, completion: nil)
+        
+        DispatchQueue.main.async() {
+            LoadingSerivce.hideLoading()
+            self.present(connectSuccessAlert, animated: true, completion: nil)
+        }
+       
     }
 }
 
@@ -306,7 +317,6 @@ extension ScanViewController: UITableViewDelegate, UITableViewDataSource {
 func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber){
     print("블루투스 스캔 NAME: \(String(peripheral.name ?? "null"))")
 }
-
 //
 //    func checkBTPermission(){
 //        print("=== 블루투스 사용 권한 요청 실시 ===")

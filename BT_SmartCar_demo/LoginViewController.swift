@@ -1,37 +1,6 @@
 import UIKit
 import Foundation
 
-class LoadingSerivce{
-    static func showLoading(){
-        DispatchQueue.main.async {
-            guard let window = UIApplication.shared.windows.last else { return }
-            
-            let loadingIndicatorView: UIActivityIndicatorView
-            
-            if let existedView = window.subviews.first(where: {$0 is UIActivityIndicatorView}) as? UIActivityIndicatorView{
-                loadingIndicatorView = existedView
-            }else{
-                loadingIndicatorView = UIActivityIndicatorView(style: .large)
-                
-                loadingIndicatorView.frame = window.frame
-                loadingIndicatorView.color = .black
-                
-                window.addSubview(loadingIndicatorView)
-            }
-            loadingIndicatorView.startAnimating()
-        }
-    }
-    
-    static func hideLoading(){
-        DispatchQueue.main.async {
-            guard let window = UIApplication.shared.windows.last else { return }
-            
-            window.subviews.filter({$0 is UIActivityIndicatorView})
-                .forEach{ $0.removeFromSuperview() }
-        }
-    }
-}
-
 class LoginViewController: UIViewController {
     
     var device: DeviceModel!
@@ -65,9 +34,19 @@ class LoginViewController: UIViewController {
         
         LoadingSerivce.showLoading()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 50) {
             LoadingSerivce.hideLoading()
+            self.connectFailureAlert()
         }
+    }
+    
+    func connectFailureAlert(){
+        let alert = UIAlertController(title: NSLocalizedString("connect failure", comment: ""), message: NSLocalizedString("connect failure msg", comment: ""), preferredStyle: .actionSheet)
+        
+        let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.navigationController?.popViewController(animated: true)})
+        
+        alert.addAction(buttonAction)
+        self.present(alert, animated: true, completion: nil)
         
     }
     

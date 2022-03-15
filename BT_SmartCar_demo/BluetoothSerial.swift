@@ -41,7 +41,7 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     
     func connectToPeripheral(_ peripheral: CBPeripheral)
     {
-        print("~~~ 기기 연결 시도중... ~~~")
+        print("=== 기기 연결 시도중... ===")
         // 연결 실패 시 현재 연결 중인 주변 기기 저장
         pendingPeripheral = peripheral
         manager.connect(peripheral, options: nil)
@@ -59,47 +59,48 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
         pendingPeripheral = nil
         connectedPeripheral = peripheral
         
-        peripheral.discoverServices([serviceUUID])
+        peripheral.discoverServices(nil)
     }
     
     // service 검색에 성공 시 호출되는 메서드
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
-        print("=== 서비스 검색에 성공할 때 마다 호출되는 메서드 ===")
+        print("=== 서비스 검색에 성공시 호출되는 메서드 ===")
+        if let servicesDes = peripheral.services?.description {
+            print("===>" + servicesDes + "<===")
+        }
         for service in peripheral.services! {
             print("***** Service: \(service) ******")
-            peripheral.discoverCharacteristics(characteristicUUID, for: service)
+            peripheral.discoverCharacteristics(nil, for: service)
         }
     }
     
     // characteristic 검색에 성공 시 호출되는 메서드
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+        print("=== Characteristics 검색에 성공시 호출되는 메서드 ===")
         for characteristic in service.characteristics! {
-            // 검색된 모든 characteristic에 대해 UUID를 한번 더 체크하고, 일치한다면 peripheral을 구독하고 통신을 위한 설정 완료
-            for uuid in characteristicUUID {
-            if characteristic.uuid == uuid {
-                peripheral.setNotifyValue(true, for: characteristic)
-                writeCharacteristic = characteristic
-                writeType = characteristic.properties.contains(.write) ? .withResponse : .withResponse
-            }
-        }
+            print("***** Characteristic: \(characteristic) ******")
+            print("***** 통신을 위한 설정 시작 ******")
+            peripheral.setNotifyValue(true, for: characteristic)
+            writeCharacteristic = characteristic
+            writeType = characteristic.properties.contains(.write) ? .withResponse : .withResponse
+            delegate?.serialDidConnectPeripheral(peripheral: peripheral)
         }
     }
-    
-    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor descriptor: CBDescriptor, error: Error?) {
-        // writeType이 .withResponse일 때, 블루투스 기기로부터의 응답이 왔을 때 호출되는 함수.
-    }
-    
-    func peripheral(_ peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: Error?) {
-        // 블루투스 기기의 신호 강도를 요청하는 peripheral.readRSSI가 호출하는 함수
-        // 신호 강도와 관련된 코드를 작성
-    }
-    
-    override init() {
-        super.init()
-        print("=== bluetooth serial init called ===")
-        manager = CBCentralManager.init(delegate: self, queue: nil)
-    }
-    
+
+func peripheral(_ peripheral: CBPeripheral, didWriteValueFor descriptor: CBDescriptor, error: Error?) {
+    // writeType이 .withResponse일 때, 블루투스 기기로부터의 응답이 왔을 때 호출되는 함수.
+}
+
+func peripheral(_ peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: Error?) {
+    // 블루투스 기기의 신호 강도를 요청하는 peripheral.readRSSI가 호출하는 함수
+    // 신호 강도와 관련된 코드를 작성
+}
+
+override init() {
+    super.init()
+    print("=== bluetooth serial init called ===")
+    manager = CBCentralManager.init(delegate: self, queue: .main)
+}
 }
 
 // 블루투스를 연결하는 과정에서의 시리얼뷰와 소통을 위해 필요한 프로토콜

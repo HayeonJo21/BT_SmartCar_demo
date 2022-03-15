@@ -13,3 +13,5 @@
 "stop scanning" = "블루투스 스캔을 중지하고 처음으로 돌아갑니다.";
 "connect success" = "블루투스 연결 성공";
 "connect success msg" = "기기와 성공적으로 연결됐습니다.";
+"connect failure" = "블루투스 연결 실패";
+"connect failure msg" = "기기와의 연결에 실패했습니다.";
