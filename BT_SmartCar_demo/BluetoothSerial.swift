@@ -86,21 +86,54 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
             delegate?.serialDidConnectPeripheral(peripheral: peripheral)
         }
     }
-
-func peripheral(_ peripheral: CBPeripheral, didWriteValueFor descriptor: CBDescriptor, error: Error?) {
-    // writeType이 .withResponse일 때, 블루투스 기기로부터의 응답이 왔을 때 호출되는 함수.
-}
-
-func peripheral(_ peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: Error?) {
-    // 블루투스 기기의 신호 강도를 요청하는 peripheral.readRSSI가 호출하는 함수
-    // 신호 강도와 관련된 코드를 작성
-}
-
-override init() {
-    super.init()
-    print("=== bluetooth serial init called ===")
-    manager = CBCentralManager.init(delegate: self, queue: .main)
-}
+    
+    //String 형식으로 데이터를 주변 기기에 전송
+    func sendMessageToDevice(_ message: String){
+        
+        if let data = message.data(using: String.Encoding.utf8){
+            connectedPeripheral!.writeValue(data, for: writeCharacteristic!, type: writeType)
+        }
+    }
+    
+    //데이터 Array를 Byte 형식으로 주변기기에 전송
+    func sendBytesToDevice(_ bytes: [UInt8]){
+        print("@@@ 데이터 전송 메소드 호출 @@@")
+        let data = Data(bytes)
+        print("@@@ Data: " + data.description)
+        connectedPeripheral!.writeValue(data, for: writeCharacteristic!, type: writeType)
+        
+    }
+    
+    //데이터를 주변 기기에 전송
+    func sendDataToDevice(_ data:Data){
+        connectedPeripheral!.writeValue(data, for: writeCharacteristic!, type: writeType)
+    }
+    
+    //peripheral로부터 데이터를 전송받으면 호출되는 메서드
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?){
+        //전송 받은 데이터가 존재하는지 확인
+        print("... 전송 받은 데이터가 존재하는지 확인 ...")
+        if let data = characteristic.value{
+            print("전송받은 데이터: \(data.description)")
+        }else{ return }
+    }
+    
+    
+    
+    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor descriptor: CBDescriptor, error: Error?) {
+        // writeType이 .withResponse일 때, 블루투스 기기로부터의 응답이 왔을 때 호출되는 함수.
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: Error?) {
+        // 블루투스 기기의 신호 강도를 요청하는 peripheral.readRSSI가 호출하는 함수
+        // 신호 강도와 관련된 코드를 작성
+    }
+    
+    override init() {
+        super.init()
+        print("=== bluetooth serial init called ===")
+        manager = CBCentralManager.init(delegate: self, queue: .main)
+    }
 }
 
 // 블루투스를 연결하는 과정에서의 시리얼뷰와 소통을 위해 필요한 프로토콜

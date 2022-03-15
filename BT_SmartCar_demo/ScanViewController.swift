@@ -1,6 +1,7 @@
 import UIKit
 import CoreBluetooth
 
+var flag = 0
 var serial: BluetoothSerial! = BluetoothSerial.init()
 var goodColor = UIColor.green.withAlphaComponent(0.5)
 var normalColor = UIColor.yellow.withAlphaComponent(0.5)
@@ -249,10 +250,12 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         serial.delegate = nil
         
         DispatchQueue.main.async() {
+            flag = 1
             LoadingSerivce.hideLoading()
-            self.present(connectSuccessAlert, animated: true, completion: nil)
         }
-       
+        present(connectSuccessAlert, animated: true, completion: nil)
+        let msg: [UInt8] = [0x12, 0x01, 0x43, 0x41, 0x4E, 0x01]
+        serial.sendBytesToDevice(msg)
     }
 }
 

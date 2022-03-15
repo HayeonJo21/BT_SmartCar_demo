@@ -1,11 +1,3 @@
-/* 
-  Localizable.strings
-  BT_SmartCar_demo
-
-  Created by Norma on 2022/03/07.
-  
-*/
-
 "authorization confirm msg" = "블루투스 사용 권한을 허용해주세요.";
 "authotization alert" = "권한 설정 알림";
 "bluetooth status alert" = "블루투스 상태 알림";

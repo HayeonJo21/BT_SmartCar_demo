@@ -34,9 +34,15 @@ class LoginViewController: UIViewController {
         
         LoadingSerivce.showLoading()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 50) {
-            LoadingSerivce.hideLoading()
-            self.connectFailureAlert()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 30) {
+            print(flag.description)
+            if flag != 1 {
+                LoadingSerivce.hideLoading()
+                self.connectFailureAlert()
+            } else{
+                return
+            }
         }
     }
     
