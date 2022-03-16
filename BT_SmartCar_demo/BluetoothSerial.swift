@@ -1,10 +1,3 @@
-//
-//  BlueToothSerial.swift
-//  BT_SmartCar_demo
-//
-//  Created by Hayeon on 2022/02/14.
-//
-
 import UIKit
 import CoreBluetooth
 
@@ -22,8 +15,7 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     
     var serviceUUID = CBUUID(string: "FFE0") // Peripheral이 가지고 있는 서비스의 UUID, 거의 모든 HM-10모듈이 갖고있는 FFE0으로 일단 설정.
     
-    var characteristicUUID = [CBUUID(string: "FFE1"), CBUUID(string: "2A19"), CBUUID(string: "2A1B")]
-    
+    var characteristicUUID = CBUUID(string: "F0144D2E-2BAE-46DD-87A2-E588EAE9E2CD")
     
     //CBCentralManagerDelegate에 포함되어있는 메서드. central 기기의 블루투스의 on, off상태 변화때마다 호출
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
@@ -78,12 +70,13 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         print("=== Characteristics 검색에 성공시 호출되는 메서드 ===")
         for characteristic in service.characteristics! {
-            print("***** Characteristic: \(characteristic) ******")
             print("***** 통신을 위한 설정 시작 ******")
-            peripheral.setNotifyValue(true, for: characteristic)
-            writeCharacteristic = characteristic
-            writeType = characteristic.properties.contains(.write) ? .withResponse : .withResponse
-            delegate?.serialDidConnectPeripheral(peripheral: peripheral)
+            if characteristic.uuid == characteristicUUID{
+                peripheral.setNotifyValue(true, for: characteristic)
+                writeCharacteristic = characteristic
+                writeType = characteristic.properties.contains(.write) ? .withResponse : .withResponse
+                delegate?.serialDidConnectPeripheral(peripheral: peripheral)
+            }
         }
     }
     
@@ -97,11 +90,9 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     
     //데이터 Array를 Byte 형식으로 주변기기에 전송
     func sendBytesToDevice(_ bytes: [UInt8]){
-        print("@@@ 데이터 전송 메소드 호출 @@@")
+        print("... 데이터 전송 메소드 호출 ...")
         let data = Data(bytes)
-        print("@@@ Data: " + data.description)
         connectedPeripheral!.writeValue(data, for: writeCharacteristic!, type: writeType)
-        
     }
     
     //데이터를 주변 기기에 전송
