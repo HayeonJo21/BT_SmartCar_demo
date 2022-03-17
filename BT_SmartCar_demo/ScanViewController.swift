@@ -264,7 +264,7 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
 
 /**
  테이블 뷰 delegate 구현
- */
+ */  
 extension ScanViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return deviceList.count
