@@ -23,11 +23,14 @@
 		26B4FF5D27BF55BD004E05B8 /* ScanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26B4FF5B27BF55BD004E05B8 /* ScanViewController.xib */; };
 		26B8F47827D593F10031A300 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 26B8F47727D593F10031A300 /* Localizable.strings */; };
 		26B98EE527E02A84008BFC80 /* LoadingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B98EE427E02A84008BFC80 /* LoadingService.swift */; };
+		26CED26A27E40CF000852DA8 /* AES128Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CED26927E40CF000852DA8 /* AES128Util.swift */; };
 		26DA6F7427DAFFC0001BF091 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DA6F7227DAFFC0001BF091 /* LoginViewController.swift */; };
 		26DA6F7527DAFFC0001BF091 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26DA6F7327DAFFC0001BF091 /* LoginViewController.xib */; };
+		AEF6861DFC869DF38AC5CFF9 /* Pods_BT_SmartCar_demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3513E5717B2AD78C838DA8E4 /* Pods_BT_SmartCar_demo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		213ADA9F21C08623D980CA52 /* Pods-BT_SmartCar_demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BT_SmartCar_demo.debug.xcconfig"; path = "Target Support Files/Pods-BT_SmartCar_demo/Pods-BT_SmartCar_demo.debug.xcconfig"; sourceTree = "<group>"; };
 		263450BA27BB34BD00ADB3C4 /* ScanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanTableViewCell.swift; sourceTree = "<group>"; };
 		263450BB27BB34BD00ADB3C4 /* ScanTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScanTableViewCell.xib; sourceTree = "<group>"; };
 		263D621B27B3AD4200713574 /* BT_SmartCar_demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BT_SmartCar_demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -46,8 +49,11 @@
 		26B4FF5B27BF55BD004E05B8 /* ScanViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScanViewController.xib; sourceTree = "<group>"; };
 		26B8F47727D593F10031A300 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		26B98EE427E02A84008BFC80 /* LoadingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingService.swift; sourceTree = "<group>"; };
+		26CED26927E40CF000852DA8 /* AES128Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AES128Util.swift; sourceTree = "<group>"; };
 		26DA6F7227DAFFC0001BF091 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		26DA6F7327DAFFC0001BF091 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		3513E5717B2AD78C838DA8E4 /* Pods_BT_SmartCar_demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BT_SmartCar_demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6926BD041B60C88FD5037907 /* Pods-BT_SmartCar_demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BT_SmartCar_demo.release.xcconfig"; path = "Target Support Files/Pods-BT_SmartCar_demo/Pods-BT_SmartCar_demo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEF6861DFC869DF38AC5CFF9 /* Pods_BT_SmartCar_demo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,6 +74,8 @@
 				26B98EE427E02A84008BFC80 /* LoadingService.swift */,
 				263D621D27B3AD4200713574 /* BT_SmartCar_demo */,
 				263D621C27B3AD4200713574 /* Products */,
+				849B44B10F502490CDFAC9C0 /* Pods */,
+				7B969C2CA3DDE2438CD83BF1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -82,9 +91,10 @@
 			isa = PBXGroup;
 			children = (
 				26B8F47727D593F10031A300 /* Localizable.strings */,
+				263D621E27B3AD4200713574 /* AppDelegate.swift */,
+				26CED26927E40CF000852DA8 /* AES128Util.swift */,
 				26DA6F7227DAFFC0001BF091 /* LoginViewController.swift */,
 				26DA6F7327DAFFC0001BF091 /* LoginViewController.xib */,
-				263D621E27B3AD4200713574 /* AppDelegate.swift */,
 				2687C64C27BA487B006C3D63 /* BluetoothSerial.swift */,
 				263D622027B3AD4200713574 /* SceneDelegate.swift */,
 				263D622227B3AD4200713574 /* ViewController.swift */,
@@ -103,6 +113,24 @@
 			path = BT_SmartCar_demo;
 			sourceTree = "<group>";
 		};
+		7B969C2CA3DDE2438CD83BF1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3513E5717B2AD78C838DA8E4 /* Pods_BT_SmartCar_demo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		849B44B10F502490CDFAC9C0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				213ADA9F21C08623D980CA52 /* Pods-BT_SmartCar_demo.debug.xcconfig */,
+				6926BD041B60C88FD5037907 /* Pods-BT_SmartCar_demo.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -110,9 +138,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 263D622F27B3AD4300713574 /* Build configuration list for PBXNativeTarget "BT_SmartCar_demo" */;
 			buildPhases = (
+				A274DA4751E0345624477DDA /* [CP] Check Pods Manifest.lock */,
 				263D621727B3AD4200713574 /* Sources */,
 				263D621827B3AD4200713574 /* Frameworks */,
 				263D621927B3AD4200713574 /* Resources */,
+				07FDB6552814C8BEC0169A63 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -174,6 +204,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		07FDB6552814C8BEC0169A63 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BT_SmartCar_demo/Pods-BT_SmartCar_demo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BT_SmartCar_demo/Pods-BT_SmartCar_demo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BT_SmartCar_demo/Pods-BT_SmartCar_demo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A274DA4751E0345624477DDA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BT_SmartCar_demo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		263D621727B3AD4200713574 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -181,6 +253,7 @@
 			files = (
 				26DA6F7427DAFFC0001BF091 /* LoginViewController.swift in Sources */,
 				263D622327B3AD4200713574 /* ViewController.swift in Sources */,
+				26CED26A27E40CF000852DA8 /* AES128Util.swift in Sources */,
 				26B4FF5C27BF55BD004E05B8 /* ScanViewController.swift in Sources */,
 				263D621F27B3AD4200713574 /* AppDelegate.swift in Sources */,
 				263D622127B3AD4200713574 /* SceneDelegate.swift in Sources */,
@@ -332,6 +405,7 @@
 		};
 		263D623027B3AD4300713574 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 213ADA9F21C08623D980CA52 /* Pods-BT_SmartCar_demo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -362,6 +436,7 @@
 		};
 		263D623127B3AD4300713574 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6926BD041B60C88FD5037907 /* Pods-BT_SmartCar_demo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

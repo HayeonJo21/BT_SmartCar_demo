@@ -249,12 +249,11 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         print("연결 성공시 호출")
         
         serial.delegate = nil
-        
+        successConnectionAlert()
+
         let msg: [UInt8] = [0x12, 0x01, 0x43, 0x41, 0x4E, 0x01]
         serial.sendBytesToDevice(msg)
-        
-        successConnectionAlert()
-        
+            
         DispatchQueue.main.async() {
             flag = 1
             LoadingSerivce.hideLoading()

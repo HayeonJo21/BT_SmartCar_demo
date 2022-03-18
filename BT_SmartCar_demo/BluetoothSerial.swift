@@ -7,17 +7,15 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     var manager: CBCentralManager!
     //BluetoothSerialDelegate 프로토콜에 등록된 메서드를 수행하는 delegate
     var delegate : BluetoothSerialDelegate?
-    var pendingPeripheral : CBPeripheral?  // 현재 연결을 시도하고 있는 블루투스 주변기기
-    var connectedPeripheral : CBPeripheral?  // 연결에 성공된 기기. 기기와 통신을 시작할 때 사용하는 객체
+    var pendingPeripheral : CBPeripheral?
+    var connectedPeripheral : CBPeripheral?
     
-    weak var writeCharacteristic : CBCharacteristic? // 데이터를 주변에 보내기 위한 chracteristic을 저장하는 변수
-    private var writeType : CBCharacteristicWriteType = .withoutResponse //데이터를 주변기기에 보내는 타입 설정
+    weak var writeCharacteristic : CBCharacteristic?
+    private var writeType : CBCharacteristicWriteType = .withResponse
     
-    var serviceUUID = CBUUID(string: "FFE0") // Peripheral이 가지고 있는 서비스의 UUID, 거의 모든 HM-10모듈이 갖고있는 FFE0으로 일단 설정.
+    let characteristicUUID = CBUUID(string: "F0144D2E-2BAE-46DD-87A2-E588EAE9E2CD")
     
-    var characteristicUUID = CBUUID(string: "F0144D2E-2BAE-46DD-87A2-E588EAE9E2CD")
-    
-    //CBCentralManagerDelegate에 포함되어있는 메서드. central 기기의 블루투스의 on, off상태 변화때마다 호출
+    //central 기기의 블루투스의 on, off상태 변화때마다 호출
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         pendingPeripheral = nil
         connectedPeripheral = nil
@@ -26,15 +24,12 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     //기기 검색 중단
     func stopScan() {
         manager.stopScan()
-        //centralManager.self
     }
     
     // 파라미터로 넘어온 주변 기기를 CentralManager에 연결하도록 시도
-    
     func connectToPeripheral(_ peripheral: CBPeripheral)
     {
         print("=== 기기 연결 시도중... ===")
-        // 연결 실패 시 현재 연결 중인 주변 기기 저장
         pendingPeripheral = peripheral
         manager.connect(peripheral, options: nil)
     }
@@ -92,7 +87,7 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     func sendBytesToDevice(_ bytes: [UInt8]){
         print("... 데이터 전송 메소드 호출 ...")
         let data = Data(bytes)
-        connectedPeripheral!.writeValue(data, for: writeCharacteristic!, type: writeType)
+        connectedPeripheral!.writeValue(data, for: writeCharacteristic!, type: writeType)        
     }
     
     //데이터를 주변 기기에 전송
@@ -100,20 +95,16 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
         connectedPeripheral!.writeValue(data, for: writeCharacteristic!, type: writeType)
     }
     
-    //peripheral로부터 데이터를 전송받으면 호출되는 메서드
-    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?){
-        //전송 받은 데이터가 존재하는지 확인
-        print("... 전송 받은 데이터가 존재하는지 확인 ...")
+    // writeType이 .withResponse일 때, 블루투스 기기로부터의 응답이 왔을 때 호출되는 함수.
+    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
+        print("===기기 응답이 왔을 때 호출 ===")
+        print("=== Characteristic: " + characteristic.description)
+        
         if let data = characteristic.value{
             print("전송받은 데이터: \(data.description)")
         }else{ return }
     }
-    
-    
-    
-    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor descriptor: CBDescriptor, error: Error?) {
-        // writeType이 .withResponse일 때, 블루투스 기기로부터의 응답이 왔을 때 호출되는 함수.
-    }
+     
     
     func peripheral(_ peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: Error?) {
         // 블루투스 기기의 신호 강도를 요청하는 peripheral.readRSSI가 호출하는 함수
@@ -138,3 +129,11 @@ extension BluetoothSerial: BluetoothSerialDelegate {
     func serialDidDiscoverPeripheral(peripheral : CBPeripheral, RSSI : NSNumber?){}
     func serialDidConnectPeripheral(peripheral : CBPeripheral) {}
 }
+
+////peripheral로부터 데이터를 전송받으면 호출되는 메서드
+//func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?){
+//    print("... 전송 받은 데이터가 존재하는지 확인 ...")
+//    if let data = characteristic.value{
+//        print("전송받은 데이터: \(data.description)")
+//    }else{ return }
+//}
