@@ -24,6 +24,7 @@
 		26B8F47827D593F10031A300 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 26B8F47727D593F10031A300 /* Localizable.strings */; };
 		26B98EE527E02A84008BFC80 /* LoadingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B98EE427E02A84008BFC80 /* LoadingService.swift */; };
 		26CED26A27E40CF000852DA8 /* AES128Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CED26927E40CF000852DA8 /* AES128Util.swift */; };
+		26CED26D27E460C900852DA8 /* ControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CED26B27E460C900852DA8 /* ControlViewController.swift */; };
 		26DA6F7427DAFFC0001BF091 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DA6F7227DAFFC0001BF091 /* LoginViewController.swift */; };
 		26DA6F7527DAFFC0001BF091 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26DA6F7327DAFFC0001BF091 /* LoginViewController.xib */; };
 		AEF6861DFC869DF38AC5CFF9 /* Pods_BT_SmartCar_demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3513E5717B2AD78C838DA8E4 /* Pods_BT_SmartCar_demo.framework */; };
@@ -50,6 +51,8 @@
 		26B8F47727D593F10031A300 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		26B98EE427E02A84008BFC80 /* LoadingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingService.swift; sourceTree = "<group>"; };
 		26CED26927E40CF000852DA8 /* AES128Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AES128Util.swift; sourceTree = "<group>"; };
+		26CED26B27E460C900852DA8 /* ControlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ControlViewController.swift; path = /Users/johannah/Desktop/BT_SmartCar_demo/BT_SmartCar_demo/BT_SmartCar_demo/ControlViewController.swift; sourceTree = "<absolute>"; };
+		26CED26C27E460C900852DA8 /* ControlViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ControlViewController.xib; path = /Users/johannah/Desktop/BT_SmartCar_demo/BT_SmartCar_demo/BT_SmartCar_demo/ControlViewController.xib; sourceTree = "<absolute>"; };
 		26DA6F7227DAFFC0001BF091 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		26DA6F7327DAFFC0001BF091 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		3513E5717B2AD78C838DA8E4 /* Pods_BT_SmartCar_demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BT_SmartCar_demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,6 +95,8 @@
 			children = (
 				26B8F47727D593F10031A300 /* Localizable.strings */,
 				263D621E27B3AD4200713574 /* AppDelegate.swift */,
+				26CED26B27E460C900852DA8 /* ControlViewController.swift */,
+				26CED26C27E460C900852DA8 /* ControlViewController.xib */,
 				26CED26927E40CF000852DA8 /* AES128Util.swift */,
 				26DA6F7227DAFFC0001BF091 /* LoginViewController.swift */,
 				26DA6F7327DAFFC0001BF091 /* LoginViewController.xib */,
@@ -127,7 +132,6 @@
 				213ADA9F21C08623D980CA52 /* Pods-BT_SmartCar_demo.debug.xcconfig */,
 				6926BD041B60C88FD5037907 /* Pods-BT_SmartCar_demo.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -261,6 +265,7 @@
 				2682B69527C753880022E627 /* DeviceModel.swift in Sources */,
 				2687C64D27BA487B006C3D63 /* BluetoothSerial.swift in Sources */,
 				26B98EE527E02A84008BFC80 /* LoadingService.swift in Sources */,
+				26CED26D27E460C900852DA8 /* ControlViewController.swift in Sources */,
 				263450BC27BB34BD00ADB3C4 /* ScanTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
