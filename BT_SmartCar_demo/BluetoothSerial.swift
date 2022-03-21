@@ -9,6 +9,7 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     var delegate : BluetoothSerialDelegate?
     var pendingPeripheral : CBPeripheral?
     var connectedPeripheral : CBPeripheral?
+    let AESUtil = AES128Util()
     
     weak var writeCharacteristic : CBCharacteristic?
     private var writeType : CBCharacteristicWriteType = .withResponse

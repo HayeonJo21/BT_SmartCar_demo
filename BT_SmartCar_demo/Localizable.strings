@@ -7,5 +7,7 @@
 "connect success msg" = "기기와 성공적으로 연결됐습니다.";
 "connect failure" = "블루투스 연결 실패";
 "connect failure msg" = "기기와의 연결에 실패했습니다.";
+"disconnect" = "블루투스 기기와 연결되지 않음";
+"disconnect msg" = "기기와 연결되지 않았습니다. 처음으로 돌아갑니다.";
 "powerOff alert" = "블루투스가 꺼져있습니다.";
 "powerOff alert msg" = "블루투스를 켜고 다시 시도해주세요.";

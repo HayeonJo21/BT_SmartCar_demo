@@ -1,9 +1,11 @@
 import UIKit
 import Foundation
+import CoreBluetooth
 
 class LoginViewController: UIViewController {
     
     var device: DeviceModel!
+    var device_peripheral: CBPeripheral!
     @IBOutlet weak var deviceNameLabel: UILabel!
     @IBOutlet weak var titleText: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
@@ -19,6 +21,7 @@ class LoginViewController: UIViewController {
         deviceNameLabel.text = device.name
         
         setKeyboardObserver()
+        check_isMaster()
         
     }
     
@@ -44,6 +47,24 @@ class LoginViewController: UIViewController {
                 return
             }
         }
+    }
+    
+    func check_isMaster(){
+        
+        /*
+         등록된 핸드폰일 경우 DirectCertification -> 암호화 킷값 교환 후 자동 인증절차 진행. 인증 성공시 ControlViewController로 전환
+         미등록 핸드폰일 경우 -> EmailViewController로 이동해서 암호화 킷값 교환 후 이메일 인증을 위한 데이터 교환
+         이메일 발송 시 NumberCertification 전환. 인증 성공시 ControlViewController이동
+         **/
+        
+        if true {
+            let controlVC = ControlViewController(nibName: "ControlViewController", bundle: nil)
+            controlVC.connectedPeripheral = device_peripheral
+            self.navigationController?.pushViewController(controlVC, animated: true)
+        }
+        
+        
+        
     }
     
     func connectFailureAlert(){

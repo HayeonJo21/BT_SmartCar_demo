@@ -306,6 +306,7 @@ extension ScanViewController: UITableViewDelegate, UITableViewDataSource {
         
         if let selectedPeripheral = deviceList[indexPath.row].peripheral {
             print("연결 시도 >>> " + selectedPeripheral.description + "<<<")
+            loginVC.device_peripheral = selectedPeripheral
             serial.connectToPeripheral(selectedPeripheral)
         } else { return }
         
