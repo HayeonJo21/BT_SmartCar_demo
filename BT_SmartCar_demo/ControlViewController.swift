@@ -2,10 +2,16 @@ import UIKit
 import CoreBluetooth
 
 class ControlViewController: UIViewController {
-
+    
     var connectedPeripheral: CBPeripheral!
     var start: Bool = false
     let AESUtil = AES128Util()
+    
+    //status flags
+    var horn_push = false
+    var open_push = false
+    var close_push = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +36,7 @@ class ControlViewController: UIViewController {
         }
     }
     
-    //암호화해서 데이터를 보냄
+    //암호화해서 데이터를 보내는 함수
     func sendRequestData(cmd: String, data: String){
         var sendDataByte: [UInt8] = []
         
@@ -40,7 +46,7 @@ class ControlViewController: UIViewController {
         sendDataByte += encryptData.bytes
         
         serial.sendBytesToDevice(sendDataByte)
-
+        
     }
     
     /*
@@ -50,6 +56,7 @@ class ControlViewController: UIViewController {
         let cmd = CConfig().REQUEST_DOOR_OPEN_CMD
         let data = CConfig().REQUEST_DOOR_OPEN
         
+        open_push = true
         sendRequestData(cmd: cmd, data: data)
     }
     
@@ -57,16 +64,21 @@ class ControlViewController: UIViewController {
         let cmd = CConfig().REQUEST_DOOR_CLOSE_CMD
         let data = CConfig().REQUEST_DOOR_CLOSE
         
+        close_push = true
         sendRequestData(cmd: cmd, data: data)
         
     }
     
     @IBAction func carHorn(_ sender: Any) {
+        let cmd = CConfig().REQUEST_PANIC_CMD
+        let data = CConfig().REQUEST_PANIC
         
+        horn_push = true
+        sendRequestData(cmd: cmd, data: data)
     }
     
     @IBAction func disconnect(_ sender: Any) {
-        
+        serial.manager.cancelPeripheralConnection(connectedPeripheral)
     }
     
     @IBAction func masterDelete(_ sender: Any) {
@@ -77,6 +89,40 @@ class ControlViewController: UIViewController {
         sendRequestData(cmd: cmd, data: data)
     }
     
+    func decryptDataAndAction(response: [UInt8]){
+        let decryptData = AESUtil.getAES128Decrypt(encoded: response.toBase64()).bytes
+        
+        if decryptData[0] == 0x21 && horn_push {
+            if decryptData[1] == 0x01 { //success
+                print("성공")
+            }
+            else{ //fail
+                print("실패")
+            }
+            horn_push = false
+            
+        } else if decryptData[0] == 0x22 && open_push {
+            if decryptData[1] == 0x01 { //success
+                print("성공")
+            } else { //fail
+                print("실패")
+            }
+            
+        } else if decryptData[0] == 0x23 && close_push {
+            if decryptData[1] == 0x01 { //success
+                print("성공")
+            }else{ //fail
+                print("실패")
+            }
+            close_push = false
+        } else if decryptData[0] == 0x24 { //master init
+            if decryptData[1] == 0x01 && decryptData[2] == 0x0F {
+                print("마스터 등록해제를 완료했습니다.")
+            } else if decryptData[1] == 0x02 && decryptData[2] == 0x0F {
+                print("마스터 등록해제를 실패하였습니다.")
+            }
+        }
+    }
     
     
     /*
