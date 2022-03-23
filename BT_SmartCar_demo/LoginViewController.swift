@@ -9,7 +9,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var deviceNameLabel: UILabel!
     @IBOutlet weak var titleText: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var loginButton: UIButton!
     
     @IBAction func tapBackgroundView(_ sender: Any) {
         view.endEditing(true)
@@ -67,6 +66,33 @@ class LoginViewController: UIViewController {
         
     }
     
+    //login 버튼을 눌렀을 시 이메일 인증 시작
+    @IBAction func loginBtn(_ sender: Any) {
+        
+        if let email = emailTextField.text {
+            if isValidEmail(testStr: email){
+                
+            }
+            
+        }
+        
+       
+        
+        
+        
+        
+        
+    }
+    
+    //이메일 유효성 검사
+    func isValidEmail(testStr:String) -> Bool {
+           let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+           let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+           return emailTest.evaluate(with: testStr)
+            }
+    
+    
+   // Alert 함수들
     func connectFailureAlert(){
         let alert = UIAlertController(title: NSLocalizedString("connect failure", comment: ""), message: NSLocalizedString("connect failure msg", comment: ""), preferredStyle: .actionSheet)
         

@@ -89,6 +89,8 @@ class ControlViewController: UIViewController {
         sendRequestData(cmd: cmd, data: data)
     }
     
+    
+    // 응답을 받아 처리하는 부분
     func decryptDataAndAction(response: [UInt8]){
         let decryptData = AESUtil.getAES128Decrypt(encoded: response.toBase64()).bytes
         

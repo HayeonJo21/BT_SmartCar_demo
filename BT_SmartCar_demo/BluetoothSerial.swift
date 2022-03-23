@@ -103,6 +103,7 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
         
         if let data = characteristic.value{
             print("전송받은 데이터: \(data.description)")
+            ControlViewController().decryptDataAndAction(response: data.bytes)
         }else{ return }
     }
      
