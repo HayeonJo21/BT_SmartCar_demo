@@ -27,6 +27,8 @@
 		26B8F47827D593F10031A300 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 26B8F47727D593F10031A300 /* Localizable.strings */; };
 		26B98EE527E02A84008BFC80 /* LoadingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B98EE427E02A84008BFC80 /* LoadingService.swift */; };
 		26CED26A27E40CF000852DA8 /* AES128Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CED26927E40CF000852DA8 /* AES128Util.swift */; };
+		26D5BAB327EC1E5D001E3993 /* SwiftSMTP in Frameworks */ = {isa = PBXBuildFile; productRef = 26D5BAB227EC1E5D001E3993 /* SwiftSMTP */; };
+		26D5BAB527EC4155001E3993 /* EmailSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D5BAB427EC4155001E3993 /* EmailSender.swift */; };
 		26D9CC9827EAB4500015E61C /* NumberCertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D9CC9627EAB4500015E61C /* NumberCertificationViewController.swift */; };
 		26D9CC9927EAB4500015E61C /* NumberCertificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26D9CC9727EAB4500015E61C /* NumberCertificationViewController.xib */; };
 		26DA6F7427DAFFC0001BF091 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DA6F7227DAFFC0001BF091 /* LoginViewController.swift */; };
@@ -58,6 +60,7 @@
 		26B8F47727D593F10031A300 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		26B98EE427E02A84008BFC80 /* LoadingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingService.swift; sourceTree = "<group>"; };
 		26CED26927E40CF000852DA8 /* AES128Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AES128Util.swift; sourceTree = "<group>"; };
+		26D5BAB427EC4155001E3993 /* EmailSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSender.swift; sourceTree = "<group>"; };
 		26D9CC9627EAB4500015E61C /* NumberCertificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberCertificationViewController.swift; sourceTree = "<group>"; };
 		26D9CC9727EAB4500015E61C /* NumberCertificationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NumberCertificationViewController.xib; sourceTree = "<group>"; };
 		26DA6F7227DAFFC0001BF091 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -71,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26D5BAB327EC1E5D001E3993 /* SwiftSMTP in Frameworks */,
 				AEF6861DFC869DF38AC5CFF9 /* Pods_BT_SmartCar_demo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -107,6 +111,7 @@
 				26DA6F7327DAFFC0001BF091 /* LoginViewController.xib */,
 				2687C64C27BA487B006C3D63 /* BluetoothSerial.swift */,
 				26D9CC9627EAB4500015E61C /* NumberCertificationViewController.swift */,
+				26D5BAB427EC4155001E3993 /* EmailSender.swift */,
 				26D9CC9727EAB4500015E61C /* NumberCertificationViewController.xib */,
 				26B30FF327E7FE80003B4D5A /* ControlViewController.swift */,
 				26B30FF427E7FE80003B4D5A /* ControlViewController.xib */,
@@ -163,6 +168,9 @@
 			dependencies = (
 			);
 			name = BT_SmartCar_demo;
+			packageProductDependencies = (
+				26D5BAB227EC1E5D001E3993 /* SwiftSMTP */,
+			);
 			productName = BT_SmartCar_demo;
 			productReference = 263D621B27B3AD4200713574 /* BT_SmartCar_demo.app */;
 			productType = "com.apple.product-type.application";
@@ -191,6 +199,9 @@
 				Base,
 			);
 			mainGroup = 263D621227B3AD4200713574;
+			packageReferences = (
+				26D5BAB127EC1E5D001E3993 /* XCRemoteSwiftPackageReference "Swift-SMTP" */,
+			);
 			productRefGroup = 263D621C27B3AD4200713574 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -272,6 +283,7 @@
 				26B30FFA27E813B0003B4D5A /* CConfig.swift in Sources */,
 				26CED26A27E40CF000852DA8 /* AES128Util.swift in Sources */,
 				26B4FF5C27BF55BD004E05B8 /* ScanViewController.swift in Sources */,
+				26D5BAB527EC4155001E3993 /* EmailSender.swift in Sources */,
 				263D621F27B3AD4200713574 /* AppDelegate.swift in Sources */,
 				26D9CC9827EAB4500015E61C /* NumberCertificationViewController.swift in Sources */,
 				263D622127B3AD4200713574 /* SceneDelegate.swift in Sources */,
@@ -506,6 +518,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		26D5BAB127EC1E5D001E3993 /* XCRemoteSwiftPackageReference "Swift-SMTP" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Kitura/Swift-SMTP";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		26D5BAB227EC1E5D001E3993 /* SwiftSMTP */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 26D5BAB127EC1E5D001E3993 /* XCRemoteSwiftPackageReference "Swift-SMTP" */;
+			productName = SwiftSMTP;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 263D621327B3AD4200713574 /* Project object */;
 }

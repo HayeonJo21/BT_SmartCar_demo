@@ -23,6 +23,7 @@ class LoginViewController: UIViewController {
         check_isMaster()
         
     }
+   
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -72,16 +73,15 @@ class LoginViewController: UIViewController {
         if let email = emailTextField.text {
             if isValidEmail(testStr: email){
                 
+                smtp.send(mail)
+                
+                let numberCertiVC = NumberCertificationViewController(nibName: "numberCertificationViewController", bundle: nil)
+        
+                numberCertiVC.user_email = email
+                
+                self.navigationController?.pushViewController(numberCertiVC, animated: true)
             }
-            
         }
-        
-       
-        
-        
-        
-        
-        
     }
     
     //이메일 유효성 검사

@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NumberCertificationViewController" customModule="BT_SmartCar_demo" customModuleProvider="target">
             <connections>
                 <outlet property="numberTextField" destination="qlK-96-rSX" id="ctF-XN-CTP"/>
+                <outlet property="timeLabel" destination="1pO-7o-SQR" id="8JM-7D-29z"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -23,7 +24,7 @@
                     <rect key="frame" x="20" y="134" width="374" height="270"/>
                 </imageView>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ex) 000000" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qlK-96-rSX">
-                    <rect key="frame" x="20" y="464" width="374" height="45"/>
+                    <rect key="frame" x="20" y="459" width="374" height="45"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="OD9-x0-E5S"/>
                     </constraints>
@@ -31,39 +32,66 @@
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1qt-aj-Vdz">
-                    <rect key="frame" x="20" y="524" width="374" height="45"/>
+                    <rect key="frame" x="20" y="519" width="374" height="45"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="gE4-xg-MdK"/>
                     </constraints>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="filled" title="인증번호 확인">
-                        <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="16"/>
+                        <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="18"/>
                     </buttonConfiguration>
                     <connections>
                         <action selector="numberConfirm:" destination="-1" eventType="touchUpInside" id="xmx-bF-w4h"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Master 사용자 E-Mail 주소로 전송된" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MJe-Rp-ndB">
+                    <rect key="frame" x="80.5" y="662" width="253" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.19461959029483067" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 인증번호를 입력하세요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hZK-7d-qsU">
+                    <rect key="frame" x="126.5" y="688.5" width="161" height="21"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.19461959029483067" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="남은시간" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1pO-7o-SQR">
+                    <rect key="frame" x="181" y="429" width="52" height="18"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                    <color key="textColor" systemColor="systemRedColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="NVI-0g-vWa" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="3az-W6-EwP"/>
                 <constraint firstItem="1qt-aj-Vdz" firstAttribute="top" secondItem="qlK-96-rSX" secondAttribute="bottom" constant="15" id="BBM-cz-J7K"/>
+                <constraint firstItem="MJe-Rp-ndB" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="1.5" id="BGM-B1-SgF"/>
+                <constraint firstItem="qlK-96-rSX" firstAttribute="top" secondItem="1pO-7o-SQR" secondAttribute="bottom" constant="12" id="BWU-SM-vQi"/>
                 <constraint firstItem="qlK-96-rSX" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="KsF-w5-D0L"/>
+                <constraint firstItem="1pO-7o-SQR" firstAttribute="top" secondItem="NVI-0g-vWa" secondAttribute="bottom" constant="25" id="MLA-au-8gz"/>
                 <constraint firstItem="NVI-0g-vWa" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="0.6" id="MaG-DJ-S63"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="1qt-aj-Vdz" secondAttribute="trailing" constant="20" id="Pkz-be-soW"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="qlK-96-rSX" secondAttribute="trailing" constant="20" id="QXv-zM-qK3"/>
                 <constraint firstItem="1qt-aj-Vdz" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="RkM-VW-TVQ"/>
+                <constraint firstItem="1pO-7o-SQR" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="X25-AX-XtG"/>
+                <constraint firstItem="MJe-Rp-ndB" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="cQ9-xl-Ai5"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="NVI-0g-vWa" secondAttribute="trailing" constant="20" id="gaz-Ic-vXR"/>
-                <constraint firstItem="qlK-96-rSX" firstAttribute="top" secondItem="NVI-0g-vWa" secondAttribute="bottom" constant="60" id="nwc-3A-k6m"/>
+                <constraint firstItem="hZK-7d-qsU" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="hhp-nL-zev"/>
+                <constraint firstItem="hZK-7d-qsU" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="1.56" id="wwY-D0-Ehh"/>
             </constraints>
-            <point key="canvasLocation" x="139" y="106"/>
+            <point key="canvasLocation" x="137.68115942028987" y="105.80357142857143"/>
         </view>
     </objects>
     <resources>
         <image name="app_carimg" width="480" height="270"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
