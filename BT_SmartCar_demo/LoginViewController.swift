@@ -57,11 +57,11 @@ class LoginViewController: UIViewController {
          이메일 발송 시 NumberCertification 전환. 인증 성공시 ControlViewController이동
          **/
         
-        if true {
-            let controlVC = ControlViewController(nibName: "ControlViewController", bundle: nil)
-            controlVC.connectedPeripheral = device_peripheral
-            self.navigationController?.pushViewController(controlVC, animated: true)
-        }
+//        if true {
+//            let controlVC = ControlViewController(nibName: "ControlViewController", bundle: nil)
+//            controlVC.connectedPeripheral = device_peripheral
+//            self.navigationController?.pushViewController(controlVC, animated: true)
+//        }
         
         
         
@@ -75,7 +75,7 @@ class LoginViewController: UIViewController {
                 
                 smtp.send(mail)
                 
-                let numberCertiVC = NumberCertificationViewController(nibName: "numberCertificationViewController", bundle: nil)
+                let numberCertiVC = NumberCertificationViewController(nibName: "NumberCertificationViewController", bundle: nil)
         
                 numberCertiVC.user_email = email
                 

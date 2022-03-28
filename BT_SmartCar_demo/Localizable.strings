@@ -12,4 +12,4 @@
 "powerOff alert" = "블루투스가 꺼져있습니다.";
 "powerOff alert msg" = "블루투스를 켜고 다시 시도해주세요.";
 "sending email" = "메일 전송 완료";
-"sending email msg" = "인증번호가 전송된 메일을 확인해주세요."
+"sending email msg" = "인증번호가 전송된 메일을 확인해주세요.";

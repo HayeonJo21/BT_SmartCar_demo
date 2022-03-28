@@ -85,7 +85,6 @@
 		263D621227B3AD4200713574 = {
 			isa = PBXGroup;
 			children = (
-				26B98EE427E02A84008BFC80 /* LoadingService.swift */,
 				263D621D27B3AD4200713574 /* BT_SmartCar_demo */,
 				263D621C27B3AD4200713574 /* Products */,
 				849B44B10F502490CDFAC9C0 /* Pods */,
@@ -105,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				26B8F47727D593F10031A300 /* Localizable.strings */,
+				26B98EE427E02A84008BFC80 /* LoadingService.swift */,
 				263D621E27B3AD4200713574 /* AppDelegate.swift */,
 				26CED26927E40CF000852DA8 /* AES128Util.swift */,
 				26DA6F7227DAFFC0001BF091 /* LoginViewController.swift */,

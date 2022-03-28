@@ -74,6 +74,7 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
                 delegate?.serialDidConnectPeripheral(peripheral: peripheral)
             }
         }
+        ScanViewController().connectFailureAlert()
     }
     
     //String 형식으로 데이터를 주변 기기에 전송
@@ -118,6 +119,7 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
         print("=== bluetooth serial init called ===")
         manager = CBCentralManager.init(delegate: self, queue: .main)
     }
+    
 }
 
 // 블루투스를 연결하는 과정에서의 시리얼뷰와 소통을 위해 필요한 프로토콜
