@@ -34,6 +34,7 @@ class ViewController: UIViewController {
         self.navigationController?.pushViewController(scanListVC, animated: true)
         
     }
+    
     @IBAction func exitAction(_ sender: Any) {
         UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
         
@@ -41,6 +42,15 @@ class ViewController: UIViewController {
             exit(0)
         }
     }
+    
+    @IBAction func goToTestPage(_ sender: Any) {
+        
+        let testPageVC = ControlDialogViewController(nibName: "ControlDialogViewController", bundle: nil)
+        
+        self.present(testPageVC, animated: true)
+        
+    }
+    
 }
 
 

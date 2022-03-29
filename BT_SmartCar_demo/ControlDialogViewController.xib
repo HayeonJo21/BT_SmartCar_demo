@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ControlDialogViewController" customModule="BT_SmartCar_demo" customModuleProvider="target">
             <connections>
+                <outlet property="imageView" destination="eqU-LX-PoU" id="LY6-LT-cn1"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,31 +19,42 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico_msg_bg" translatesAutoresizingMaskIntoConstraints="NO" id="Ilu-rc-ecP">
-                    <rect key="frame" x="25" y="154" width="364" height="722"/>
-                </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Controller" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p9K-f5-4H6">
-                    <rect key="frame" x="25" y="74" width="364" height="31.5"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" text="Controller" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p9K-f5-4H6">
+                    <rect key="frame" x="25" y="79" width="364" height="31.5"/>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="26"/>
-                    <color key="textColor" red="0.66296395363073413" green="0.8204897975147436" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="textColor" red="0.67089093924879606" green="0.85898849059954507" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="ico_msg_bg" translatesAutoresizingMaskIntoConstraints="NO" id="eqU-LX-PoU">
+                    <rect key="frame" x="25" y="155.5" width="364" height="676.5"/>
+                </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="norma_logo" translatesAutoresizingMaskIntoConstraints="NO" id="uhd-Bv-PO5">
+                    <rect key="frame" x="281" y="840" width="100" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="DhK-rA-c16"/>
+                        <constraint firstAttribute="height" constant="40" id="l4e-tg-rC4"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="uhd-Bv-PO5" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" multiplier="1.6" id="34D-Hp-CJU"/>
                 <constraint firstItem="p9K-f5-4H6" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="25" id="Dfv-LQ-1b9"/>
+                <constraint firstItem="uhd-Bv-PO5" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="1.92" id="G5N-sf-Fx6"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="p9K-f5-4H6" secondAttribute="trailing" constant="25" id="ITR-bT-Xgw"/>
-                <constraint firstItem="Ilu-rc-ecP" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="25" id="PHD-1A-Ioh"/>
-                <constraint firstItem="p9K-f5-4H6" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="30" id="TWA-6l-k86"/>
-                <constraint firstItem="Ilu-rc-ecP" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="1.15" id="kNY-g6-hvp"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Ilu-rc-ecP" secondAttribute="trailing" constant="25" id="rFF-Jd-M3G"/>
+                <constraint firstItem="eqU-LX-PoU" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="25" id="T30-F7-xpV"/>
+                <constraint firstItem="p9K-f5-4H6" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="35" id="TWA-6l-k86"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="eqU-LX-PoU" secondAttribute="bottom" constant="30" id="U0S-1D-sCJ"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="eqU-LX-PoU" secondAttribute="trailing" constant="25" id="Y5u-5T-9YM"/>
+                <constraint firstItem="eqU-LX-PoU" firstAttribute="top" secondItem="p9K-f5-4H6" secondAttribute="bottom" constant="45" id="rSv-Au-Plo"/>
             </constraints>
             <point key="canvasLocation" x="294" y="6"/>
         </view>
     </objects>
     <resources>
         <image name="ico_msg_bg" width="531" height="722"/>
+        <image name="norma_logo" width="774" height="209"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
