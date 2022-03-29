@@ -93,39 +93,180 @@ class ControlViewController: UIViewController {
     // 응답을 받아 처리하는 부분
     func decryptDataAndAction(response: [UInt8]){
         let decryptData = AESUtil.getAES128Decrypt(encoded: response.toBase64()).bytes
+        let cmd = parseCMDCode(bytes: response)
+        let type = parseCMDCode(bytes: decryptData)
         
-        if decryptData[0] == 0x21 && horn_push {
-            if decryptData[1] == 0x01 { //success
-                print("성공")
+        if cmd.caseInsensitiveCompare("A4") == ComparisonResult.orderedSame {
+            if decryptData[0] == 0x21 && horn_push {
+                if decryptData[1] == 0x01 { //success
+                    print("성공")
+                }
+                else{ //fail
+                    print("실패")
+                }
+                horn_push = false
+                
+            } else if decryptData[0] == 0x22 && open_push {
+                if decryptData[1] == 0x01 { //success
+                    print("성공")
+                } else { //fail
+                    print("실패")
+                }
+                
+            } else if decryptData[0] == 0x23 && close_push {
+                if decryptData[1] == 0x01 { //success
+                    print("성공")
+                }else{ //fail
+                    print("실패")
+                }
+                close_push = false
+            } else if decryptData[0] == 0x24 { //master init
+                if decryptData[1] == 0x01 && decryptData[2] == 0x0F {
+                    print("마스터 등록해제를 완료했습니다.")
+                } else if decryptData[1] == 0x02 && decryptData[2] == 0x0F {
+                    print("마스터 등록해제를 실패하였습니다.")
+                }
             }
-            else{ //fail
-                print("실패")
-            }
-            horn_push = false
-            
-        } else if decryptData[0] == 0x22 && open_push {
-            if decryptData[1] == 0x01 { //success
-                print("성공")
-            } else { //fail
-                print("실패")
-            }
-            
-        } else if decryptData[0] == 0x23 && close_push {
-            if decryptData[1] == 0x01 { //success
-                print("성공")
-            }else{ //fail
-                print("실패")
-            }
-            close_push = false
-        } else if decryptData[0] == 0x24 { //master init
-            if decryptData[1] == 0x01 && decryptData[2] == 0x0F {
-                print("마스터 등록해제를 완료했습니다.")
-            } else if decryptData[1] == 0x02 && decryptData[2] == 0x0F {
-                print("마스터 등록해제를 실패하였습니다.")
+        }else if cmd.caseInsensitiveCompare("A3") == ComparisonResult.orderedSame {
+            if type.caseInsensitiveCompare("B1") == ComparisonResult.orderedSame {
+                if decryptData[2] == 0x00 {
+                    let alphabet = decryptData[1]
+                    
+                    if alphabet > 64 && alphabet < 91 {
+                        print("대문자")
+                    }else {
+                        print("소문자")
+                    }
+                    sendRequestData(cmd: CConfig().RESPONSE_JOG_CMD, data: "0xB1" + CConfig().SUCCESS)
+                }else{
+                    sendRequestData(cmd: CConfig().RESPONSE_JOG_CMD, data: "0xB1" + CConfig().FAIL)
+                }
+            } else if type.caseInsensitiveCompare("B2") == ComparisonResult.orderedSame {
+                if decryptData[2] == 0x00 {
+                    print("표시된 내용을 입력해주세요.")
+                    sendRequestData(cmd: CConfig().RESPONSE_JOG_CMD, data: "0xB2" + CConfig().SUCCESS)
+                }else{
+                    sendRequestData(cmd: CConfig().RESPONSE_JOG_CMD, data: "0xB2" + CConfig().FAIL)
+                }
+            } else if type.caseInsensitiveCompare("B3") == ComparisonResult.orderedSame {
+                if decryptData[1] == 0x31 {
+                    let value = parseHexCode(bytes: decryptData, cnt: 2)
+                    
+                    if value.caseInsensitiveCompare("31") == ComparisonResult.orderedSame {
+                        print("ㄱ")
+                    } else if value.caseInsensitiveCompare("32") == ComparisonResult.orderedSame {
+                        print("ㄲ")
+                    } else if value.caseInsensitiveCompare("34") == ComparisonResult.orderedSame {
+                        print("ㄴ")
+                    } else if value.caseInsensitiveCompare("37") == ComparisonResult.orderedSame {
+                        print("ㄷ")
+                    } else if value.caseInsensitiveCompare("38") == ComparisonResult.orderedSame {
+                        print("ㄸ")
+                    } else if value.caseInsensitiveCompare("39") == ComparisonResult.orderedSame {
+                        print("ㄹ")
+                    } else if value.caseInsensitiveCompare("41") == ComparisonResult.orderedSame {
+                        print("ㅁ")
+                    } else if value.caseInsensitiveCompare("42") == ComparisonResult.orderedSame {
+                        print("ㅂ")
+                    } else if value.caseInsensitiveCompare("43") == ComparisonResult.orderedSame {
+                        print("ㅃ")
+                    } else if value.caseInsensitiveCompare("45") == ComparisonResult.orderedSame {
+                        print("ㅅ")
+                    } else if value.caseInsensitiveCompare("46") == ComparisonResult.orderedSame {
+                        print("ㅆ")
+                    } else if value.caseInsensitiveCompare("47") == ComparisonResult.orderedSame {
+                        print("ㅇ")
+                    } else if value.caseInsensitiveCompare("48") == ComparisonResult.orderedSame {
+                        print("ㅈ")
+                    } else if value.caseInsensitiveCompare("49") == ComparisonResult.orderedSame {
+                        print("ㅉ")
+                    } else if value.caseInsensitiveCompare("4A") == ComparisonResult.orderedSame {
+                        print("ㅊ")
+                    } else if value.caseInsensitiveCompare("4B") == ComparisonResult.orderedSame {
+                        print("ㅋ")
+                    } else if value.caseInsensitiveCompare("4C") == ComparisonResult.orderedSame {
+                        print("ㅌ")
+                    } else if value.caseInsensitiveCompare("4D") == ComparisonResult.orderedSame {
+                        print("ㅍ")
+                    } else if value.caseInsensitiveCompare("4E") == ComparisonResult.orderedSame {
+                        print("ㅎ")
+                    } else {
+                        sendRequestData(cmd: CConfig().RESPONSE_JOG_CMD, data: "0xB3" + CConfig().FAIL)
+                    }
+                    sendRequestData(cmd: CConfig().RESPONSE_JOG_CMD, data: "0xB3" + CConfig().SUCCESS)
+                } else {
+                    sendRequestData(cmd: CConfig().RESPONSE_JOG_CMD, data: "0xB3" + CConfig().FAIL)
+                    
+                }
+            } else if type.caseInsensitiveCompare("B4") == ComparisonResult.orderedSame {
+                let turnCnt = decryptData[2].description
+                
+                if decryptData[1] == 0x01 {
+                    print("왼쪽 방향으로 \(turnCnt)회 돌려주세요.")
+                } else if decryptData[1] == 0x02 {
+                    print("오른쪽 방향으로 \(turnCnt)회 돌려주세요.")
+                } else {
+                    sendRequestData(cmd: CConfig().RESPONSE_JOG_CMD, data: "0xB4" + CConfig().FAIL)
+                    return
+                }
+                sendRequestData(cmd: CConfig().RESPONSE_JOG_CMD, data: "0xB4" + CConfig().SUCCESS)
+            } else if type.caseInsensitiveCompare("B5") == ComparisonResult.orderedSame {
+                if decryptData[1] == 0x11 {
+                    print("왼쪽 방향으로 움직여주세요.")
+                } else if decryptData[1] == 0x12 {
+                    print("오른쪽 방향으로 움직여주세요.")
+                } else if decryptData[1] == 0x13 {
+                    print("위쪽 방향으로 움직여주세요.")
+                } else if decryptData[1] == 0x14 {
+                    print("아래쪽 방향으로 움직여주세요.")
+                } else {
+                    sendRequestData(cmd: CConfig().RESPONSE_JOG_CMD, data: "0xB5" + CConfig().FAIL)
+                    return
+                }
+                sendRequestData(cmd: CConfig().RESPONSE_JOG_CMD, data: "0xB5" + CConfig().SUCCESS)
+            } else if type.caseInsensitiveCompare("B6") == ComparisonResult.orderedSame
+                        && decryptData[2] == 0x00 {
+                let value = parseHexCode(bytes: decryptData, cnt: 1)
+                
+                if value.caseInsensitiveCompare("A1") == ComparisonResult.orderedSame {
+                    print("BACK 버튼을 터치해주세요.")
+                } else if value.caseInsensitiveCompare("A2") == ComparisonResult.orderedSame {
+                    print("BACK 버튼을 세게 눌러주세요.")
+                } else if value.caseInsensitiveCompare("A3") == ComparisonResult.orderedSame {
+                    print("HOME 버튼을 터치해주세요.")
+                } else if value.caseInsensitiveCompare("A4") == ComparisonResult.orderedSame {
+                    print("HOME 버튼을 세게 눌러주세요.")
+                } else if value.caseInsensitiveCompare("A5") == ComparisonResult.orderedSame {
+                    print("NAVI 버튼을 터치해주세요.")
+                } else if value.caseInsensitiveCompare("A6") == ComparisonResult.orderedSame {
+                    print("NAVI 버튼을 세게 눌러주세요.")
+                } else {
+                    sendRequestData(cmd: CConfig().RESPONSE_JOG_CMD, data: "0xB6" + CConfig().FAIL)
+                    return
+                }
+                
+                sendRequestData(cmd: CConfig().RESPONSE_JOG_CMD, data: "0xB6" + CConfig().SUCCESS)
+            } else {
+                print("ERROR 처리")
             }
         }
     }
     
+    
+    //command 패킷 가져오는 함수
+    func parseCMDCode(bytes: [UInt8]) -> String{
+        let data = bytes.toBase64()
+        let cmd = data.split(separator: " ")
+        
+        return String(cmd[0])
+    }
+    
+    func parseHexCode(bytes: [UInt8], cnt: Int) -> String {
+        let data = bytes.toHexString()
+        let cmd = data.split(separator: " ")
+        
+        return String(cmd[cnt])
+    }
     
     /*
      Alert 함수
