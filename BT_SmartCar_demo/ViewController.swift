@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  BT_SmartCar_demo
-//
-//  Created by Norma on 2022/02/09.
-//
-
 import UIKit
 import CoreBluetooth
 
@@ -25,7 +18,7 @@ class ViewController: UIViewController {
     
     //권한 확인을 위한 메소드
     func checkAuthorization(){
-        //TODO: 권한확인(핸드폰번호, 맥주소 등등으로 권한확인) 후 ScanViewController로 자동이동
+        //TODO: 권한확인(핸드폰번호, Mac address 등으로 권한 확인) 후 ScanViewController로 자동이동
     }
     
     @IBAction func btScanBtn(_ sender: Any) {
@@ -41,14 +34,6 @@ class ViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline:  .now()) {
             exit(0)
         }
-    }
-    
-    @IBAction func goToTestPage(_ sender: Any) {
-        
-        let testPageVC = ControlDialogViewController(nibName: "ControlDialogViewController", bundle: nil)
-        
-        self.present(testPageVC, animated: true)
-        
     }
     
 }

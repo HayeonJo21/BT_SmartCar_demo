@@ -14,7 +14,7 @@ class ControlDialogViewController: UIViewController {
         super.viewDidLoad()
 
         
-        imageView.image = bg_back_img
+        imageView.image = bg_img
        
     }
     

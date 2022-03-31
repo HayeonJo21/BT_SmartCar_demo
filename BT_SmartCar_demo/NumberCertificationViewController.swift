@@ -7,7 +7,7 @@ class NumberCertificationViewController: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
     
     var user_email: String!
-    var timeSet: Int = 180
+    var timeSet: Int = 180 // 입력시간은 3분
     var cnt = 0
     
     override func viewDidLoad() {

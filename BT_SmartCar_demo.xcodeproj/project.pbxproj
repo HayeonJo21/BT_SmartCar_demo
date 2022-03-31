@@ -35,6 +35,8 @@
 		26D9CC9927EAB4500015E61C /* NumberCertificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26D9CC9727EAB4500015E61C /* NumberCertificationViewController.xib */; };
 		26DA6F7427DAFFC0001BF091 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DA6F7227DAFFC0001BF091 /* LoginViewController.swift */; };
 		26DA6F7527DAFFC0001BF091 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26DA6F7327DAFFC0001BF091 /* LoginViewController.xib */; };
+		26E665C727F5984300440CB7 /* PhoneNumberModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E665C527F5984300440CB7 /* PhoneNumberModalViewController.swift */; };
+		26E665C827F5984300440CB7 /* PhoneNumberModalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26E665C627F5984300440CB7 /* PhoneNumberModalViewController.xib */; };
 		AEF6861DFC869DF38AC5CFF9 /* Pods_BT_SmartCar_demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3513E5717B2AD78C838DA8E4 /* Pods_BT_SmartCar_demo.framework */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +71,8 @@
 		26D9CC9727EAB4500015E61C /* NumberCertificationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NumberCertificationViewController.xib; sourceTree = "<group>"; };
 		26DA6F7227DAFFC0001BF091 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		26DA6F7327DAFFC0001BF091 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		26E665C527F5984300440CB7 /* PhoneNumberModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberModalViewController.swift; sourceTree = "<group>"; };
+		26E665C627F5984300440CB7 /* PhoneNumberModalViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhoneNumberModalViewController.xib; sourceTree = "<group>"; };
 		3513E5717B2AD78C838DA8E4 /* Pods_BT_SmartCar_demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BT_SmartCar_demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6926BD041B60C88FD5037907 /* Pods-BT_SmartCar_demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BT_SmartCar_demo.release.xcconfig"; path = "Target Support Files/Pods-BT_SmartCar_demo/Pods-BT_SmartCar_demo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,6 +115,8 @@
 				26B98EE427E02A84008BFC80 /* LoadingService.swift */,
 				263D621E27B3AD4200713574 /* AppDelegate.swift */,
 				26CED26927E40CF000852DA8 /* AES128Util.swift */,
+				26E665C527F5984300440CB7 /* PhoneNumberModalViewController.swift */,
+				26E665C627F5984300440CB7 /* PhoneNumberModalViewController.xib */,
 				26DA6F7227DAFFC0001BF091 /* LoginViewController.swift */,
 				26DA6F7327DAFFC0001BF091 /* LoginViewController.xib */,
 				26CFA85927F2B1DA00CB9092 /* ControlDialogViewController.swift */,
@@ -232,6 +238,7 @@
 				2687C64927BA3533006C3D63 /* BluetoothDeviceListViewController.xib in Resources */,
 				26D9CC9927EAB4500015E61C /* NumberCertificationViewController.xib in Resources */,
 				263450BD27BB34BD00ADB3C4 /* ScanTableViewCell.xib in Resources */,
+				26E665C827F5984300440CB7 /* PhoneNumberModalViewController.xib in Resources */,
 				26CFA85C27F2B1DA00CB9092 /* ControlDialogViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -286,6 +293,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				26DA6F7427DAFFC0001BF091 /* LoginViewController.swift in Sources */,
+				26E665C727F5984300440CB7 /* PhoneNumberModalViewController.swift in Sources */,
 				263D622327B3AD4200713574 /* ViewController.swift in Sources */,
 				26B30FFA27E813B0003B4D5A /* CConfig.swift in Sources */,
 				26CED26A27E40CF000852DA8 /* AES128Util.swift in Sources */,

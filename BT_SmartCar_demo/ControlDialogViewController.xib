@@ -26,7 +26,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="ico_msg_bg" translatesAutoresizingMaskIntoConstraints="NO" id="eqU-LX-PoU">
-                    <rect key="frame" x="25" y="155.5" width="364" height="676.5"/>
+                    <rect key="frame" x="25" y="140.5" width="364" height="691.5"/>
                 </imageView>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="norma_logo" translatesAutoresizingMaskIntoConstraints="NO" id="uhd-Bv-PO5">
                     <rect key="frame" x="281" y="840" width="100" height="40"/>
@@ -47,7 +47,7 @@
                 <constraint firstItem="p9K-f5-4H6" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="35" id="TWA-6l-k86"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="eqU-LX-PoU" secondAttribute="bottom" constant="30" id="U0S-1D-sCJ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="eqU-LX-PoU" secondAttribute="trailing" constant="25" id="Y5u-5T-9YM"/>
-                <constraint firstItem="eqU-LX-PoU" firstAttribute="top" secondItem="p9K-f5-4H6" secondAttribute="bottom" constant="45" id="rSv-Au-Plo"/>
+                <constraint firstItem="eqU-LX-PoU" firstAttribute="top" secondItem="p9K-f5-4H6" secondAttribute="bottom" constant="30" id="rSv-Au-Plo"/>
             </constraints>
             <point key="canvasLocation" x="294" y="6"/>
         </view>

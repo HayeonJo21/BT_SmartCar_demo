@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="tbW-S0-P3A">
-                                <rect key="frame" x="169.5" y="458.5" width="75" height="212"/>
+                                <rect key="frame" x="169.5" y="498.5" width="75" height="132"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1xD-Ap-IHG">
                                         <rect key="frame" x="0.0" y="0.0" width="75" height="50"/>
@@ -40,14 +40,6 @@
                                         <buttonConfiguration key="configuration" style="filled" title="Exit"/>
                                         <connections>
                                             <action selector="exitAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jmG-vs-xG0"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vEA-Q8-cmZ">
-                                        <rect key="frame" x="0.0" y="164" width="75" height="48"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Test page"/>
-                                        <connections>
-                                            <action selector="goToTestPage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Qxz-Gv-47N"/>
                                         </connections>
                                     </button>
                                 </subviews>
