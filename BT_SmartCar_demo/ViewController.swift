@@ -7,7 +7,11 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         //        definesPresentationContext = true
         self.view.backgroundColor = UIColor(patternImage: (UIImage(named: "dpbgblue_00")!))
-        self.title = "Intro"
+        self.title = "Home"
+        
+        let phoneNumVC = PhoneNumberModalViewController(nibName: "PhoneNumberModalViewController", bundle: nil)
+        
+        self.present(phoneNumVC, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,7 +39,6 @@ class ViewController: UIViewController {
             exit(0)
         }
     }
-    
 }
 
 

@@ -10,6 +10,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PhoneNumberModalViewController" customModule="BT_SmartCar_demo" customModuleProvider="target">
             <connections>
+                <outlet property="okButton" destination="iMt-q5-DKV" id="Aqp-9W-11f"/>
+                <outlet property="phoneNumberTextFelid" destination="hrH-CO-kKy" id="z3T-6Y-X3w"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ex. 010-1234-5678" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hrH-CO-kKy">
-                    <rect key="frame" x="40" y="288.5" width="334" height="50"/>
+                    <rect key="frame" x="40" y="378" width="334" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="BWY-CM-bjG"/>
                     </constraints>
@@ -27,7 +29,7 @@
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iMt-q5-DKV">
-                    <rect key="frame" x="165" y="368.5" width="84" height="32"/>
+                    <rect key="frame" x="165" y="458" width="84" height="32"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="filled" title="확인">
                         <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="15"/>
@@ -44,15 +46,29 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="서비스 사용을 위하여" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d23-F7-QVV">
-                    <rect key="frame" x="128.5" y="512.5" width="157" height="23"/>
+                    <rect key="frame" x="128.5" y="571" width="157" height="23"/>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
                     <color key="textColor" red="0.0046938619240000003" green="0.0" blue="0.4185837254" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="휴대폰 번호를 입력해주세요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1cL-bR-B2q">
-                    <rect key="frame" x="101" y="545.5" width="212" height="23"/>
+                    <rect key="frame" x="101" y="604" width="212" height="23"/>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
                     <color key="textColor" red="0.0046938619240000003" green="0.0" blue="0.4185837254" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iphone.homebutton.radiowaves.left.and.right.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="9M5-iX-k22">
+                    <rect key="frame" x="157" y="144.5" width="100" height="99"/>
+                    <color key="tintColor" red="0.67089093919999998" green="0.85898849060000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="6Qg-mK-F65"/>
+                        <constraint firstAttribute="height" constant="100" id="gQ1-BE-1sj"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="초기 설정" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LTY-6Q-6Jh">
+                    <rect key="frame" x="170" y="259" width="74" height="24"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
@@ -61,7 +77,11 @@
             <constraints>
                 <constraint firstItem="SEa-gw-HKO" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" multiplier="1.6" id="5wC-eX-c54"/>
                 <constraint firstItem="iMt-q5-DKV" firstAttribute="top" secondItem="hrH-CO-kKy" secondAttribute="bottom" constant="30" id="9cG-AO-3qd"/>
-                <constraint firstItem="d23-F7-QVV" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="1.17" id="PW4-Ru-CP8"/>
+                <constraint firstItem="9M5-iX-k22" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="AIJ-Qm-8Qw"/>
+                <constraint firstItem="LTY-6Q-6Jh" firstAttribute="top" secondItem="9M5-iX-k22" secondAttribute="bottom" constant="15" id="Erx-nx-2ka"/>
+                <constraint firstItem="LTY-6Q-6Jh" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="F5F-g7-7F8"/>
+                <constraint firstItem="9M5-iX-k22" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="100" id="Ijt-3a-hPp"/>
+                <constraint firstItem="d23-F7-QVV" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="1.3" id="PW4-Ru-CP8"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="hrH-CO-kKy" secondAttribute="trailing" constant="40" id="aZo-gV-ZK9"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="iMt-q5-DKV" secondAttribute="trailing" constant="165" id="dvk-sS-e6L"/>
                 <constraint firstItem="SEa-gw-HKO" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="1.92" id="g5l-LX-jfo"/>
@@ -69,13 +89,14 @@
                 <constraint firstItem="iMt-q5-DKV" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="165" id="kJr-Dv-HmE"/>
                 <constraint firstItem="d23-F7-QVV" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ljZ-ot-l5a"/>
                 <constraint firstItem="1cL-bR-B2q" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="poL-Te-9h4"/>
-                <constraint firstItem="hrH-CO-kKy" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="0.7" id="wep-Vv-2mH"/>
+                <constraint firstItem="hrH-CO-kKy" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="0.9" id="wep-Vv-2mH"/>
                 <constraint firstItem="hrH-CO-kKy" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="40" id="z7e-0Y-g0s"/>
             </constraints>
-            <point key="canvasLocation" x="133" y="110"/>
+            <point key="canvasLocation" x="131.8840579710145" y="109.82142857142857"/>
         </view>
     </objects>
     <resources>
+        <image name="iphone.homebutton.radiowaves.left.and.right.circle.fill" catalog="system" width="128" height="121"/>
         <image name="norma_logo" width="774" height="209"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
