@@ -42,6 +42,8 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         serial.delegate = self
         self.startScan()
         
+        print("폰번호: " + (phoneNumber ?? "empty"))
+    
     }
     
     //네비게이션 뷰 아이템 설정

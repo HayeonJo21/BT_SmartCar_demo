@@ -71,6 +71,7 @@
 		26D9CC9727EAB4500015E61C /* NumberCertificationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NumberCertificationViewController.xib; sourceTree = "<group>"; };
 		26DA6F7227DAFFC0001BF091 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		26DA6F7327DAFFC0001BF091 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		26E4519027F6A28200DA39FA /* BT_SmartCar_demo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BT_SmartCar_demo.entitlements; sourceTree = "<group>"; };
 		26E665C527F5984300440CB7 /* PhoneNumberModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberModalViewController.swift; sourceTree = "<group>"; };
 		26E665C627F5984300440CB7 /* PhoneNumberModalViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhoneNumberModalViewController.xib; sourceTree = "<group>"; };
 		3513E5717B2AD78C838DA8E4 /* Pods_BT_SmartCar_demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BT_SmartCar_demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,6 +112,7 @@
 		263D621D27B3AD4200713574 /* BT_SmartCar_demo */ = {
 			isa = PBXGroup;
 			children = (
+				26E4519027F6A28200DA39FA /* BT_SmartCar_demo.entitlements */,
 				26B8F47727D593F10031A300 /* Localizable.strings */,
 				26B98EE427E02A84008BFC80 /* LoadingService.swift */,
 				263D621E27B3AD4200713574 /* AppDelegate.swift */,
@@ -456,6 +458,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BT_SmartCar_demo/BT_SmartCar_demo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = K6R82C3VS6;
@@ -487,6 +490,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BT_SmartCar_demo/BT_SmartCar_demo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = K6R82C3VS6;

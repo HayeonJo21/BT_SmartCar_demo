@@ -1,6 +1,8 @@
 import UIKit
 import AnyFormatKit
 
+var phoneNumber: String?
+
 class PhoneNumberModalViewController: UIViewController {
 
     @IBOutlet weak var phoneNumberTextFelid: UITextField!
@@ -24,10 +26,13 @@ class PhoneNumberModalViewController: UIViewController {
     
     @IBAction func okButton(_ sender: Any) {
         if let number = phoneNumberTextFelid.text {
-            CConfig().phoneNumber = number
+            phoneNumber = number
+            print("입력된 폰번호: \(number)")
         } else{
             print("폰번호 입력되지 않음")
         }
+        
+        self.dismiss(animated: true)
     }
     
 }

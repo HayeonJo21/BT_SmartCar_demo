@@ -1,5 +1,8 @@
 import UIKit
 import CoreBluetooth
+import TAKUUID
+
+var myMac: String!
 
 class ViewController: UIViewController {
     
@@ -23,9 +26,18 @@ class ViewController: UIViewController {
     //권한 확인을 위한 메소드
     func checkAuthorization(){
         //TODO: 권한확인(핸드폰번호, Mac address 등으로 권한 확인) 후 ScanViewController로 자동이동
+        if phoneNumber != "" {
+            print("핸드폰 번호 입력됨: " + (phoneNumber ?? "empty"))
+        }
+        
+        TAKUUIDStorage.sharedInstance().migrate()
+        myMac = TAKUUIDStorage.sharedInstance().findOrCreate()
+        
     }
     
     @IBAction func btScanBtn(_ sender: Any) {
+        checkAuthorization()
+        
         let scanListVC = ScanViewController(nibName: "ScanViewController", bundle: nil)
         
         self.navigationController?.pushViewController(scanListVC, animated: true)
