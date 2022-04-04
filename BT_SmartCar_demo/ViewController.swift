@@ -41,7 +41,22 @@ class ViewController: UIViewController {
         
         print("uuid keychain: " + phoneMacAddr)
         
+        phoneMacAddr = sliceMacAddress(mac: phoneMacAddr)
+        
+        print("Sliced Mac Address \(phoneMacAddr)")
+        
     }
+    
+    //mac address 자르기
+    func sliceMacAddress(mac: String) -> String{
+        let startIndex = mac.index(mac.startIndex, offsetBy: 24)
+        let endIndex = mac.index(mac.startIndex, offsetBy: 35)
+       
+        let sliced_mac = mac[startIndex ..< endIndex]
+   
+        return String(sliced_mac)
+    }
+    
     
     @IBAction func btScanBtn(_ sender: Any) {
        
