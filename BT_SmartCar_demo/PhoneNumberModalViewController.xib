@@ -12,6 +12,7 @@
             <connections>
                 <outlet property="okButton" destination="iMt-q5-DKV" id="Aqp-9W-11f"/>
                 <outlet property="phoneNumberTextFelid" destination="hrH-CO-kKy" id="z3T-6Y-X3w"/>
+                <outlet property="uiView" destination="i5M-Pr-FkT" id="tuL-3d-siY"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -29,7 +30,10 @@
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iMt-q5-DKV">
-                    <rect key="frame" x="165" y="458" width="84" height="32"/>
+                    <rect key="frame" x="160" y="458" width="94" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="CVe-2f-QI7"/>
+                    </constraints>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="filled" title="확인">
                         <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="15"/>
@@ -83,10 +87,10 @@
                 <constraint firstItem="9M5-iX-k22" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="100" id="Ijt-3a-hPp"/>
                 <constraint firstItem="d23-F7-QVV" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="1.3" id="PW4-Ru-CP8"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="hrH-CO-kKy" secondAttribute="trailing" constant="40" id="aZo-gV-ZK9"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="iMt-q5-DKV" secondAttribute="trailing" constant="165" id="dvk-sS-e6L"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="iMt-q5-DKV" secondAttribute="trailing" constant="160" id="dvk-sS-e6L"/>
                 <constraint firstItem="SEa-gw-HKO" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="1.92" id="g5l-LX-jfo"/>
                 <constraint firstItem="1cL-bR-B2q" firstAttribute="top" secondItem="d23-F7-QVV" secondAttribute="bottom" constant="10" id="ia5-fs-Y8k"/>
-                <constraint firstItem="iMt-q5-DKV" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="165" id="kJr-Dv-HmE"/>
+                <constraint firstItem="iMt-q5-DKV" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="160" id="kJr-Dv-HmE"/>
                 <constraint firstItem="d23-F7-QVV" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ljZ-ot-l5a"/>
                 <constraint firstItem="1cL-bR-B2q" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="poL-Te-9h4"/>
                 <constraint firstItem="hrH-CO-kKy" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="0.9" id="wep-Vv-2mH"/>

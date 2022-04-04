@@ -262,8 +262,8 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         
         serial.delegate = nil
         successConnectionAlert()
-
-        let msg: [UInt8] = [0x12, 0x01, 0x43, 0x41, 0x4E, 0x01]
+        
+        let msg: [UInt8] = [0x11, 0x02, 0x43, 0x4F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
         serial.sendBytesToDevice(msg)
             
         DispatchQueue.main.async() {
@@ -318,6 +318,7 @@ extension ScanViewController: UITableViewDelegate, UITableViewDataSource {
         
         if let selectedPeripheral = deviceList[indexPath.row].peripheral {
             print("연결 시도 >>> " + selectedPeripheral.description + "<<<")
+            
             loginVC.device_peripheral = selectedPeripheral
             serial.connectToPeripheral(selectedPeripheral)
         } else { return }

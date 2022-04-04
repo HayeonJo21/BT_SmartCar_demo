@@ -53,16 +53,16 @@ class ControlViewController: UIViewController {
      Click Action 함수들
      */
     @IBAction func doorOpen(_ sender: Any) {
-        let cmd = CConfig().REQUEST_DOOR_OPEN_CMD
-        let data = CConfig().REQUEST_DOOR_OPEN
+        let cmd = REQUEST_DOOR_OPEN_CMD
+        let data = REQUEST_DOOR_OPEN
         
         open_push = true
         sendRequestData(cmd: cmd, data: data)
     }
     
     @IBAction func doorClose(_ sender: Any) {
-        let cmd = CConfig().REQUEST_DOOR_CLOSE_CMD
-        let data = CConfig().REQUEST_DOOR_CLOSE
+        let cmd = REQUEST_DOOR_CLOSE_CMD
+        let data = REQUEST_DOOR_CLOSE
         
         close_push = true
         sendRequestData(cmd: cmd, data: data)
@@ -70,8 +70,8 @@ class ControlViewController: UIViewController {
     }
     
     @IBAction func carHorn(_ sender: Any) {
-        let cmd = CConfig().REQUEST_PANIC_CMD
-        let data = CConfig().REQUEST_PANIC
+        let cmd = REQUEST_PANIC_CMD
+        let data = REQUEST_PANIC
         
         horn_push = true
         sendRequestData(cmd: cmd, data: data)
@@ -83,8 +83,8 @@ class ControlViewController: UIViewController {
     
     @IBAction func masterDelete(_ sender: Any) {
         
-        let cmd = CConfig().REQUEST_MASTER_INIT_CMD
-        let data = CConfig().REQUEST_MASTER_INIT
+        let cmd = REQUEST_MASTER_INIT_CMD
+        let data = REQUEST_MASTER_INIT
         
         sendRequestData(cmd: cmd, data: data)
     }
@@ -137,16 +137,16 @@ class ControlViewController: UIViewController {
                     }else {
                         print("소문자")
                     }
-                    sendRequestData(cmd: CConfig().RESPONSE_JOG_CMD, data: "0xB1" + CConfig().SUCCESS)
+                    sendRequestData(cmd: RESPONSE_JOG_CMD, data: "0xB1" + SUCCESS)
                 }else{
-                    sendRequestData(cmd: CConfig().RESPONSE_JOG_CMD, data: "0xB1" + CConfig().FAIL)
+                    sendRequestData(cmd: RESPONSE_JOG_CMD, data: "0xB1" + FAIL)
                 }
             } else if type.caseInsensitiveCompare("B2") == ComparisonResult.orderedSame {
                 if decryptData[2] == 0x00 {
                     print("표시된 내용을 입력해주세요.")
-                    sendRequestData(cmd: CConfig().RESPONSE_JOG_CMD, data: "0xB2" + CConfig().SUCCESS)
+                    sendRequestData(cmd: RESPONSE_JOG_CMD, data: "0xB2" + SUCCESS)
                 }else{
-                    sendRequestData(cmd: CConfig().RESPONSE_JOG_CMD, data: "0xB2" + CConfig().FAIL)
+                    sendRequestData(cmd: RESPONSE_JOG_CMD, data: "0xB2" + FAIL)
                 }
             } else if type.caseInsensitiveCompare("B3") == ComparisonResult.orderedSame {
                 if decryptData[1] == 0x31 {
@@ -191,11 +191,11 @@ class ControlViewController: UIViewController {
                     } else if value.caseInsensitiveCompare("4E") == ComparisonResult.orderedSame {
                         print("ㅎ")
                     } else {
-                        sendRequestData(cmd: CConfig().RESPONSE_JOG_CMD, data: "0xB3" + CConfig().FAIL)
+                        sendRequestData(cmd: RESPONSE_JOG_CMD, data: "0xB3" + FAIL)
                     }
-                    sendRequestData(cmd: CConfig().RESPONSE_JOG_CMD, data: "0xB3" + CConfig().SUCCESS)
+                    sendRequestData(cmd: RESPONSE_JOG_CMD, data: "0xB3" + SUCCESS)
                 } else {
-                    sendRequestData(cmd: CConfig().RESPONSE_JOG_CMD, data: "0xB3" + CConfig().FAIL)
+                    sendRequestData(cmd: RESPONSE_JOG_CMD, data: "0xB3" + FAIL)
                     
                 }
             } else if type.caseInsensitiveCompare("B4") == ComparisonResult.orderedSame {
@@ -206,10 +206,10 @@ class ControlViewController: UIViewController {
                 } else if decryptData[1] == 0x02 {
                     print("오른쪽 방향으로 \(turnCnt)회 돌려주세요.")
                 } else {
-                    sendRequestData(cmd: CConfig().RESPONSE_JOG_CMD, data: "0xB4" + CConfig().FAIL)
+                    sendRequestData(cmd: RESPONSE_JOG_CMD, data: "0xB4" + FAIL)
                     return
                 }
-                sendRequestData(cmd: CConfig().RESPONSE_JOG_CMD, data: "0xB4" + CConfig().SUCCESS)
+                sendRequestData(cmd: RESPONSE_JOG_CMD, data: "0xB4" + SUCCESS)
             } else if type.caseInsensitiveCompare("B5") == ComparisonResult.orderedSame {
                 if decryptData[1] == 0x11 {
                     print("왼쪽 방향으로 움직여주세요.")
@@ -220,10 +220,10 @@ class ControlViewController: UIViewController {
                 } else if decryptData[1] == 0x14 {
                     print("아래쪽 방향으로 움직여주세요.")
                 } else {
-                    sendRequestData(cmd: CConfig().RESPONSE_JOG_CMD, data: "0xB5" + CConfig().FAIL)
+                    sendRequestData(cmd: RESPONSE_JOG_CMD, data: "0xB5" + FAIL)
                     return
                 }
-                sendRequestData(cmd: CConfig().RESPONSE_JOG_CMD, data: "0xB5" + CConfig().SUCCESS)
+                sendRequestData(cmd: RESPONSE_JOG_CMD, data: "0xB5" + SUCCESS)
             } else if type.caseInsensitiveCompare("B6") == ComparisonResult.orderedSame
                         && decryptData[2] == 0x00 {
                 let value = parseHexCode(bytes: decryptData, cnt: 1)
@@ -241,11 +241,11 @@ class ControlViewController: UIViewController {
                 } else if value.caseInsensitiveCompare("A6") == ComparisonResult.orderedSame {
                     print("NAVI 버튼을 세게 눌러주세요.")
                 } else {
-                    sendRequestData(cmd: CConfig().RESPONSE_JOG_CMD, data: "0xB6" + CConfig().FAIL)
+                    sendRequestData(cmd: RESPONSE_JOG_CMD, data: "0xB6" + FAIL)
                     return
                 }
                 
-                sendRequestData(cmd: CConfig().RESPONSE_JOG_CMD, data: "0xB6" + CConfig().SUCCESS)
+                sendRequestData(cmd: RESPONSE_JOG_CMD, data: "0xB6" + SUCCESS)
             } else {
                 print("ERROR 처리")
             }

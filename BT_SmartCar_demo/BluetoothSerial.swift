@@ -33,6 +33,7 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
         print("=== 기기 연결 시도중... ===")
         pendingPeripheral = peripheral
         manager.connect(peripheral, options: nil)
+            
     }
     
     // 기기가 검색될 때 마다 호출되는 메서드

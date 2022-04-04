@@ -17,7 +17,7 @@ class ScanTableViewCell: UITableViewCell {
         print("=== TableCellController: 셀 어웨이크 함수 called ===")
         let severityHeight : CGFloat = 34
         severityImageView.layer.cornerRadius = severityHeight / 2
-        self.backgroundColor = UIColor.darkGray.withAlphaComponent(0.25)
+        self.backgroundColor = UIColor.lightGray.withAlphaComponent(0.15)
         
         peripheralName.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         

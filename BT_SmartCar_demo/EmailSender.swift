@@ -1,9 +1,9 @@
 import Foundation
 import SwiftSMTP
 
-let email = CConfig().master_email
-let pwd = CConfig().master_pwd
-let title = CConfig().email_title
+let email = master_email
+let pwd = master_pwd
+let title = email_title
 let codeChar = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 var user_email: String!
 

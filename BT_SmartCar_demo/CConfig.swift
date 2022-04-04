@@ -1,6 +1,6 @@
 import Foundation
 
-class CConfig{
+
     // CMD -------------------------------------------------------------------------
     // RESPONSE
     let RESPONSE_JOG_CMD = "0x44"
@@ -39,4 +39,4 @@ class CConfig{
     
     
     
-}
+

@@ -38,7 +38,7 @@ class LoginViewController: UIViewController {
         LoadingSerivce.showLoading()
         
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 30) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 45) {
             print(flag.description)
             if flag != 1 {
                 LoadingSerivce.hideLoading()

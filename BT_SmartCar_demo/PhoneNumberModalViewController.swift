@@ -1,11 +1,10 @@
 import UIKit
 import AnyFormatKit
 
-var phoneNumber: String?
-
 class PhoneNumberModalViewController: UIViewController {
 
     @IBOutlet weak var phoneNumberTextFelid: UITextField!
+    @IBOutlet var uiView: UIView!
     @IBOutlet weak var okButton: UIButton! {
         didSet {
             okButton.isEnabled = false
@@ -15,7 +14,7 @@ class PhoneNumberModalViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         phoneNumberTextFelid.delegate = self
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
