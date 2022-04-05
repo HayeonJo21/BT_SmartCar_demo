@@ -37,6 +37,7 @@
 		26DA6F7527DAFFC0001BF091 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26DA6F7327DAFFC0001BF091 /* LoginViewController.xib */; };
 		26E665C727F5984300440CB7 /* PhoneNumberModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E665C527F5984300440CB7 /* PhoneNumberModalViewController.swift */; };
 		26E665C827F5984300440CB7 /* PhoneNumberModalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26E665C627F5984300440CB7 /* PhoneNumberModalViewController.xib */; };
+		26FC370127FC1FB100815032 /* Users.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 26FC36FF27FC1FB100815032 /* Users.xcdatamodeld */; };
 		AEF6861DFC869DF38AC5CFF9 /* Pods_BT_SmartCar_demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3513E5717B2AD78C838DA8E4 /* Pods_BT_SmartCar_demo.framework */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +75,7 @@
 		26E4519027F6A28200DA39FA /* BT_SmartCar_demo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BT_SmartCar_demo.entitlements; sourceTree = "<group>"; };
 		26E665C527F5984300440CB7 /* PhoneNumberModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberModalViewController.swift; sourceTree = "<group>"; };
 		26E665C627F5984300440CB7 /* PhoneNumberModalViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhoneNumberModalViewController.xib; sourceTree = "<group>"; };
+		26FC370027FC1FB100815032 /* Users.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Users.xcdatamodel; sourceTree = "<group>"; };
 		3513E5717B2AD78C838DA8E4 /* Pods_BT_SmartCar_demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BT_SmartCar_demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6926BD041B60C88FD5037907 /* Pods-BT_SmartCar_demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BT_SmartCar_demo.release.xcconfig"; path = "Target Support Files/Pods-BT_SmartCar_demo/Pods-BT_SmartCar_demo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -112,6 +114,7 @@
 		263D621D27B3AD4200713574 /* BT_SmartCar_demo */ = {
 			isa = PBXGroup;
 			children = (
+				26FC36FF27FC1FB100815032 /* Users.xcdatamodeld */,
 				26E4519027F6A28200DA39FA /* BT_SmartCar_demo.entitlements */,
 				26B8F47727D593F10031A300 /* Localizable.strings */,
 				26B98EE427E02A84008BFC80 /* LoadingService.swift */,
@@ -298,6 +301,7 @@
 				26E665C727F5984300440CB7 /* PhoneNumberModalViewController.swift in Sources */,
 				263D622327B3AD4200713574 /* ViewController.swift in Sources */,
 				26B30FFA27E813B0003B4D5A /* CConfig.swift in Sources */,
+				26FC370127FC1FB100815032 /* Users.xcdatamodeld in Sources */,
 				26CED26A27E40CF000852DA8 /* AES128Util.swift in Sources */,
 				26CFA85B27F2B1DA00CB9092 /* ControlDialogViewController.swift in Sources */,
 				26B4FF5C27BF55BD004E05B8 /* ScanViewController.swift in Sources */,
@@ -557,6 +561,19 @@
 			productName = SwiftSMTP;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		26FC36FF27FC1FB100815032 /* Users.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				26FC370027FC1FB100815032 /* Users.xcdatamodel */,
+			);
+			currentVersion = 26FC370027FC1FB100815032 /* Users.xcdatamodel */;
+			path = Users.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 263D621327B3AD4200713574 /* Project object */;
 }

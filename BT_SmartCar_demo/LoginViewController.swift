@@ -62,9 +62,6 @@ class LoginViewController: UIViewController {
 //            controlVC.connectedPeripheral = device_peripheral
 //            self.navigationController?.pushViewController(controlVC, animated: true)
 //        }
-        
-        
-        
     }
     
     //login 버튼을 눌렀을 시 이메일 인증 시작

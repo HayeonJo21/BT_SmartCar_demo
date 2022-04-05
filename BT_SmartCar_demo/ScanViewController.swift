@@ -16,7 +16,7 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
     var pastScanList: [DeviceModel] = []
     
     let options: [String : Any] = [CBCentralManagerScanOptionAllowDuplicatesKey:NSNumber(value: false)]
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,27 +41,7 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         
         serial.delegate = self
         self.startScan()
-        
-        print("폰번호: " + phoneNumber)
-        
-        phoneNumber = slicePhoneNumber(phoneNum: phoneNumber)
-        print("가공된 폰번호: \(phoneNumber)")
     
-    }
-    
-    func slicePhoneNumber(phoneNum: String) -> String{
-        let startIndex1 = phoneNum.index(phoneNum.startIndex, offsetBy: 4)
-        let endIndex1 = phoneNum.index(phoneNum.startIndex, offsetBy: 8)
-        
-        let startIndex2 = phoneNum.index(phoneNum.startIndex, offsetBy: 9)
-        let endIndex2 = phoneNum.index(phoneNum.startIndex, offsetBy: 13)
-        
-        let sliced1 = phoneNum[startIndex1 ..< endIndex1]
-        let sliced2 = phoneNum[startIndex2 ..< endIndex2]
-        
-        let sliced_phoneNumber = sliced1 + sliced2
-   
-        return String(sliced_phoneNumber)
     }
     
     //네비게이션 뷰 아이템 설정

@@ -1,10 +1,3 @@
-//
-//  ScanTableViewCell.swift
-//  BT_SmartCar_demo
-//
-//  Created by Norma on 2022/02/15.
-//
-
 import UIKit
 
 class ScanTableViewCell: UITableViewCell {

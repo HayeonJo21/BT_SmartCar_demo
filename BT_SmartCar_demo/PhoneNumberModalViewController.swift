@@ -27,12 +27,30 @@ class PhoneNumberModalViewController: UIViewController {
         if let number = phoneNumberTextFelid.text {
             phoneNumber = number
             print("입력된 폰번호: \(number)")
+            phoneNumber = slicePhoneNumber(phoneNum: number)
+            print("가공한 폰번호: \(phoneNumber)")
         } else{
             print("폰번호 입력되지 않음")
         }
         
         self.dismiss(animated: true)
     }
+    
+    func slicePhoneNumber(phoneNum: String) -> String{
+        let startIndex1 = phoneNum.index(phoneNum.startIndex, offsetBy: 4)
+        let endIndex1 = phoneNum.index(phoneNum.startIndex, offsetBy: 8)
+        
+        let startIndex2 = phoneNum.index(phoneNum.startIndex, offsetBy: 9)
+        let endIndex2 = phoneNum.index(phoneNum.startIndex, offsetBy: 13)
+        
+        let sliced1 = phoneNum[startIndex1 ..< endIndex1]
+        let sliced2 = phoneNum[startIndex2 ..< endIndex2]
+        
+        let sliced_phoneNumber = sliced1 + sliced2
+   
+        return String(sliced_phoneNumber)
+    }
+    
     
 }
 extension PhoneNumberModalViewController: UITextFieldDelegate {
