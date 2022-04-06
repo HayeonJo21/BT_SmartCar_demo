@@ -101,8 +101,7 @@ class DirectCertificationViewController: UIViewController {
             } else {
                 directMsg.text = "인증에 실패하였습니다."
                 directMsg.textColor = .red
-                //TODO: 등록되지 않은 사용자 입니다 alert
-            }
+                UserfailureAlert()            }
             break
         default:
             break
@@ -137,6 +136,17 @@ class DirectCertificationViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
         
     }
+    
+    func UserfailureAlert(){
+        let alert = UIAlertController(title: NSLocalizedString("user failure", comment: ""), message: NSLocalizedString("user failure msg", comment: ""), preferredStyle: .actionSheet)
+        
+        let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.presentingViewController?.dismiss(animated: true)})
+        
+        alert.addAction(buttonAction)
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
     
 
 }
