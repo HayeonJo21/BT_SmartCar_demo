@@ -96,7 +96,7 @@
                 <constraint firstItem="hrH-CO-kKy" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="0.9" id="wep-Vv-2mH"/>
                 <constraint firstItem="hrH-CO-kKy" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="40" id="z7e-0Y-g0s"/>
             </constraints>
-            <point key="canvasLocation" x="131.8840579710145" y="109.82142857142857"/>
+            <point key="canvasLocation" x="609" y="-97"/>
         </view>
     </objects>
     <resources>

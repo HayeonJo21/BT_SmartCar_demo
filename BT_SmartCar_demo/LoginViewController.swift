@@ -23,7 +23,6 @@ class LoginViewController: UIViewController {
         check_isMaster()
         
     }
-   
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
