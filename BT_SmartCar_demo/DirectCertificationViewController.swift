@@ -2,7 +2,7 @@ import UIKit
 import CoreBluetooth
 
 class DirectCertificationViewController: UIViewController {
-
+    
     @IBOutlet weak var directMsg: UILabel!
     @IBOutlet weak var loadingImg: UIImageView!
     var selectedPeripheral: CBPeripheral!
@@ -17,7 +17,6 @@ class DirectCertificationViewController: UIViewController {
         
         checkConnectingStatus()
     }
-    
     
     func checkConnectingStatus(){
         let status = selectedPeripheral.state
@@ -40,7 +39,7 @@ class DirectCertificationViewController: UIViewController {
     //암호화해서 데이터를 보내는 함수
     func sendRequestData(cmd: String, data: String){
         directMsg.text = "연결 시도 중입니다..."
-
+        
         var sendDataByte: [UInt8] = []
         
         let encryptData = AESUtil.setAES128Encrypt(string: data)
@@ -54,9 +53,8 @@ class DirectCertificationViewController: UIViewController {
     
     // 응답을 받아 처리하는 부분
     func decryptDataAndAction(response: [UInt8]){
-        let decryptData = AESUtil.getAES128Decrypt(encoded: response.toBase64()).bytes
+        // let decryptData = AESUtil.getAES128Decrypt(encoded: response.toBase64()).bytes
         let cmd = parseCMDCode(bytes: response)
-        let type = parseCMDCode(bytes: decryptData)
         
         if response.isEmpty {
             return
@@ -70,11 +68,12 @@ class DirectCertificationViewController: UIViewController {
                 directMsg.text = "연결 진행 중입니다..."
                 //TODO: 인증데이터 전송(async 사용?)
             } else if response[1] == 0x02 && response[2] == 0x0F { //전달 받은 키값이 다름
-                //disconncet
-                //TODO: 연결 끊고 loginView로 넘어감
+                //TODO: 연결 끊는 코드 disconncet
+                self.presentingViewController?.dismiss(animated: true)
             } else {
-                //TODO: cmd가 0xA2인 데이터 전송, key값 저장
+                //cmd가 0xA2인 데이터 전송, key값 저장
                 // DirectCertification.java 260행 참고
+                sendRequestData(cmd: "0xA2", data: "")
             }
             break
             
@@ -108,7 +107,7 @@ class DirectCertificationViewController: UIViewController {
         }
     }
     
-
+    //포맷 바꾸는 함수들
     func parseCMDCode(bytes: [UInt8]) -> String{
         let data = bytes.toBase64()
         let cmd = data.split(separator: " ")
@@ -123,6 +122,16 @@ class DirectCertificationViewController: UIViewController {
         return String(cmd[cnt])
     }
     
+    //머하는 함수지??
+    func stringToHex0x(data: String) -> String {
+        var result = ""
+        
+        if data.count < 10 {
+            result = "0x0"
+        }
+        
+        return result
+    }
     
     /*
      Alert 함수
@@ -146,7 +155,4 @@ class DirectCertificationViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
         
     }
-    
-    
-
 }

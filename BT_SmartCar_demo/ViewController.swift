@@ -56,8 +56,7 @@ class ViewController: UIViewController {
    
         return String(sliced_mac)
     }
-    
-    
+   
     @IBAction func btScanBtn(_ sender: Any) {
        
         checkAuthorization()

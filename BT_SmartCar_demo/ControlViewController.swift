@@ -251,8 +251,7 @@ class ControlViewController: UIViewController {
             }
         }
     }
-    
-    
+        
     //command 패킷 가져오는 함수
     func parseCMDCode(bytes: [UInt8]) -> String{
         let data = bytes.toBase64()
@@ -280,5 +279,4 @@ class ControlViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
         
     }
-    
 }
