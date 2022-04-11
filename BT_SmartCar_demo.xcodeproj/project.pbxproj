@@ -39,6 +39,8 @@
 		26DA6F7527DAFFC0001BF091 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26DA6F7327DAFFC0001BF091 /* LoginViewController.xib */; };
 		26E665C727F5984300440CB7 /* PhoneNumberModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E665C527F5984300440CB7 /* PhoneNumberModalViewController.swift */; };
 		26E665C827F5984300440CB7 /* PhoneNumberModalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26E665C627F5984300440CB7 /* PhoneNumberModalViewController.xib */; };
+		26E784AD2803B72C00B7417B /* MasterAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E784AB2803B72C00B7417B /* MasterAddViewController.swift */; };
+		26E784AE2803B72C00B7417B /* MasterAddViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26E784AC2803B72C00B7417B /* MasterAddViewController.xib */; };
 		26FC370127FC1FB100815032 /* Users.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 26FC36FF27FC1FB100815032 /* Users.xcdatamodeld */; };
 		AEF6861DFC869DF38AC5CFF9 /* Pods_BT_SmartCar_demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3513E5717B2AD78C838DA8E4 /* Pods_BT_SmartCar_demo.framework */; };
 /* End PBXBuildFile section */
@@ -79,6 +81,8 @@
 		26E4519027F6A28200DA39FA /* BT_SmartCar_demo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BT_SmartCar_demo.entitlements; sourceTree = "<group>"; };
 		26E665C527F5984300440CB7 /* PhoneNumberModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberModalViewController.swift; sourceTree = "<group>"; };
 		26E665C627F5984300440CB7 /* PhoneNumberModalViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhoneNumberModalViewController.xib; sourceTree = "<group>"; };
+		26E784AB2803B72C00B7417B /* MasterAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterAddViewController.swift; sourceTree = "<group>"; };
+		26E784AC2803B72C00B7417B /* MasterAddViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MasterAddViewController.xib; sourceTree = "<group>"; };
 		26FC370027FC1FB100815032 /* Users.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Users.xcdatamodel; sourceTree = "<group>"; };
 		3513E5717B2AD78C838DA8E4 /* Pods_BT_SmartCar_demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BT_SmartCar_demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6926BD041B60C88FD5037907 /* Pods-BT_SmartCar_demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BT_SmartCar_demo.release.xcconfig"; path = "Target Support Files/Pods-BT_SmartCar_demo/Pods-BT_SmartCar_demo.release.xcconfig"; sourceTree = "<group>"; };
@@ -140,6 +144,8 @@
 				26B30FF427E7FE80003B4D5A /* ControlViewController.xib */,
 				263D622027B3AD4200713574 /* SceneDelegate.swift */,
 				263D622227B3AD4200713574 /* ViewController.swift */,
+				26E784AB2803B72C00B7417B /* MasterAddViewController.swift */,
+				26E784AC2803B72C00B7417B /* MasterAddViewController.xib */,
 				26B30FF927E813B0003B4D5A /* CConfig.swift */,
 				2682B69427C753880022E627 /* DeviceModel.swift */,
 				26B4FF5A27BF55BD004E05B8 /* ScanViewController.swift */,
@@ -239,6 +245,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26E784AE2803B72C00B7417B /* MasterAddViewController.xib in Resources */,
 				26B30FF627E7FE80003B4D5A /* ControlViewController.xib in Resources */,
 				26DA6F7527DAFFC0001BF091 /* LoginViewController.xib in Resources */,
 				263D622B27B3AD4300713574 /* LaunchScreen.storyboard in Resources */,
@@ -308,6 +315,7 @@
 				26E665C727F5984300440CB7 /* PhoneNumberModalViewController.swift in Sources */,
 				263D622327B3AD4200713574 /* ViewController.swift in Sources */,
 				26B30FFA27E813B0003B4D5A /* CConfig.swift in Sources */,
+				26E784AD2803B72C00B7417B /* MasterAddViewController.swift in Sources */,
 				26FC370127FC1FB100815032 /* Users.xcdatamodeld in Sources */,
 				26CED26A27E40CF000852DA8 /* AES128Util.swift in Sources */,
 				26CFA85B27F2B1DA00CB9092 /* ControlDialogViewController.swift in Sources */,

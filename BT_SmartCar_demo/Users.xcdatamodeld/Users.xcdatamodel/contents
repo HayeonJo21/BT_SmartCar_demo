@@ -3,10 +3,12 @@
     <entity name="Users" representedClassName="Users" syncable="YES" codeGenerationType="class">
         <attribute name="email" optional="YES" attributeType="String"/>
         <attribute name="level" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="loginStatus" optional="YES" attributeType="String"/>
         <attribute name="phoneMac" optional="YES" attributeType="String"/>
         <attribute name="phoneNum" optional="YES" attributeType="String"/>
+        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
     <elements>
-        <element name="Users" positionX="-63" positionY="-18" width="128" height="89"/>
+        <element name="Users" positionX="-63" positionY="-18" width="128" height="119"/>
     </elements>
 </model>

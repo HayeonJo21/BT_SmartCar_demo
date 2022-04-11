@@ -42,6 +42,8 @@ class LoginViewController: UIViewController {
             if flag != 1 {
                 LoadingSerivce.hideLoading()
                 self.connectFailureAlert()
+                serial.stopScan() //연결이 완료되고 나면 연결완료 alert을 띄우고 스캔중지
+                self.check_isMaster()
             } else{
                 return
             }
@@ -55,6 +57,9 @@ class LoginViewController: UIViewController {
          미등록 핸드폰일 경우 -> EmailViewController로 이동해서 암호화 킷값 교환 후 이메일 인증을 위한 데이터 교환
          이메일 발송 시 NumberCertification 전환. 인증 성공시 ControlViewController이동
          **/
+        
+    
+        
         
 //        if true {
 //            let controlVC = ControlViewController(nibName: "ControlViewController", bundle: nil)
