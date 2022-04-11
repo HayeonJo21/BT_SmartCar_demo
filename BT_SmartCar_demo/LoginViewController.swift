@@ -21,7 +21,7 @@ class LoginViewController: UIViewController {
         
         setKeyboardObserver()
         check_isMaster()
-        
+        serial.stopScan()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,7 +42,6 @@ class LoginViewController: UIViewController {
             if flag != 1 {
                 LoadingSerivce.hideLoading()
                 self.connectFailureAlert()
-                serial.stopScan() //연결이 완료되고 나면 연결완료 alert을 띄우고 스캔중지
                 self.check_isMaster()
             } else{
                 return
@@ -61,11 +60,11 @@ class LoginViewController: UIViewController {
     
         
         
-//        if true {
-//            let controlVC = ControlViewController(nibName: "ControlViewController", bundle: nil)
-//            controlVC.connectedPeripheral = device_peripheral
-//            self.navigationController?.pushViewController(controlVC, animated: true)
-//        }
+        if true {
+            let controlVC = ControlViewController(nibName: "ControlViewController", bundle: nil)
+            controlVC.connectedPeripheral = device_peripheral
+            self.navigationController?.pushViewController(controlVC, animated: true)
+        }
     }
     
     //login 버튼을 눌렀을 시 이메일 인증 시작

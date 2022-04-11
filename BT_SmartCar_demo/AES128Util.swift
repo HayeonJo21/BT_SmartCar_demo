@@ -21,9 +21,13 @@ class AES128Util {
     }
     
     //암호화
-    func setAES128Encrypt(string: String) -> String {
+    func setAES128EncryptString(string: String) -> String {
         guard !string.isEmpty else { return "" }
         return try! self.getAES128Object().encrypt(string.bytes).toBase64()
+    }
+    
+    func setAES128Encrypt(bytes: [UInt8]) -> [UInt8] {
+        return try! self.getAES128Object().encrypt(bytes)
     }
     
     //복호화

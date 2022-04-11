@@ -257,11 +257,14 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
     //연결 성공시 호출되는 함수
     func serialDidConnectPeripheral(peripheral: CBPeripheral) {
         print("연결 성공시 호출")
+        serial.stopScan()
         
         serial.delegate = nil
         successConnectionAlert()
         
         let msg: [UInt8] = [0x11, 0x02, 0x43, 0x4F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+        
+//        let encryptMessage = AES128Util().setAES128Encrypt(bytes: msg)
         serial.sendBytesToDevice(msg)
             
         DispatchQueue.main.async() {
@@ -315,6 +318,7 @@ extension ScanViewController: UITableViewDelegate, UITableViewDataSource {
         loginVC.device = deviceList[indexPath.row]
         
         if let selectedPeripheral = deviceList[indexPath.row].peripheral {
+            serial.stopScan()
             print("연결 시도 >>> " + selectedPeripheral.description + "<<<")
             
             loginVC.device_peripheral = selectedPeripheral

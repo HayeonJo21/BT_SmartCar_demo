@@ -42,7 +42,7 @@ class DirectCertificationViewController: UIViewController {
         
         var sendDataByte: [UInt8] = []
         
-        let encryptData = AESUtil.setAES128Encrypt(string: data)
+        let encryptData = AESUtil.setAES128EncryptString(string: data)
         
         sendDataByte += cmd.bytes
         sendDataByte += encryptData.bytes

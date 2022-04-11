@@ -14,7 +14,10 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     weak var writeCharacteristic : CBCharacteristic?
     private var writeType : CBCharacteristicWriteType = .withResponse
     
-    let characteristicUUID = CBUUID(string: "F0144D2E-2BAE-46DD-87A2-E588EAE9E2CD")
+    let characteristicUUID_read = CBUUID(string: "69799808-FAD2-4A97-8E34-B877A9D425A7")
+    let characteristicUUID_write = CBUUID(string: "F0144D2E-2BAE-46DD-87A2-E588EAE9E2CD")
+
+   
     
     //central 기기의 블루투스의 on, off상태 변화때마다 호출
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
@@ -66,17 +69,31 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     // characteristic 검색에 성공 시 호출되는 메서드
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         print("=== Characteristics 검색에 성공시 호출되는 메서드 ===")
+        print("**** " + service.characteristics!.description + " &&&&")
         for characteristic in service.characteristics! {
             print("***** 통신을 위한 설정 시작 ******")
-            if characteristic.uuid == characteristicUUID{
+            peripheral.readValue(for: characteristic)
+
+            if characteristic.uuid == characteristicUUID_write{
+                print("[CHAR UUID] " + characteristic.uuid.description)
                 peripheral.setNotifyValue(true, for: characteristic)
                 writeCharacteristic = characteristic
                 writeType = characteristic.properties.contains(.write) ? .withResponse : .withResponse
+                print("[Write Type] " + writeType.rawValue.description)
                 delegate?.serialDidConnectPeripheral(peripheral: peripheral)
             }
         }
         ScanViewController().connectFailureAlert()
     }
+    
+    //peripheral로부터 데이터를 전송받으면 호출되는 메서드
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?){
+        print("... 전송 받은 데이터가 존재하는지 확인 ...")
+        if let data = characteristic.value{
+            print("전송받은 데이터: \(data.bytes.description)")
+        }else{ return }
+    }
+
     
     //String 형식으로 데이터를 주변 기기에 전송
     func sendMessageToDevice(_ message: String){
@@ -90,7 +107,7 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     func sendBytesToDevice(_ bytes: [UInt8]){
         print("... 데이터 전송 메소드 호출 ...")
         let data = Data(bytes)
-        connectedPeripheral!.writeValue(data, for: writeCharacteristic!, type: writeType)        
+        connectedPeripheral!.writeValue(data, for: writeCharacteristic!, type: writeType)
     }
     
     //데이터를 주변 기기에 전송
@@ -100,15 +117,14 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     
     // writeType이 .withResponse일 때, 블루투스 기기로부터의 응답이 왔을 때 호출되는 함수.
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
-        print("===기기 응답이 왔을 때 호출 ===")
+        print("... 기기 응답이 왔을 때 호출 ...")
         print("=== Characteristic: " + characteristic.description)
-        
         if let data = characteristic.value{
-            print("전송받은 데이터: \(data.description)")
+            print("!!! 전송받은 데이터: \(data.description)")
             ControlViewController().decryptDataAndAction(response: data.bytes)
         }else{ return }
     }
-     
+    
     
     func peripheral(_ peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: Error?) {
         // 블루투스 기기의 신호 강도를 요청하는 peripheral.readRSSI가 호출하는 함수
@@ -134,11 +150,3 @@ extension BluetoothSerial: BluetoothSerialDelegate {
     func serialDidDiscoverPeripheral(peripheral : CBPeripheral, RSSI : NSNumber?){}
     func serialDidConnectPeripheral(peripheral : CBPeripheral) {}
 }
-
-////peripheral로부터 데이터를 전송받으면 호출되는 메서드
-//func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?){
-//    print("... 전송 받은 데이터가 존재하는지 확인 ...")
-//    if let data = characteristic.value{
-//        print("전송받은 데이터: \(data.description)")
-//    }else{ return }
-//}
