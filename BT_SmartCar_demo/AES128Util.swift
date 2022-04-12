@@ -36,8 +36,9 @@ class AES128Util {
         guard datas != nil else { return "" }
     
         let bytes = datas!.bytes
-        let decode = try! self.getAES128Object().decrypt(bytes)
+//        let decode = Data(try! self.getAES128Object().decrypt(bytes))
+        let decodeData = try! bytes.decrypt(cipher: getAES128Object())
         
-        return String(bytes: decode, encoding: .utf8) ?? ""
+        return String(bytes: decodeData, encoding: .utf8) ?? ""
     }
 }

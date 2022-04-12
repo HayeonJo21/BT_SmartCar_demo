@@ -155,6 +155,7 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         
         connectSuccessAlert.addAction(confirm)
         self.present(connectSuccessAlert, animated: true, completion: nil)
+                
     }
     
     func undefinedAlert(){

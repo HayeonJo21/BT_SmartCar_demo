@@ -11,11 +11,14 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     var connectedPeripheral : CBPeripheral?
     let AESUtil = AES128Util()
     
-    weak var writeCharacteristic : CBCharacteristic?
     private var writeType : CBCharacteristicWriteType = .withResponse
+    private var writeType_read : CBCharacteristicWriteType = .withResponse
+
     
     let characteristicUUID_read = CBUUID(string: "69799808-FAD2-4A97-8E34-B877A9D425A7")
     let characteristicUUID_write = CBUUID(string: "F0144D2E-2BAE-46DD-87A2-E588EAE9E2CD")
+    var readCharacteristic: CBCharacteristic!
+    weak var writeCharacteristic : CBCharacteristic?
 
    
     
@@ -56,6 +59,7 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     
     // service 검색에 성공 시 호출되는 메서드
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        stopScan()
         print("=== 서비스 검색에 성공시 호출되는 메서드 ===")
         if let servicesDes = peripheral.services?.description {
             print("===>" + servicesDes + "<===")
@@ -68,6 +72,7 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     
     // characteristic 검색에 성공 시 호출되는 메서드
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+        stopScan()
         print("=== Characteristics 검색에 성공시 호출되는 메서드 ===")
         print("**** " + service.characteristics!.description + " &&&&")
         for characteristic in service.characteristics! {
@@ -81,6 +86,9 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
                 writeType = characteristic.properties.contains(.write) ? .withResponse : .withResponse
                 print("[Write Type] " + writeType.rawValue.description)
                 delegate?.serialDidConnectPeripheral(peripheral: peripheral)
+            } else if characteristic.uuid == characteristicUUID_read {
+                readCharacteristic = characteristic
+                writeType_read = readCharacteristic.properties.contains(.write) ? .withResponse : .withResponse
             }
         }
         ScanViewController().connectFailureAlert()
@@ -89,8 +97,11 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     //peripheral로부터 데이터를 전송받으면 호출되는 메서드
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?){
         print("... 전송 받은 데이터가 존재하는지 확인 ...")
-        if let data = characteristic.value{
-            print("전송받은 데이터: \(data.bytes.description)")
+        print(".. For characteristic : [\(characteristic.description)]")
+        if let data = characteristic.value {
+            print("-- 전송 받은 데이터: \(data.bytes.description)")
+            print("--- Base64 Encoded String: " + data.base64EncodedString())
+            response = data.bytes
         }else{ return }
     }
 
@@ -108,6 +119,7 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
         print("... 데이터 전송 메소드 호출 ...")
         let data = Data(bytes)
         connectedPeripheral!.writeValue(data, for: writeCharacteristic!, type: writeType)
+        connectedPeripheral!.writeValue(data, for: readCharacteristic!, type: writeType_read)
     }
     
     //데이터를 주변 기기에 전송
@@ -117,14 +129,11 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     
     // writeType이 .withResponse일 때, 블루투스 기기로부터의 응답이 왔을 때 호출되는 함수.
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
-        print("... 기기 응답이 왔을 때 호출 ...")
-        print("=== Characteristic: " + characteristic.description)
+        stopScan()
         if let data = characteristic.value{
-            print("!!! 전송받은 데이터: \(data.description)")
-            ControlViewController().decryptDataAndAction(response: data.bytes)
+//            ControlViewController().decryptDataAndAction(response: data.bytes)
         }else{ return }
     }
-    
     
     func peripheral(_ peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: Error?) {
         // 블루투스 기기의 신호 강도를 요청하는 peripheral.readRSSI가 호출하는 함수
