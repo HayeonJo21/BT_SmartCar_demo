@@ -3,10 +3,7 @@ import AnyFormatKit
 import CoreData
 
 class PhoneNumberModalViewController: UIViewController {
-    
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    let appdelegate = (UIApplication.shared.delegate as! AppDelegate)
-    
+   
     @IBOutlet weak var phoneNumberTextFelid: UITextField!
     @IBOutlet var uiView: UIView!
     @IBOutlet weak var okButton: UIButton! {
@@ -37,7 +34,7 @@ class PhoneNumberModalViewController: UIViewController {
             print("폰번호 입력되지 않음")
         }
         
-        saveUser()
+        preferences.set(phoneNumber, forKey: "userPhoneNum")
         self.dismiss(animated: true)
     }
     
@@ -55,22 +52,6 @@ class PhoneNumberModalViewController: UIViewController {
    
         return String(sliced_phoneNumber)
     }
-    
-    func saveUser(){
-        guard let entityDescription = NSEntityDescription.entity(forEntityName: "Users", in: context) else {
-            return
-        }
-        
-        guard let object = NSManagedObject(entity: entityDescription, insertInto: context) as? Users else { return }
-        
-        object.phoneNum = phoneNumber
-        object.phoneMac = phoneMacAddr
-        object.uuid = UUID()
-        
-        appdelegate.saveContext()
-        print("[COREDATA] Users: " + phoneNumber + "//" + phoneMacAddr + " 저장됨.")
-    }
-    
     
 }
 extension PhoneNumberModalViewController: UITextFieldDelegate {

@@ -6,6 +6,7 @@ class DirectCertificationViewController: UIViewController {
     @IBOutlet weak var directMsg: UILabel!
     @IBOutlet weak var loadingImg: UIImageView!
     var selectedPeripheral: CBPeripheral!
+    var device: DeviceModel!
     var flag = 0
     let AESUtil = AES128Util()
     var userLevel = 0

@@ -1,13 +1,10 @@
 import UIKit
 import CoreBluetooth
 import TAKUUID
-import CoreData
+
+let preferences = UserDefaults.standard
 
 class ViewController: UIViewController {
-    
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    let appdelegate = (UIApplication.shared.delegate as! AppDelegate)
-    var users = [Users]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,43 +12,8 @@ class ViewController: UIViewController {
         self.view.backgroundColor = UIColor(patternImage: (UIImage(named: "dpbgblue_00")!))
         self.title = "Home"
         
-        // mac address 대신 uuid keychain 생성
-        TAKUUIDStorage.sharedInstance().migrate()
-        if let mac = TAKUUIDStorage.sharedInstance().findOrCreate() {
-            phoneMacAddr = mac
-        } else {
-            return
-        }
+        settingUserInfo()
         
-        print("uuid keychain: " + phoneMacAddr)
-        
-        phoneMacAddr = sliceMacAddress(mac: phoneMacAddr)
-        
-        print("Sliced Mac Address \(phoneMacAddr)")
-        
-        fetchData()
-        var currentUser: Users!
-        
-        if users.isEmpty {
-            let phoneNumVC = PhoneNumberModalViewController(nibName: "PhoneNumberModalViewController", bundle: nil)
-            phoneNumVC.modalPresentationStyle = .formSheet
-            self.present(phoneNumVC, animated: true)
-        }
-        else {
-            for user in users {
-                print("for문 내부")
-                if user.phoneMac == phoneMacAddr{
-                    currentUser = user
-                    break
-                }
-            }
-            
-            if currentUser.phoneNum == "" {
-                let phoneNumVC = PhoneNumberModalViewController(nibName: "PhoneNumberModalViewController", bundle: nil)
-                phoneNumVC.modalPresentationStyle = .formSheet
-                self.present(phoneNumVC, animated: true)
-            }
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,30 +22,49 @@ class ViewController: UIViewController {
         
     }
     
-    //권한 확인을 위한 메소드
-    func checkAuthorization(){
-        var currentUser: Users!
+    //mac address, phone number등 sharedPreference에 저장
+    func settingUserInfo(){
         
-        fetchData()
+        if preferences.object(forKey: "userMac") == nil {
+            // mac address 대신 uuid keychain 생성
+            TAKUUIDStorage.sharedInstance().migrate()
+            if let mac = TAKUUIDStorage.sharedInstance().findOrCreate() {
+                phoneMacAddr = mac
+            } else {
+                return
+            }
+            
+            phoneMacAddr = sliceMacAddress(mac: phoneMacAddr)
+            preferences.set(phoneMacAddr, forKey: "userMac")
+        } else {
+            print("[ViewController > settingUserInfo()] MAC Address 입력됨.")
+
+        }
         
-        if users.isEmpty {
+        //phone number
+        if preferences.object(forKey: "userPhoneNum") == nil {
+            
             let phoneNumVC = PhoneNumberModalViewController(nibName: "PhoneNumberModalViewController", bundle: nil)
             phoneNumVC.modalPresentationStyle = .formSheet
             self.present(phoneNumVC, animated: true)
-        }
-        else {
-            for user in users {
-                print("for문 내부2")
-                if user.phoneMac == phoneMacAddr{
-                    currentUser = user
-                    break
-                }
-            }
-            if currentUser.phoneNum == "" {
-                emptyPhoneNumberAlert()
-            }
+            
+        } else{
+            print("[ViewController > settingUserInfo()] Phone번호 입력됨.")
         }
         
+        let didSave = preferences.synchronize()
+        
+        
+        if !didSave {
+            emptySettingInfoAlert()
+        }
+        
+    }
+    
+    func checkAuthorization(){
+        if phoneNumber == "" || phoneMacAddr == "" {
+            emptySettingInfoAlert()
+        }
     }
     
     //mac address 자르기
@@ -97,9 +78,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func btScanBtn(_ sender: Any) {
-        
-        checkAuthorization()
-        
+                
         let scanListVC = ScanViewController(nibName: "ScanViewController", bundle: nil)
         
         self.navigationController?.pushViewController(scanListVC, animated: true)
@@ -114,8 +93,8 @@ class ViewController: UIViewController {
         }
     }
     
-    func emptyPhoneNumberAlert(){
-        let alert = UIAlertController(title: NSLocalizedString("empty phoneNumber", comment: ""), message: NSLocalizedString("empty phoneNumber msg", comment: ""), preferredStyle: .actionSheet)
+    func emptySettingInfoAlert(){
+        let alert = UIAlertController(title: NSLocalizedString("empty info", comment: ""), message: NSLocalizedString("empty info msg", comment: ""), preferredStyle: .actionSheet)
         
         let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in
             let phoneNumVC = PhoneNumberModalViewController(nibName: "PhoneNumberModalViewController", bundle: nil)
@@ -126,37 +105,4 @@ class ViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
         
     }
-    
-    func saveUser(){
-        guard let entityDescription = NSEntityDescription.entity(forEntityName: "Users", in: context) else {
-            return
-        }
-        
-        guard let object = NSManagedObject(entity: entityDescription, insertInto: context) as? Users else { return }
-        
-        object.phoneNum = phoneNumber
-        object.phoneMac = phoneMacAddr
-        object.uuid = UUID()
-        
-        appdelegate.saveContext()
-        print("[COREDATA] Users: " + phoneNumber + "//" + phoneMacAddr + " 저장됨.")
-    }
-    
-    //local data 가져옴
-    func fetchData(){
-        print("[COREDATA] fetchData")
-        let fetchRequest: NSFetchRequest<Users> = Users.fetchRequest()
-        
-        let context = appdelegate.persistentContainer.viewContext
-        
-        do{
-            self.users = try context.fetch(fetchRequest)
-            
-        }catch{
-            print(error)
-        }
-        
-    }
 }
-
-

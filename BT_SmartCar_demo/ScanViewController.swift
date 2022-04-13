@@ -12,6 +12,8 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
     @IBOutlet weak var scanListTableView: UITableView!
     var peripheralList : [(peripheral: CBPeripheral, RSSI : Float)] = []
     var deviceModel: DeviceModel!
+    var selected_deviceModel: DeviceModel!
+    var selected_peripheral: CBPeripheral!
     var deviceList: [DeviceModel] = []
     var pastScanList: [DeviceModel] = []
     
@@ -151,11 +153,16 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
     func successConnectionAlert(){
         let connectSuccessAlert = UIAlertController(title: NSLocalizedString("connect success", comment: ""), message: NSLocalizedString("connect success msg", comment: ""), preferredStyle: .actionSheet)
         
-        let confirm = UIAlertAction(title: "확인", style: .default, handler: {_ in self.dismiss(animated: true, completion: nil)})
+        let confirm = UIAlertAction(title: "확인", style: .default, handler: { [self]_ in
+            let loginVC = LoginViewController(nibName: "LoginViewController", bundle: nil)
+            loginVC.device_peripheral = self.selected_peripheral
+            loginVC.device = selected_deviceModel
+            flag = 2
+            self.navigationController?.pushViewController(loginVC, animated: true)})
         
         connectSuccessAlert.addAction(confirm)
         self.present(connectSuccessAlert, animated: true, completion: nil)
-                
+                        
     }
     
     func undefinedAlert(){
@@ -260,7 +267,7 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         print("연결 성공시 호출")
         serial.stopScan()
         
-        serial.delegate = nil
+//        serial.delegate = nil
         successConnectionAlert()
         
         let msg: [UInt8] = [0x11, 0x02, 0x43, 0x4F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
@@ -317,15 +324,18 @@ extension ScanViewController: UITableViewDelegate, UITableViewDataSource {
         
         let loginVC = LoginViewController(nibName: "LoginViewController", bundle: nil)
         loginVC.device = deviceList[indexPath.row]
+        selected_deviceModel = deviceList[indexPath.row]
         
         if let selectedPeripheral = deviceList[indexPath.row].peripheral {
             serial.stopScan()
             print("연결 시도 >>> " + selectedPeripheral.description + "<<<")
             
+            selected_peripheral = selectedPeripheral
             loginVC.device_peripheral = selectedPeripheral
             serial.connectToPeripheral(selectedPeripheral)
         } else { return }
         
+
         self.navigationController?.pushViewController(loginVC, animated: true)
         
     }

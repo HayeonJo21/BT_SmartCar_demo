@@ -16,8 +16,6 @@
 		263D622827B3AD4300713574 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 263D622727B3AD4300713574 /* Assets.xcassets */; };
 		263D622B27B3AD4300713574 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 263D622927B3AD4300713574 /* LaunchScreen.storyboard */; };
 		2682B69527C753880022E627 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2682B69427C753880022E627 /* DeviceModel.swift */; };
-		2687C64827BA3533006C3D63 /* BluetoothDeviceListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2687C64627BA3533006C3D63 /* BluetoothDeviceListViewController.swift */; };
-		2687C64927BA3533006C3D63 /* BluetoothDeviceListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2687C64727BA3533006C3D63 /* BluetoothDeviceListViewController.xib */; };
 		2687C64D27BA487B006C3D63 /* BluetoothSerial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2687C64C27BA487B006C3D63 /* BluetoothSerial.swift */; };
 		26A17CDF27FD1CAC0051CCEC /* DirectCertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A17CDD27FD1CAC0051CCEC /* DirectCertificationViewController.swift */; };
 		26A17CE027FD1CAC0051CCEC /* DirectCertificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26A17CDE27FD1CAC0051CCEC /* DirectCertificationViewController.xib */; };
@@ -33,6 +31,8 @@
 		26CFA85C27F2B1DA00CB9092 /* ControlDialogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26CFA85A27F2B1DA00CB9092 /* ControlDialogViewController.xib */; };
 		26D5BAB327EC1E5D001E3993 /* SwiftSMTP in Frameworks */ = {isa = PBXBuildFile; productRef = 26D5BAB227EC1E5D001E3993 /* SwiftSMTP */; };
 		26D5BAB527EC4155001E3993 /* EmailSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D5BAB427EC4155001E3993 /* EmailSender.swift */; };
+		26D65223280662B8001C5F19 /* EmailCertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D65221280662B8001C5F19 /* EmailCertificationViewController.swift */; };
+		26D65224280662B8001C5F19 /* EmailCertificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26D65222280662B8001C5F19 /* EmailCertificationViewController.xib */; };
 		26D9CC9827EAB4500015E61C /* NumberCertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D9CC9627EAB4500015E61C /* NumberCertificationViewController.swift */; };
 		26D9CC9927EAB4500015E61C /* NumberCertificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26D9CC9727EAB4500015E61C /* NumberCertificationViewController.xib */; };
 		26DA6F7427DAFFC0001BF091 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DA6F7227DAFFC0001BF091 /* LoginViewController.swift */; };
@@ -41,7 +41,6 @@
 		26E665C827F5984300440CB7 /* PhoneNumberModalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26E665C627F5984300440CB7 /* PhoneNumberModalViewController.xib */; };
 		26E784AD2803B72C00B7417B /* MasterAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E784AB2803B72C00B7417B /* MasterAddViewController.swift */; };
 		26E784AE2803B72C00B7417B /* MasterAddViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26E784AC2803B72C00B7417B /* MasterAddViewController.xib */; };
-		26FC370127FC1FB100815032 /* Users.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 26FC36FF27FC1FB100815032 /* Users.xcdatamodeld */; };
 		AEF6861DFC869DF38AC5CFF9 /* Pods_BT_SmartCar_demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3513E5717B2AD78C838DA8E4 /* Pods_BT_SmartCar_demo.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,8 +57,6 @@
 		263D622A27B3AD4300713574 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		263D622C27B3AD4300713574 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2682B69427C753880022E627 /* DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
-		2687C64627BA3533006C3D63 /* BluetoothDeviceListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothDeviceListViewController.swift; sourceTree = "<group>"; };
-		2687C64727BA3533006C3D63 /* BluetoothDeviceListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BluetoothDeviceListViewController.xib; sourceTree = "<group>"; };
 		2687C64C27BA487B006C3D63 /* BluetoothSerial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothSerial.swift; sourceTree = "<group>"; };
 		26A17CDD27FD1CAC0051CCEC /* DirectCertificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectCertificationViewController.swift; sourceTree = "<group>"; };
 		26A17CDE27FD1CAC0051CCEC /* DirectCertificationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DirectCertificationViewController.xib; sourceTree = "<group>"; };
@@ -74,6 +71,8 @@
 		26CFA85927F2B1DA00CB9092 /* ControlDialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlDialogViewController.swift; sourceTree = "<group>"; };
 		26CFA85A27F2B1DA00CB9092 /* ControlDialogViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ControlDialogViewController.xib; sourceTree = "<group>"; };
 		26D5BAB427EC4155001E3993 /* EmailSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSender.swift; sourceTree = "<group>"; };
+		26D65221280662B8001C5F19 /* EmailCertificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailCertificationViewController.swift; sourceTree = "<group>"; };
+		26D65222280662B8001C5F19 /* EmailCertificationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmailCertificationViewController.xib; sourceTree = "<group>"; };
 		26D9CC9627EAB4500015E61C /* NumberCertificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberCertificationViewController.swift; sourceTree = "<group>"; };
 		26D9CC9727EAB4500015E61C /* NumberCertificationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NumberCertificationViewController.xib; sourceTree = "<group>"; };
 		26DA6F7227DAFFC0001BF091 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -83,7 +82,6 @@
 		26E665C627F5984300440CB7 /* PhoneNumberModalViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhoneNumberModalViewController.xib; sourceTree = "<group>"; };
 		26E784AB2803B72C00B7417B /* MasterAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterAddViewController.swift; sourceTree = "<group>"; };
 		26E784AC2803B72C00B7417B /* MasterAddViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MasterAddViewController.xib; sourceTree = "<group>"; };
-		26FC370027FC1FB100815032 /* Users.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Users.xcdatamodel; sourceTree = "<group>"; };
 		3513E5717B2AD78C838DA8E4 /* Pods_BT_SmartCar_demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BT_SmartCar_demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6926BD041B60C88FD5037907 /* Pods-BT_SmartCar_demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BT_SmartCar_demo.release.xcconfig"; path = "Target Support Files/Pods-BT_SmartCar_demo/Pods-BT_SmartCar_demo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -122,41 +120,40 @@
 		263D621D27B3AD4200713574 /* BT_SmartCar_demo */ = {
 			isa = PBXGroup;
 			children = (
-				26FC36FF27FC1FB100815032 /* Users.xcdatamodeld */,
-				26E4519027F6A28200DA39FA /* BT_SmartCar_demo.entitlements */,
 				26B8F47727D593F10031A300 /* Localizable.strings */,
-				26B98EE427E02A84008BFC80 /* LoadingService.swift */,
+				26E4519027F6A28200DA39FA /* BT_SmartCar_demo.entitlements */,
 				263D621E27B3AD4200713574 /* AppDelegate.swift */,
 				26CED26927E40CF000852DA8 /* AES128Util.swift */,
-				26A17CDD27FD1CAC0051CCEC /* DirectCertificationViewController.swift */,
-				26A17CDE27FD1CAC0051CCEC /* DirectCertificationViewController.xib */,
-				26E665C527F5984300440CB7 /* PhoneNumberModalViewController.swift */,
-				26E665C627F5984300440CB7 /* PhoneNumberModalViewController.xib */,
-				26DA6F7227DAFFC0001BF091 /* LoginViewController.swift */,
-				26DA6F7327DAFFC0001BF091 /* LoginViewController.xib */,
-				26CFA85927F2B1DA00CB9092 /* ControlDialogViewController.swift */,
-				26CFA85A27F2B1DA00CB9092 /* ControlDialogViewController.xib */,
 				2687C64C27BA487B006C3D63 /* BluetoothSerial.swift */,
-				26D9CC9627EAB4500015E61C /* NumberCertificationViewController.swift */,
-				26D5BAB427EC4155001E3993 /* EmailSender.swift */,
-				26D9CC9727EAB4500015E61C /* NumberCertificationViewController.xib */,
 				26B30FF327E7FE80003B4D5A /* ControlViewController.swift */,
 				26B30FF427E7FE80003B4D5A /* ControlViewController.xib */,
-				263D622027B3AD4200713574 /* SceneDelegate.swift */,
-				263D622227B3AD4200713574 /* ViewController.swift */,
-				26E784AB2803B72C00B7417B /* MasterAddViewController.swift */,
-				26E784AC2803B72C00B7417B /* MasterAddViewController.xib */,
+				26CFA85927F2B1DA00CB9092 /* ControlDialogViewController.swift */,
+				26CFA85A27F2B1DA00CB9092 /* ControlDialogViewController.xib */,
 				26B30FF927E813B0003B4D5A /* CConfig.swift */,
+				26A17CDD27FD1CAC0051CCEC /* DirectCertificationViewController.swift */,
+				26A17CDE27FD1CAC0051CCEC /* DirectCertificationViewController.xib */,
 				2682B69427C753880022E627 /* DeviceModel.swift */,
+				26D5BAB427EC4155001E3993 /* EmailSender.swift */,
+				26D65221280662B8001C5F19 /* EmailCertificationViewController.swift */,
+				26D65222280662B8001C5F19 /* EmailCertificationViewController.xib */,
 				26B4FF5A27BF55BD004E05B8 /* ScanViewController.swift */,
 				26B4FF5B27BF55BD004E05B8 /* ScanViewController.xib */,
 				263450BA27BB34BD00ADB3C4 /* ScanTableViewCell.swift */,
 				263450BB27BB34BD00ADB3C4 /* ScanTableViewCell.xib */,
-				2687C64627BA3533006C3D63 /* BluetoothDeviceListViewController.swift */,
-				2687C64727BA3533006C3D63 /* BluetoothDeviceListViewController.xib */,
-				263D622427B3AD4200713574 /* Main.storyboard */,
-				263D622727B3AD4300713574 /* Assets.xcassets */,
+				263D622027B3AD4200713574 /* SceneDelegate.swift */,
 				263D622927B3AD4300713574 /* LaunchScreen.storyboard */,
+				26B98EE427E02A84008BFC80 /* LoadingService.swift */,
+				26DA6F7227DAFFC0001BF091 /* LoginViewController.swift */,
+				26DA6F7327DAFFC0001BF091 /* LoginViewController.xib */,
+				26E665C527F5984300440CB7 /* PhoneNumberModalViewController.swift */,
+				26E665C627F5984300440CB7 /* PhoneNumberModalViewController.xib */,
+				26E784AB2803B72C00B7417B /* MasterAddViewController.swift */,
+				26E784AC2803B72C00B7417B /* MasterAddViewController.xib */,
+				263D622427B3AD4200713574 /* Main.storyboard */,
+				26D9CC9627EAB4500015E61C /* NumberCertificationViewController.swift */,
+				26D9CC9727EAB4500015E61C /* NumberCertificationViewController.xib */,
+				263D622227B3AD4200713574 /* ViewController.swift */,
+				263D622727B3AD4300713574 /* Assets.xcassets */,
 				263D622C27B3AD4300713574 /* Info.plist */,
 			);
 			path = BT_SmartCar_demo;
@@ -252,9 +249,9 @@
 				263D622827B3AD4300713574 /* Assets.xcassets in Resources */,
 				263D622627B3AD4200713574 /* Main.storyboard in Resources */,
 				26B8F47827D593F10031A300 /* Localizable.strings in Resources */,
+				26D65224280662B8001C5F19 /* EmailCertificationViewController.xib in Resources */,
 				26B4FF5D27BF55BD004E05B8 /* ScanViewController.xib in Resources */,
 				26A17CE027FD1CAC0051CCEC /* DirectCertificationViewController.xib in Resources */,
-				2687C64927BA3533006C3D63 /* BluetoothDeviceListViewController.xib in Resources */,
 				26D9CC9927EAB4500015E61C /* NumberCertificationViewController.xib in Resources */,
 				263450BD27BB34BD00ADB3C4 /* ScanTableViewCell.xib in Resources */,
 				26E665C827F5984300440CB7 /* PhoneNumberModalViewController.xib in Resources */,
@@ -316,7 +313,7 @@
 				263D622327B3AD4200713574 /* ViewController.swift in Sources */,
 				26B30FFA27E813B0003B4D5A /* CConfig.swift in Sources */,
 				26E784AD2803B72C00B7417B /* MasterAddViewController.swift in Sources */,
-				26FC370127FC1FB100815032 /* Users.xcdatamodeld in Sources */,
+				26D65223280662B8001C5F19 /* EmailCertificationViewController.swift in Sources */,
 				26CED26A27E40CF000852DA8 /* AES128Util.swift in Sources */,
 				26CFA85B27F2B1DA00CB9092 /* ControlDialogViewController.swift in Sources */,
 				26B4FF5C27BF55BD004E05B8 /* ScanViewController.swift in Sources */,
@@ -324,7 +321,6 @@
 				263D621F27B3AD4200713574 /* AppDelegate.swift in Sources */,
 				26D9CC9827EAB4500015E61C /* NumberCertificationViewController.swift in Sources */,
 				263D622127B3AD4200713574 /* SceneDelegate.swift in Sources */,
-				2687C64827BA3533006C3D63 /* BluetoothDeviceListViewController.swift in Sources */,
 				2682B69527C753880022E627 /* DeviceModel.swift in Sources */,
 				2687C64D27BA487B006C3D63 /* BluetoothSerial.swift in Sources */,
 				26A17CDF27FD1CAC0051CCEC /* DirectCertificationViewController.swift in Sources */,
@@ -577,19 +573,6 @@
 			productName = SwiftSMTP;
 		};
 /* End XCSwiftPackageProductDependency section */
-
-/* Begin XCVersionGroup section */
-		26FC36FF27FC1FB100815032 /* Users.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				26FC370027FC1FB100815032 /* Users.xcdatamodel */,
-			);
-			currentVersion = 26FC370027FC1FB100815032 /* Users.xcdatamodel */;
-			path = Users.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 263D621327B3AD4200713574 /* Project object */;
 }

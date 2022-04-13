@@ -10,7 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="BT_SmartCar_demo" customModuleProvider="target">
             <connections>
-                <outlet property="deviceNameLabel" destination="3dZ-1Z-hKS" id="ybH-Ex-acn"/>
+                <outlet property="deviceNameLabel" destination="3dZ-1Z-hKS" id="ySs-RW-Jvl"/>
                 <outlet property="emailTextField" destination="2HX-Uc-OcW" id="Zhr-gI-hrj"/>
                 <outlet property="titleText" destination="fk7-TE-wIO" id="cCI-MB-ttm"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

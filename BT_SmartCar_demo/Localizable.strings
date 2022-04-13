@@ -13,8 +13,8 @@
 "powerOff alert msg" = "블루투스를 켜고 다시 시도해주세요.";
 "sending email" = "메일 전송 완료";
 "sending email msg" = "인증번호가 전송된 메일을 확인해주세요.";
-"empty phoneNumber" = "휴대폰 번호 입력";
-"empty phoneNumber msg" = "휴대폰 번호를 입력해야 서비스를 이용할 수 있습니다.";
+"empty info" = "휴대폰 정보 비어있음";
+"empty info msg" = "휴대폰 정보가 존재하지 않습니다. 다시 확인해주세요.";
 "user failure" = "인증 실패";
 "user failure msg" = "등록되지 않은 사용자입니다. 다시 등록해주세요.";
 "bluetooth error" = "BLUETOOTH ERROR";
