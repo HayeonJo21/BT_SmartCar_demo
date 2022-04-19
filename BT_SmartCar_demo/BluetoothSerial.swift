@@ -44,7 +44,6 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     
     // 기기가 검색될 때 마다 호출되는 메서드
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        print("=== 기기가 검색될 때 마다 호출되는 메서드 ===")
         delegate?.serialDidDiscoverPeripheral(peripheral: peripheral, RSSI: RSSI)
     }
     
@@ -84,7 +83,6 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
                 peripheral.setNotifyValue(true, for: characteristic)
                 writeCharacteristic = characteristic
                 writeType = characteristic.properties.contains(.write) ? .withResponse : .withResponse
-                print("[Write Type] " + writeType.rawValue.description)
                 delegate?.serialDidConnectPeripheral(peripheral: peripheral)
             } else if characteristic.uuid == characteristicUUID_read {
                 readCharacteristic = characteristic
@@ -118,12 +116,16 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     func sendBytesToDevice(_ bytes: [UInt8]){
         print("... 데이터 전송 메소드 호출 ...")
         let data = Data(bytes)
+        connectedPeripheral?.readValue(for: writeCharacteristic!)
+        connectedPeripheral?.readValue(for: readCharacteristic!)
+        
         connectedPeripheral!.writeValue(data, for: writeCharacteristic!, type: writeType)
         connectedPeripheral!.writeValue(data, for: readCharacteristic!, type: writeType_read)
     }
     
     //데이터를 주변 기기에 전송
     func sendDataToDevice(_ data:Data){
+        print("... sendData 메소드 호출 ...")
         connectedPeripheral!.writeValue(data, for: writeCharacteristic!, type: writeType)
     }
     
@@ -131,6 +133,7 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
         stopScan()
         if let data = characteristic.value{
+            response = data.bytes
 //            ControlViewController().decryptDataAndAction(response: data.bytes)
         }else{ return }
     }

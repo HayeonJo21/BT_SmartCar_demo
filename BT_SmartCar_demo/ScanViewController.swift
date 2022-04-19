@@ -189,8 +189,6 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
     // 기기 검색때마다 호출
     func serialDidDiscoverPeripheral(peripheral: CBPeripheral, RSSI: NSNumber?) {
         
-        print("=== ScanViewController: 프로토콜 함수 호출 ===")
-        
         deviceModel = DeviceModel()
         
         //중복 MAC Address 검사
@@ -269,11 +267,13 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         
 //        serial.delegate = nil
         successConnectionAlert()
+        flag = 1
         
-        let msg: [UInt8] = [0x11, 0x02, 0x43, 0x4F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
-        
-//        let encryptMessage = AES128Util().setAES128Encrypt(bytes: msg)
-        serial.sendBytesToDevice(msg)
+//        let msg: [UInt8] = [0x11, 0x02, 0x43, 0x4F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+//
+////        let encryptMessage = AES128Util().setAES128Encrypt(bytes: msg)
+//        serial.sendBytesToDevice(msg)
+//        serial.sendDataToDevice(Data(msg))
             
         DispatchQueue.main.async() {
             flag = 1

@@ -33,7 +33,7 @@ class LoginViewController: UIViewController {
         if flag != 2 {
             LoadingSerivce.showLoading()
         } else if flag == 2 {
-            check_isMaster()
+            //            check_isMaster()
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 45) {
@@ -45,9 +45,22 @@ class LoginViewController: UIViewController {
             }
         }
     }
-
+    
+    func check_response(){
+        var resultData: [UInt8] = Array(repeating: 0x00, count: 16)
+        
+        for i in resultData.startIndex..<resultData.endIndex {
+            resultData[i] = response[i + 1]
+        }
+        
+        if response[0] == 0 {
+            print("Bluetooth alert")
+            bluetoothErrorAlert()
+        }
+    }
+    
     func check_isMaster(){
-      
+        
         if let loginInfo = preferences.object(forKey: "loginInfo"){
             if loginInfo as! String == login {
                 print("=>> [LoginViewController > check_isMaster()] 등록된 핸드폰.")
@@ -88,6 +101,12 @@ class LoginViewController: UIViewController {
         }
     }
     
+    @IBAction func sendingDataTest(_ sender: Any) {
+        let data: [UInt8] = [0x21, 0x5, 0x50, 0x41, 0x4E, 0x49, 0x43, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+        
+        serial.sendBytesToDevice(data)
+    }
+    
     //이메일 유효성 검사 함수
     func isValidEmail(testStr:String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
@@ -110,7 +129,7 @@ class LoginViewController: UIViewController {
     func bluetoothErrorAlert(){
         let alert = UIAlertController(title: NSLocalizedString("bluetooth error", comment: ""), message: NSLocalizedString("bluetooth error msg", comment: ""), preferredStyle: .actionSheet)
         
-        let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.navigationController?.popViewController(animated: true)})
+        let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.navigationController?.popToRootViewController(animated: true)})
         
         alert.addAction(buttonAction)
         self.present(alert, animated: true, completion: nil)

@@ -23,7 +23,7 @@ class EmailCertificationViewController: UIViewController {
         
         deviceName.text = selectedDevice.name
         
-        
+        emailCertification()
 
     }
     
@@ -32,12 +32,15 @@ class EmailCertificationViewController: UIViewController {
         print(">>[Email Certification]<<<")
         var resultData: [UInt8] = Array(repeating: 0x00, count: 16)
         
+        if response.endIndex > 2 {
         for i in resultData.startIndex..<resultData.endIndex {
             resultData[i] = response[i + 1]
         }
+    }
         
         if response[0] == 0 {
             print("Bluetooth alert")
+            serial.manager.cancelPeripheralConnection(selectedPeripheral)
             bluetoothErrorAlert()
         }
     }
@@ -74,7 +77,7 @@ class EmailCertificationViewController: UIViewController {
     func bluetoothErrorAlert(){
         let alert = UIAlertController(title: NSLocalizedString("bluetooth error", comment: ""), message: NSLocalizedString("bluetooth error msg", comment: ""), preferredStyle: .actionSheet)
         
-        let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.navigationController?.popViewController(animated: true)})
+        let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.navigationController?.popToRootViewController(animated: true)})
         
         alert.addAction(buttonAction)
         self.present(alert, animated: true, completion: nil)
