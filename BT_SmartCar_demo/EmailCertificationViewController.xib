@@ -65,6 +65,7 @@
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="HMd-gW-fal" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="7GR-fC-afZ"/>
                 <constraint firstItem="xER-lG-JiY" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="DyJ-2G-vQo"/>
@@ -79,8 +80,16 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="zEl-PX-OOl" secondAttribute="trailing" constant="20" id="sON-gE-h48"/>
                 <constraint firstItem="zEl-PX-OOl" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="z1r-d5-3fo"/>
             </constraints>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="BgO-at-2PV" appends="YES" id="JSU-yz-Gz4"/>
+            </connections>
             <point key="canvasLocation" x="139" y="91"/>
         </view>
+        <tapGestureRecognizer id="BgO-at-2PV">
+            <connections>
+                <action selector="tapBackgroundView:" destination="-1" id="zyv-nV-isR"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="app_carimg" width="480" height="270"/>

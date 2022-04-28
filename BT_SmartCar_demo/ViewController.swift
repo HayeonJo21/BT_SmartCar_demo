@@ -1,3 +1,14 @@
+/*
+ 첫 화면
+ 
+ sharedPreferences 정보
+ - Mac주소 : userMac
+ - Phone number : userPhoneNum
+ - login 정보 : Mac 주소
+ 
+ 를 키로 저장함
+ */
+
 import UIKit
 import CoreBluetooth
 import TAKUUID
@@ -49,7 +60,12 @@ class ViewController: UIViewController {
             self.present(phoneNumVC, animated: true)
             
         } else{
-            print("[ViewController > settingUserInfo()] Phone번호 입력됨.")
+            print("[ViewController > settingUserInfo()] Phone번호 입력됨.\n")
+        }
+        
+        //login 정보
+        if preferences.object(forKey: phoneMacAddr) == nil {
+            preferences.set("out", forKey: phoneMacAddr)
         }
         
         let didSave = preferences.synchronize()

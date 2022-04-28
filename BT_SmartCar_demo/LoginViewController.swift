@@ -2,7 +2,7 @@ import UIKit
 import Foundation
 import CoreBluetooth
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController{
     
     var device: DeviceModel!
     var device_peripheral: CBPeripheral!
@@ -29,21 +29,38 @@ class LoginViewController: UIViewController {
         
         titleText.textColor = .white
         deviceNameLabel.textColor = .white
-        
-        if flag != 2 {
-            LoadingSerivce.showLoading()
-        } else if flag == 2 {
-            //            check_isMaster()
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 45) {
-            if flag != 1 || flag != 2{
-                LoadingSerivce.hideLoading()
-                self.connectFailureAlert()
-            }else {
-                return
+            
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        check_isMaster()
+
+    }
+    
+    //사용자 정보 체크해서 email, direct로 화면 전환
+    func check_isMaster(){
+        print("== 사용자 정보 체크 ==")
+        if let loginInfo = preferences.object(forKey: phoneMacAddr){
+            if loginInfo as! String == login {
+                print("=>> [LoginViewController > check_isMaster()] 등록된 핸드폰.")
+                
+                let directVC = DirectCertificationViewController(nibName: "DirectCertificationViewController", bundle: nil)
+                directVC.selectedPeripheral = device_peripheral
+                
+                directVC.device = device
+                
+                self.navigationController?.pushViewController(directVC, animated: true)
+            } else {
+                print("=>> [LoginViewController > check_isMaster()] 미등록 핸드폰.")
+                let emailCertiVC = EmailCertificationViewController(nibName: "EmailCertificationViewController", bundle: nil)
+                
+                emailCertiVC.selectedDevice = device
+                emailCertiVC.selectedPeripheral = device_peripheral
+                
+                self.navigationController?.pushViewController(emailCertiVC, animated: true)
             }
         }
+        
     }
     
     func check_response(){
@@ -59,32 +76,7 @@ class LoginViewController: UIViewController {
         }
     }
     
-    func check_isMaster(){
-        
-        if let loginInfo = preferences.object(forKey: "loginInfo"){
-            if loginInfo as! String == login {
-                print("=>> [LoginViewController > check_isMaster()] 등록된 핸드폰.")
-                //TODO: DirectCertification 해야함 거기서 컨트롤로 보낼지 말지 결정
-                
-                let controlVC = ControlViewController(nibName: "ControlViewController", bundle: nil)
-                controlVC.connectedPeripheral = device_peripheral
-                
-                controlVC.connectedPeripheral = device_peripheral
-                self.navigationController?.pushViewController(controlVC, animated: true)
-            }
-        } else {
-            print("=>> [LoginViewController > check_isMaster()] 미등록 핸드폰.")
-            let emailCertiVC = EmailCertificationViewController(nibName: "EmailCertificationViewController", bundle: nil)
-            
-            emailCertiVC.selectedDevice = device
-            emailCertiVC.selectedPeripheral = device_peripheral
-            
-            self.navigationController?.pushViewController(emailCertiVC, animated: true)
-        }
-        
-    }
-    
-    //login 버튼을 눌렀을 시 이메일 인증 시작
+    //login 버튼을 눌렀을 때 호출
     @IBAction func loginBtn(_ sender: Any) {
         
         if let email = emailTextField.text {
@@ -99,12 +91,6 @@ class LoginViewController: UIViewController {
                 self.navigationController?.pushViewController(numberCertiVC, animated: true)
             }
         }
-    }
-    
-    @IBAction func sendingDataTest(_ sender: Any) {
-        let data: [UInt8] = [0x21, 0x5, 0x50, 0x41, 0x4E, 0x49, 0x43, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
-        
-        serial.sendBytesToDevice(data)
     }
     
     //이메일 유효성 검사 함수

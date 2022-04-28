@@ -17,6 +17,8 @@
 "empty info msg" = "휴대폰 정보가 존재하지 않습니다. 다시 확인해주세요.";
 "user failure" = "인증 실패";
 "user failure msg" = "등록되지 않은 사용자입니다. 다시 등록해주세요.";
-"bluetooth error" = "BLUETOOTH ERROR";
-"bluetooth error msg" = "BLUETOOTH ERROR 입니다. 처음으로 돌아갑니다.";
+"bluetooth error" = "Bluetooth Error";
+"bluetooth error msg" = "처음으로 돌아갑니다.";
+"key value" = "Key Fail";
+"key value msg" = "전달 받은 키값이 다릅니다.";
 

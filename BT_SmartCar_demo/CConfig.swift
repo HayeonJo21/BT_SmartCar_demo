@@ -35,7 +35,7 @@ var  phoneNumber = ""
 var  phoneMacAddr = ""
 let  master_email = "rndtest@norma.co.kr"
 let  master_pwd = "normarnd123"
-let  email_title = "[BLE SMART CAR] Certification Number "
+let  email_title = "[BT SMART CAR] E-MAIL VERIFICATION"
 var response: [UInt8] = [0]
 
 

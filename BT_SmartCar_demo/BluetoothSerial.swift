@@ -59,12 +59,9 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     // service 검색에 성공 시 호출되는 메서드
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         stopScan()
-        print("=== 서비스 검색에 성공시 호출되는 메서드 ===")
-        if let servicesDes = peripheral.services?.description {
-            print("===>" + servicesDes + "<===")
-        }
+        print("=== 서비스 검색에 성공시 호출 ===")
+        
         for service in peripheral.services! {
-            print("***** Service: \(service) ******")
             peripheral.discoverCharacteristics(nil, for: service)
         }
     }
@@ -72,14 +69,11 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     // characteristic 검색에 성공 시 호출되는 메서드
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         stopScan()
-        print("=== Characteristics 검색에 성공시 호출되는 메서드 ===")
-        print("**** " + service.characteristics!.description + " &&&&")
         for characteristic in service.characteristics! {
-            print("***** 통신을 위한 설정 시작 ******")
+            print("[통신을 위한 설정 시작]")
             peripheral.readValue(for: characteristic)
-
             if characteristic.uuid == characteristicUUID_write{
-                print("[CHAR UUID] " + characteristic.uuid.description)
+                print("[CHAR UUID] " + characteristic.uuid.description + "\n")
                 peripheral.setNotifyValue(true, for: characteristic)
                 writeCharacteristic = characteristic
                 writeType = characteristic.properties.contains(.write) ? .withResponse : .withResponse
@@ -94,15 +88,17 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     
     //peripheral로부터 데이터를 전송받으면 호출되는 메서드
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?){
-        print("... 전송 받은 데이터가 존재하는지 확인 ...")
-        print(".. For characteristic : [\(characteristic.description)]")
         if let data = characteristic.value {
-            print("-- 전송 받은 데이터: \(data.bytes.description)")
-            print("--- Base64 Encoded String: " + data.base64EncodedString())
-            response = data.bytes
-        }else{ return }
-    }
+            print("** [전송 받은 데이터] : \(data.toHexString())\n\n")
 
+            response = data.bytes
+                        
+        }else{
+            print("XXxx 전송 받은 데이터 없음 xxXX\n")
+            return
+            
+        }
+    }
     
     //String 형식으로 데이터를 주변 기기에 전송
     func sendMessageToDevice(_ message: String){
@@ -114,18 +110,16 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     
     //데이터 Array를 Byte 형식으로 주변기기에 전송
     func sendBytesToDevice(_ bytes: [UInt8]){
-        print("... 데이터 전송 메소드 호출 ...")
+        print(">> [Bluetooth Serial] 데이터 전송 메소드 호출\n")
         let data = Data(bytes)
-        connectedPeripheral?.readValue(for: writeCharacteristic!)
         connectedPeripheral?.readValue(for: readCharacteristic!)
         
         connectedPeripheral!.writeValue(data, for: writeCharacteristic!, type: writeType)
-        connectedPeripheral!.writeValue(data, for: readCharacteristic!, type: writeType_read)
     }
     
     //데이터를 주변 기기에 전송
     func sendDataToDevice(_ data:Data){
-        print("... sendData 메소드 호출 ...")
+        print(">> [Bluetooth Serial] Data 형식으로 데이터 전송\n")
         connectedPeripheral!.writeValue(data, for: writeCharacteristic!, type: writeType)
     }
     
@@ -140,12 +134,12 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     
     func peripheral(_ peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: Error?) {
         // 블루투스 기기의 신호 강도를 요청하는 peripheral.readRSSI가 호출하는 함수
-        // 신호 강도와 관련된 코드를 작성
+        // 신호 강도와 관련된 코드 작성
     }
     
     override init() {
         super.init()
-        print("=== bluetooth serial init called ===")
+        print("=== Bluetooth Serial init called ===")
         manager = CBCentralManager.init(delegate: self, queue: .main)
     }
     

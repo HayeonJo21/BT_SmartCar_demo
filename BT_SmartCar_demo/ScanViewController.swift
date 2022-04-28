@@ -18,7 +18,7 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
     var pastScanList: [DeviceModel] = []
     
     let options: [String : Any] = [CBCentralManagerScanOptionAllowDuplicatesKey:NSNumber(value: false)]
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,7 +43,7 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         
         serial.delegate = self
         self.startScan()
-    
+        
     }
     
     //네비게이션 뷰 아이템 설정
@@ -95,7 +95,7 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         }
         settingAlert.addAction(okAction)
         self.present(settingAlert, animated: true, completion: nil)
-       
+        
     }
     
     //Refresh 초기 설정
@@ -127,64 +127,6 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         stopAlert()
     }
     
-    /**
-     Alert 함수들
-     */
-    func stopAlert(){
-        let alert = UIAlertController(title: NSLocalizedString("stop scanning", comment: ""), message: nil, preferredStyle: .actionSheet)
-        
-        let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.navigationController?.popViewController(animated: true)})
-        
-        alert.addAction(buttonAction)
-        self.present(alert, animated: true, completion: nil)
-        
-    }
-    
-    func connectFailureAlert(){
-        let alert = UIAlertController(title: NSLocalizedString("connect failure", comment: ""), message: NSLocalizedString("connect failure msg", comment: ""), preferredStyle: .actionSheet)
-        
-        let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.navigationController?.popViewController(animated: true)})
-        
-        alert.addAction(buttonAction)
-        self.present(alert, animated: true, completion: nil)
-        
-    }
-    
-    func successConnectionAlert(){
-        let connectSuccessAlert = UIAlertController(title: NSLocalizedString("connect success", comment: ""), message: NSLocalizedString("connect success msg", comment: ""), preferredStyle: .actionSheet)
-        
-        let confirm = UIAlertAction(title: "확인", style: .default, handler: { [self]_ in
-            let loginVC = LoginViewController(nibName: "LoginViewController", bundle: nil)
-            loginVC.device_peripheral = self.selected_peripheral
-            loginVC.device = selected_deviceModel
-            flag = 2
-            self.navigationController?.pushViewController(loginVC, animated: true)})
-        
-        connectSuccessAlert.addAction(confirm)
-        self.present(connectSuccessAlert, animated: true, completion: nil)
-                        
-    }
-    
-    func undefinedAlert(){
-        let alert = UIAlertController(title: NSLocalizedString("bluetooth status alert", comment: ""), message: NSLocalizedString("back to home alert", comment: ""), preferredStyle: .actionSheet)
-        
-        let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.navigationController?.popViewController(animated: true)})
-        
-        alert.addAction(buttonAction)
-        self.present(alert, animated: true, completion: nil)
-        
-    }
-    
-    func powerOffAlert(){
-        let alert = UIAlertController(title: NSLocalizedString("powerOff alert", comment: ""), message: NSLocalizedString("powerOff alert msg", comment: ""), preferredStyle: .actionSheet)
-        
-        let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.navigationController?.popViewController(animated: true)})
-        
-        alert.addAction(buttonAction)
-        self.present(alert, animated: true, completion: nil)
-        
-    }
-    
     
     // 기기 검색때마다 호출
     func serialDidDiscoverPeripheral(peripheral: CBPeripheral, RSSI: NSNumber?) {
@@ -202,9 +144,7 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         if peripheral.name == nil || peripheral.name == "" {
             return
         }
-        
-        print(">> 최종 검색된 디바이스: " + peripheral.description)
-        
+                
         let fRSSI = RSSI?.floatValue ?? 0.0
         let uuidString = peripheral.identifier.uuidString
         
@@ -246,7 +186,6 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
             //재 스캔시 이전 스캔된 Device의 MAC Address가 변경되었는지 확인
             if !pastScanList.isEmpty{
                 for pastDevice in pastScanList {
-                    print(">>> 재 스캔 검사 <<<")
                     if let name = device.name {
                         if pastDevice.name == name {
                             if device.identifier.uuidString != pastDevice.uuid {
@@ -265,26 +204,88 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         print("연결 성공시 호출")
         serial.stopScan()
         
-//        serial.delegate = nil
         successConnectionAlert()
         flag = 1
         
-//        let msg: [UInt8] = [0x11, 0x02, 0x43, 0x4F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
-//
-////        let encryptMessage = AES128Util().setAES128Encrypt(bytes: msg)
-//        serial.sendBytesToDevice(msg)
-//        serial.sendDataToDevice(Data(msg))
-            
+        let msg: [UInt8] = [0x11, 0x02, 0x43, 0x4F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+        
+        print(">> [ScanViewController] 연결 성공 시 보내는 메시지 : \(msg.toHexString())")
+        serial.sendBytesToDevice(msg)
+        
         DispatchQueue.main.async() {
             flag = 1
-            LoadingSerivce.hideLoading()
-        }
+            LoadingSerivce.hideLoading() }
+        
     }
+    
+    
+    /**
+     Alert 함수들
+     */
+    func stopAlert(){
+        let alert = UIAlertController(title: NSLocalizedString("stop scanning", comment: ""), message: nil, preferredStyle: .actionSheet)
+        
+        let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.navigationController?.popViewController(animated: true)})
+        
+        alert.addAction(buttonAction)
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
+    func connectFailureAlert(){
+        let alert = UIAlertController(title: NSLocalizedString("connect failure", comment: ""), message: NSLocalizedString("connect failure msg", comment: ""), preferredStyle: .actionSheet)
+        
+        let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.navigationController?.popViewController(animated: true)})
+        
+        alert.addAction(buttonAction)
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
+    func successConnectionAlert(){
+        let connectSuccessAlert = UIAlertController(title: NSLocalizedString("connect success", comment: ""), message: NSLocalizedString("connect success msg", comment: ""), preferredStyle: .actionSheet)
+        
+        let confirm = UIAlertAction(title: "확인", style: .default) { _ in
+            
+            let loginVC = LoginViewController(nibName: "LoginViewController", bundle: nil)
+            loginVC.device = self.selected_deviceModel
+
+            loginVC.device_peripheral = self.selected_peripheral
+            self.navigationController?.pushViewController(loginVC, animated: true)
+            
+        }
+        
+        connectSuccessAlert.addAction(confirm)
+        self.present(connectSuccessAlert, animated: true, completion: nil)
+        
+    }
+    
+    func undefinedAlert(){
+        let alert = UIAlertController(title: NSLocalizedString("bluetooth status alert", comment: ""), message: NSLocalizedString("back to home alert", comment: ""), preferredStyle: .actionSheet)
+        
+        let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.navigationController?.popViewController(animated: true)})
+        
+        alert.addAction(buttonAction)
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
+    func powerOffAlert(){
+        let alert = UIAlertController(title: NSLocalizedString("powerOff alert", comment: ""), message: NSLocalizedString("powerOff alert msg", comment: ""), preferredStyle: .actionSheet)
+        
+        let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.navigationController?.popViewController(animated: true)})
+        
+        alert.addAction(buttonAction)
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
+    
 }
 
 /**
  테이블 뷰 delegate 구현
- */  
+ */
 extension ScanViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return deviceList.count
@@ -322,21 +323,29 @@ extension ScanViewController: UITableViewDelegate, UITableViewDataSource {
         
         serial.stopScan()
         
-        let loginVC = LoginViewController(nibName: "LoginViewController", bundle: nil)
-        loginVC.device = deviceList[indexPath.row]
+        
         selected_deviceModel = deviceList[indexPath.row]
         
         if let selectedPeripheral = deviceList[indexPath.row].peripheral {
             serial.stopScan()
             print("연결 시도 >>> " + selectedPeripheral.description + "<<<")
             
+            
+            LoadingSerivce.showLoading()
+            
             selected_peripheral = selectedPeripheral
-            loginVC.device_peripheral = selectedPeripheral
             serial.connectToPeripheral(selectedPeripheral)
+            
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 45) {
+//                if flag != 1{
+//                    LoadingSerivce.hideLoading()
+//                    self.connectFailureAlert()
+//                }else {
+//                    return
+//                }
+//            }
+//            
         } else { return }
-        
-
-        self.navigationController?.pushViewController(loginVC, animated: true)
         
     }
     

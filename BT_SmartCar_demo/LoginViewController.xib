@@ -76,19 +76,6 @@
                         <constraint firstAttribute="height" constant="40" id="tQj-OU-1cy"/>
                     </constraints>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s4f-1z-gxf">
-                    <rect key="frame" x="20" y="661" width="374" height="45"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="45" id="biz-NC-2Rp"/>
-                    </constraints>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="gray" title="패킷 전송 테스트">
-                        <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="18"/>
-                    </buttonConfiguration>
-                    <connections>
-                        <action selector="sendingDataTest:" destination="-1" eventType="touchUpInside" id="loc-6I-DTq"/>
-                    </connections>
-                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -103,11 +90,8 @@
                 <constraint firstItem="4P1-lG-GvR" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="HBF-5b-NOg"/>
                 <constraint firstItem="2HX-Uc-OcW" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="Hs6-Li-Moy"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="gZB-py-uvL" secondAttribute="trailing" constant="20" id="Jo0-vv-yp9"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="s4f-1z-gxf" secondAttribute="trailing" constant="20" id="QNO-jr-q39"/>
                 <constraint firstItem="1L8-U8-zlE" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" multiplier="1.6" id="QPm-Cr-oNl"/>
-                <constraint firstItem="s4f-1z-gxf" firstAttribute="top" secondItem="gZB-py-uvL" secondAttribute="bottom" constant="30" id="Qgq-X3-jfn"/>
                 <constraint firstItem="gZB-py-uvL" firstAttribute="top" secondItem="2HX-Uc-OcW" secondAttribute="bottom" constant="15" id="SEC-gF-hct"/>
-                <constraint firstItem="s4f-1z-gxf" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="a1M-Dl-adB"/>
                 <constraint firstItem="4P1-lG-GvR" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="0.98" id="bgw-03-ioR"/>
                 <constraint firstItem="2HX-Uc-OcW" firstAttribute="top" secondItem="4P1-lG-GvR" secondAttribute="bottom" constant="80" id="cER-1K-Nhb"/>
                 <constraint firstItem="1L8-U8-zlE" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="1.92" id="hEJ-2U-sdZ"/>

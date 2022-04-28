@@ -44,9 +44,8 @@ class ControlViewController: UIViewController {
         
         sendDataByte += cmd.bytes
         sendDataByte += encryptData.bytes
-        
+
         serial.sendBytesToDevice(sendDataByte)
-        
     }
     
     /*
@@ -150,7 +149,7 @@ class ControlViewController: UIViewController {
                 }
             } else if type.caseInsensitiveCompare("B3") == ComparisonResult.orderedSame {
                 if decryptData[1] == 0x31 {
-                    let value = parseHexCode(bytes: decryptData, cnt: 2)
+                    let value = parseHexCode(bytes: decryptData)
                     
                     if value.caseInsensitiveCompare("31") == ComparisonResult.orderedSame {
                         print("ㄱ")
@@ -226,7 +225,7 @@ class ControlViewController: UIViewController {
                 sendRequestData(cmd: RESPONSE_JOG_CMD, data: "0xB5" + SUCCESS)
             } else if type.caseInsensitiveCompare("B6") == ComparisonResult.orderedSame
                         && decryptData[2] == 0x00 {
-                let value = parseHexCode(bytes: decryptData, cnt: 1)
+                let value = parseHexCode(bytes: decryptData)
                 
                 if value.caseInsensitiveCompare("A1") == ComparisonResult.orderedSame {
                     print("BACK 버튼을 터치해주세요.")
@@ -252,20 +251,6 @@ class ControlViewController: UIViewController {
         }
     }
         
-    //command 패킷 가져오는 함수
-    func parseCMDCode(bytes: [UInt8]) -> String{
-        let data = bytes.toBase64()
-        let cmd = data.split(separator: " ")
-        
-        return String(cmd[0])
-    }
-    
-    func parseHexCode(bytes: [UInt8], cnt: Int) -> String {
-        let data = bytes.toHexString()
-        let cmd = data.split(separator: " ")
-        
-        return String(cmd[cnt])
-    }
     
     /*
      Alert 함수

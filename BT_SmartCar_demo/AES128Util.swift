@@ -1,31 +1,38 @@
 import Foundation
 import CryptoSwift
 
+var CIPHER_KEY: [UInt8]!
+var TEMP_KEY: [UInt8]!
+
 class AES128Util {
-    private let SECRET_KEY = "0123456789abcdef" //16 bytes
+    private var SECRET_KEY = CIPHER_KEY //16 bytes
     private let IV = "" // IV지정
     
     func getAES128Object() -> AES { //설정 값 지정
-        let keyDecodes: [UInt8] = SECRET_KEY.bytes
+        let keyDecodes: [UInt8] = CIPHER_KEY
+        print(">>> KeyDecodes(키값): \(CIPHER_KEY.debugDescription)")
+        print(">>> KeyDecodes(키값 HEX STRING): \(CIPHER_KEY.toHexString())")
+
         var ivDecodes: [UInt8] = []
         
         if IV != "" || self.IV.count > 0 {
             ivDecodes = IV.bytes
         }else{
-            ivDecodes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            ivDecodes = [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
         }
         
-        let aesObject = try! AES(key: keyDecodes, blockMode: CBC(iv: ivDecodes), padding: .pkcs7)
+        let aesObject = try! AES(key: keyDecodes, blockMode: CBC(iv: ivDecodes), padding: .noPadding)
         
         return aesObject
     }
     
-    //암호화
+    //암호화(string)
     func setAES128EncryptString(string: String) -> String {
         guard !string.isEmpty else { return "" }
         return try! self.getAES128Object().encrypt(string.bytes).toBase64()
     }
     
+    //암호화(bytes)
     func setAES128Encrypt(bytes: [UInt8]) -> [UInt8] {
         return try! self.getAES128Object().encrypt(bytes)
     }

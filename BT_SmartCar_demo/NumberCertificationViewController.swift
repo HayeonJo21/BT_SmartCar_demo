@@ -12,6 +12,9 @@ class NumberCertificationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        numberTextField.keyboardType = .numberPad
+        
         sendEmailAlert()
         showingRemainTime()
         
@@ -20,6 +23,7 @@ class NumberCertificationViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.title = "BluetoothLE Smart Car Service"
+        self.view.backgroundColor = UIColor(patternImage: (UIImage(named: "dpbgblue_00")!))
         self.navigationController?.navigationBar.prefersLargeTitles = false
     }
     
@@ -53,7 +57,7 @@ class NumberCertificationViewController: UIViewController {
             let sec = self.timeSet % 60
             
             if self.timeSet > 0 {
-                self.timeLabel.text = "\(min)분 \(sec)초 남음"
+                self.timeLabel.text = "⏰ \(min)분 \(sec)초 남음"
             }else{
                 self.timeLabel.text = "인증 시간 만료"
                 self.navigationController?.popViewController(animated: true)

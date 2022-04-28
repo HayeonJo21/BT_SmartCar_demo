@@ -56,10 +56,10 @@
                     <color key="textColor" red="0.0" green="0.19461959029483067" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="남은시간" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1pO-7o-SQR">
-                    <rect key="frame" x="181" y="429" width="52" height="18"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 남은시간" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1pO-7o-SQR">
+                    <rect key="frame" x="179" y="429" width="56" height="18"/>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                    <color key="textColor" systemColor="systemRedColor"/>
+                    <color key="textColor" red="1" green="0.056107677723830074" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="norma_logo" translatesAutoresizingMaskIntoConstraints="NO" id="6vF-gK-Rho">
@@ -91,7 +91,7 @@
                 <constraint firstItem="hZK-7d-qsU" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="hhp-nL-zev"/>
                 <constraint firstItem="hZK-7d-qsU" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="1.56" id="wwY-D0-Ehh"/>
             </constraints>
-            <point key="canvasLocation" x="137.68115942028987" y="105.80357142857143"/>
+            <point key="canvasLocation" x="425" y="64"/>
         </view>
     </objects>
     <resources>
@@ -99,9 +99,6 @@
         <image name="norma_logo" width="774" height="209"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
