@@ -132,6 +132,10 @@ class EmailCertificationViewController: UIViewController {
                     serial.sendBytesToDevice(sendingData)
                 }
             }
+        } else if response[0] == 0x53 {
+            if certiuser == 3 {
+                print("-------- 0x53 - ok | send Mac Address")
+            }
         }
     }
     

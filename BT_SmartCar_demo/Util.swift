@@ -79,6 +79,29 @@ func makingHexStringToByteArray(str: String) -> [UInt8] {
     return result
 }
 
+func parsingMacAddress(mac: String) {
+//    var result:[UInt8] = []
+    var temp = mac.split(by: 2)
+    var item = ""
+    var itemString = ""
+    
+    for i in 0...4 {
+        temp[i] += "3A"
+    }
+    print(">>> temp: \(temp.debugDescription)")
+    
+    for i in 0...5 {
+        item += temp[i]
+    }
+    print(">>> item: \(item.debugDescription)")
+
+    let hexMac = item.hexaBytes
+    
+    print(">>> HexaBytes MAC: \(hexMac.debugDescription)")
+//
+//    return result
+}
+
 extension StringProtocol {
     var hexaData: Data { .init(hexa) }
     var hexaBytes: [UInt8] { .init(hexa) }
@@ -90,5 +113,19 @@ extension StringProtocol {
             defer { startIndex = endIndex }
             return UInt8(self[startIndex..<endIndex], radix: 16)
         }
+    }
+}
+extension String {
+    func split(by length: Int) -> [String] {
+        var startIndex = self.startIndex
+        var results = [Substring]()
+
+        while startIndex < self.endIndex {
+            let endIndex = self.index(startIndex, offsetBy: length, limitedBy: self.endIndex) ?? self.endIndex
+            results.append(self[startIndex..<endIndex])
+            startIndex = endIndex
+        }
+
+        return results.map { String($0) }
     }
 }

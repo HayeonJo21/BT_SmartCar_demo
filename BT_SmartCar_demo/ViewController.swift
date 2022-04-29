@@ -88,7 +88,13 @@ class ViewController: UIViewController {
         let startIndex = mac.index(mac.startIndex, offsetBy: 24)
         let endIndex = mac.index(mac.startIndex, offsetBy: 35)
         
-        let sliced_mac = mac[startIndex ..< endIndex]
+        var sliced_mac = mac[startIndex ..< endIndex]
+        
+        if sliced_mac.count < 16 {
+            for _ in 0 ..< 12 - sliced_mac.count{
+                sliced_mac += "0"
+            }
+        }
         
         return String(sliced_mac)
     }
@@ -98,6 +104,14 @@ class ViewController: UIViewController {
         let scanListVC = ScanViewController(nibName: "ScanViewController", bundle: nil)
         
         self.navigationController?.pushViewController(scanListVC, animated: true)
+        
+        print("Phone Number: \(preferences.object(forKey: "userPhoneNum").debugDescription)\n")
+        
+        guard let mac = preferences.object(forKey: "userMac") else { return }
+        
+        parsingMacAddress(mac: mac as! String)
+        
+        print("MAC Address: \(preferences.object(forKey: "userMac").debugDescription)\n")
         
     }
     

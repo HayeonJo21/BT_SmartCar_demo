@@ -58,7 +58,7 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
     
     // 기기 검색을 시작할 함수
     func startScan(){
-        print("=== 스캔 시작 ===")
+        print("\n=== 스캔 시작 ===\n")
         
         switch serial.manager.state {
         case .unknown:
