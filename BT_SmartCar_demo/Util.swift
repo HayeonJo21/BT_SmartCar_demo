@@ -8,6 +8,7 @@ func parseCMDCode(bytes: [UInt8]) -> String{
     return String(cmd[0])
 }
 
+//command 패킷을 Hexadecimal로 가져오는 함수
 func parseHexCode(bytes: [UInt8]) -> String {
     let data = bytes.toHexString()
     let startIndex = data.index(data.startIndex, offsetBy: 0)
@@ -18,24 +19,26 @@ func parseHexCode(bytes: [UInt8]) -> String {
     return String(cmd)
 }
 
+//email 문자열의 길이와 함께 이메일 주소를 hexadecimal format으로 바꾸는 함수
 func stringToHex0x(data: String) -> String {
     var result = ""
     
     let lengthHexString = String(format: "%02X", data.count)
     
-     result = lengthHexString
-//    result = "0x" + lengthHexString
+    result = lengthHexString
+    //    result = "0x" + lengthHexString
     
     for i in 0 ... data.count - 1 {
         let item = data[data.index(data.startIndex, offsetBy: i)].description.utf8
         let hexItem = item.map{ String(format: "%02x", $0)}.joined()
         result += hexItem
-//        result += "0x" + hexItem
+        //        result += "0x" + hexItem
     }
     
     return result
 }
 
+//길이정보 없이 String을 hexadecimal string으로 바꾸는 함수
 func stringToHex0xWithoutLength(data: String) -> String {
     var result = ""
     
@@ -48,7 +51,7 @@ func stringToHex0xWithoutLength(data: String) -> String {
     return result
 }
 
-
+// 0x00을 추가하여 문자열의 길이를 16바이트로 맞추는 함수
 func makingStringLength16(str: String) -> String {
     var result = ""
     
@@ -65,6 +68,7 @@ func makingStringLength16(str: String) -> String {
     return result
 }
 
+// hexaString을 uint8 바이트 배열로 바꾸는 함수
 func makingHexStringToByteArray(str: String) -> [UInt8] {
     
     let sliceItemByte = str.hexaBytes
@@ -79,8 +83,9 @@ func makingHexStringToByteArray(str: String) -> [UInt8] {
     return result
 }
 
+//맥 주소를 파싱하는 함수
 func parsingMacAddress(mac: String) -> [UInt8] {
-
+    
     var temp = mac.split(by: 2)
     var item = ""
     
@@ -96,6 +101,13 @@ func parsingMacAddress(mac: String) -> [UInt8] {
     print(">>> Mac parsing: \(result.debugDescription)")
     
     return result
+}
+
+//응답 메시지 로그 가독성을 위한 함수
+func logParsing(str: String) ->[String]{
+    let log = str.split(by: 2)
+    
+    return log
 }
 
 extension StringProtocol {
@@ -115,13 +127,13 @@ extension String {
     func split(by length: Int) -> [String] {
         var startIndex = self.startIndex
         var results = [Substring]()
-
+        
         while startIndex < self.endIndex {
             let endIndex = self.index(startIndex, offsetBy: length, limitedBy: self.endIndex) ?? self.endIndex
             results.append(self[startIndex..<endIndex])
             startIndex = endIndex
         }
-
+        
         return results.map { String($0) }
     }
 }

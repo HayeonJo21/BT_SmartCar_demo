@@ -21,4 +21,6 @@
 "bluetooth error msg" = "처음으로 돌아갑니다.";
 "key value" = "Key Fail";
 "key value msg" = "전달 받은 키값이 다릅니다.";
+"error alert" = "Error";
+"error alert msg" = "다시 시도해주세요.";
 

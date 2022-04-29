@@ -9,7 +9,11 @@ class EmailCertificationViewController: UIViewController {
     var selectedDevice: DeviceModel!
     var selectedPeripheral: CBPeripheral!
     var keyFlag = false
+    var msgFlag = false
     var certiuser = 0
+    
+    var resultData: [UInt8] = Array(repeating: 0x00, count: 16)
+    let cmd = parseHexCode(bytes: response)
     
     @IBAction func tapBackgroundView(_ sender: Any) {
         view.endEditing(true)
@@ -48,8 +52,6 @@ class EmailCertificationViewController: UIViewController {
     
     //EmailCertification
     func receivingData(){
-        var resultData: [UInt8] = Array(repeating: 0x00, count: 16)
-        let cmd = parseHexCode(bytes: response)
         
         if response.endIndex > 2 {
             for i in resultData.startIndex..<resultData.endIndex {
@@ -57,16 +59,16 @@ class EmailCertificationViewController: UIViewController {
             }
         }
         
+        //TODO: 복호화
+        
+        
+        
         print(">> [EmailCertification] 응답 Bytes: \(response.description)")
         print(">> [EmailCertification] 응답 Hex: \(response.toHexString())")
         print(">> [EmailCertification] 가공한 응답: \(resultData.toHexString())")
         print(">> [EmailCertification] 커맨드: \(cmd) \n")
         
-        if cmd == "00" {
-            print("Bluetooth alert")
-            serial.manager.cancelPeripheralConnection(selectedPeripheral)
-            bluetoothErrorAlert()
-        }else if cmd.caseInsensitiveCompare("A2") == ComparisonResult.orderedSame {
+      if cmd.caseInsensitiveCompare("A2") == ComparisonResult.orderedSame {
             if (response[1] == 0x01) && (response[2] == 0x0F) {
                 //TODO: 전달받은 키값이 맞다면 키값 적용
                 print("키값 적용\n")
@@ -86,7 +88,7 @@ class EmailCertificationViewController: UIViewController {
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                         print(">> [EmailCertification] 키값 저장 후 데이터 보냄\n")
-                        let data = [0xA2] + resultData
+                        let data = [0xA2] + self.resultData
                         print(">>> data: \(data.toHexString())")
                         serial.sendBytesToDevice(data)
                     }
@@ -103,14 +105,12 @@ class EmailCertificationViewController: UIViewController {
                     print(">> [EmailCertification] 0x52 데이터 보냄\n")
                     let emailItem = stringToHex0x(data: Email_addr) + makingStringLength16(str: Email_addr)
                     
+                    //sending data
                     let emailHexaItem = makingHexStringToByteArray(str: emailItem)
-                    
-                    let aes128 = AES128Util().setAES128Encrypt(bytes: emailHexaItem)
-                    
                     let cmdPacket:[UInt8] = [0x52]
                     
-                    let sendingData = (cmdPacket + aes128)
-                    serial.sendBytesToDevice(sendingData)
+                    self.sendRequestData(cmd: cmdPacket, data: emailHexaItem)
+                    
                 }
             }
         } else if response[0] == 0x52 {
@@ -120,16 +120,15 @@ class EmailCertificationViewController: UIViewController {
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                     print(">> [EmailCertification] 0x53 데이터 보냄\n")
+                    
+                    //sending data
                     let phoneItem = stringToHex0xWithoutLength(data: phoneNumber) + makingStringLength16(str: phoneNumber)
                     
                     let phoneHexaItem = makingHexStringToByteArray(str: phoneItem)
-                    
-                    let aes128 = AES128Util().setAES128Encrypt(bytes: phoneHexaItem)
-                    
                     let cmdPacket:[UInt8] = [0x53]
                     
-                    let sendingData = (cmdPacket + aes128)
-                    serial.sendBytesToDevice(sendingData)
+                    self.sendRequestData(cmd: cmdPacket, data: phoneHexaItem)
+
                 }
             }
         } else if response[0] == 0x53 {
@@ -139,16 +138,30 @@ class EmailCertificationViewController: UIViewController {
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                     
+                    //sending data
                     let macPacket = parsingMacAddress(mac: phoneMacAddr) + [0x00, 0x00, 0x00, 0x00, 0x00]
-                    
-                    let aes128 = AES128Util().setAES128Encrypt(bytes: macPacket)
-                    
                     let cmdPacket:[UInt8] = [0x54]
-                    
-                    let sendingData = (cmdPacket + aes128)
-                    serial.sendBytesToDevice(sendingData)
+                    self.sendRequestData(cmd: cmdPacket, data: macPacket)
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                    self.msgFlag = true
+                }
+                
+            } else if certiuser == 4 {
+                if msgFlag{
+                    errorAlert()
                 }
             }
+        } else {
+            if cmd == "00" {
+                print("Bluetooth alert")
+                serial.manager.cancelPeripheralConnection(selectedPeripheral)
+                bluetoothErrorAlert()
+            }else if cmd.caseInsensitiveCompare("B1") == .orderedSame { // 인증정보 response(개인)
+
+            }
+            
         }
     }
     
@@ -167,7 +180,6 @@ class EmailCertificationViewController: UIViewController {
                 print("Email Slicing: \(Email_id)")
                 print("Email Hex: \(stringToHex0x(data: Email_id))\n")
                 
-                
                 //AES128
                 let emailItem = stringToHex0x(data: Email_id) + makingStringLength16(str: Email_id)
                 
@@ -175,20 +187,10 @@ class EmailCertificationViewController: UIViewController {
                 
                 let emailHexaItem = makingHexStringToByteArray(str: emailItem)
                 
-                let aes128 = AES128Util().setAES128Encrypt(bytes: emailHexaItem)
-                print(">>> 암호화된 이메일: \(aes128.debugDescription)\n")
-                print(">>> 암호화된 이메일 (hex): \(aes128.toHexString())\n")
-                
-                
                 let cmdPacket:[UInt8] = [0x51]
-                
-                let sendingData = (cmdPacket + aes128)
-                
-                //전송
-                print(">> [EmailCertification] 이메일 데이터 전송 : \(sendingData.description) \n ")
-                print(">> [EmailCertification] 이메일 데이터 전송 (Hex string) : \(sendingData.toHexString()) \n ")
-                serial.sendBytesToDevice(sendingData)
-                
+            
+                print(">> [EmailCertification] 이메일 데이터 전송\n ")
+                self.sendRequestData(cmd: cmdPacket, data: emailHexaItem)
                 
                 smtp.send(mail)
                 
@@ -201,7 +203,39 @@ class EmailCertificationViewController: UIViewController {
         }
     }
     
+    //Test 버튼 액션 함수
     
+    @IBAction func sendingKeyValue(_ sender: Any) {
+        print(">> TEST TEST [EmailCertification] 키값 전송 테스트\n")
+        let data = [0xA2] + self.resultData
+        print(">>> data: \(data.toHexString())")
+        serial.sendBytesToDevice(data)
+    }
+    
+    @IBAction func sendingEmailValue(_ sender: Any) {
+        if let email = emailTextField.text {
+                
+                user_email = email
+                
+                let emailArr = email.components(separatedBy: "@")
+                Email_id = emailArr[emailArr.startIndex]
+                Email_addr = emailArr[emailArr.startIndex + 1]
+                
+                
+                print("Email Slicing: \(Email_id)")
+                print("Email Hex: \(stringToHex0x(data: Email_id))\n")
+                
+                let emailItem = stringToHex0x(data: Email_id) + makingStringLength16(str: Email_id)
+                            
+                let emailHexaItem = makingHexStringToByteArray(str: emailItem)
+                
+                let cmdPacket:[UInt8] = [0x51]
+            
+                print(">> TEST TEST [EmailCertification] 이메일 데이터 전송 테스트\n ")
+                self.sendRequestData(cmd: cmdPacket, data: emailHexaItem)
+        }
+    }
+        
     //이메일 유효성 검사 함수
     func isValidEmail(testStr:String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
@@ -209,7 +243,18 @@ class EmailCertificationViewController: UIViewController {
         return emailTest.evaluate(with: testStr)
     }
     
-    
+    //암호화해서 데이터를 보내는 함수
+    func sendRequestData(cmd: [UInt8], data: [UInt8]){
+        var sendDataByte: [UInt8] = []
+        
+        let encryptData = AES128Util().setAES128Encrypt(bytes: data)
+        
+        sendDataByte += cmd
+        sendDataByte += encryptData
+
+        serial.sendBytesToDevice(sendDataByte)
+    }
+        
     /*
      Alert 함수들
      */
@@ -228,6 +273,16 @@ class EmailCertificationViewController: UIViewController {
         let alert = UIAlertController(title: NSLocalizedString("key value", comment: ""), message: NSLocalizedString("key value msg", comment: ""), preferredStyle: .actionSheet)
         
         let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.navigationController?.popToRootViewController(animated: true)})
+        
+        alert.addAction(buttonAction)
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
+    func errorAlert(){
+        let alert = UIAlertController(title: NSLocalizedString("error alert", comment: ""), message: NSLocalizedString("error alert msg", comment: ""), preferredStyle: .actionSheet)
+        
+        let buttonAction = UIAlertAction(title: "확인", style: .cancel)
         
         alert.addAction(buttonAction)
         self.present(alert, animated: true, completion: nil)

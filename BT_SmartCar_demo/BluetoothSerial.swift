@@ -89,10 +89,10 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     //peripheral로부터 데이터를 전송받으면 호출되는 메서드
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?){
         if let data = characteristic.value {
-            print("** [전송 받은 데이터] : \(data.toHexString())\n\n")
+            print("** [전송 받은 데이터] : \(logParsing(str: data.toHexString()).description)\n\n")
 
             response = data.bytes
-                        
+            
         }else{
             print("XXxx 전송 받은 데이터 없음 xxXX\n")
             return
