@@ -135,6 +135,19 @@ class EmailCertificationViewController: UIViewController {
         } else if response[0] == 0x53 {
             if certiuser == 3 {
                 print("-------- 0x53 - ok | send Mac Address")
+                certiuser = 4
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    
+                    let macPacket = parsingMacAddress(mac: phoneMacAddr) + [0x00, 0x00, 0x00, 0x00, 0x00]
+                    
+                    let aes128 = AES128Util().setAES128Encrypt(bytes: macPacket)
+                    
+                    let cmdPacket:[UInt8] = [0x54]
+                    
+                    let sendingData = (cmdPacket + aes128)
+                    serial.sendBytesToDevice(sendingData)
+                }
             }
         }
     }

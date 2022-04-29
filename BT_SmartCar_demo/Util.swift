@@ -79,27 +79,23 @@ func makingHexStringToByteArray(str: String) -> [UInt8] {
     return result
 }
 
-func parsingMacAddress(mac: String) {
-//    var result:[UInt8] = []
+func parsingMacAddress(mac: String) -> [UInt8] {
+
     var temp = mac.split(by: 2)
     var item = ""
-    var itemString = ""
     
     for i in 0...4 {
         temp[i] += "3A"
     }
-    print(">>> temp: \(temp.debugDescription)")
-    
     for i in 0...5 {
         item += temp[i]
     }
-    print(">>> item: \(item.debugDescription)")
-
-    let hexMac = item.hexaBytes
     
-    print(">>> HexaBytes MAC: \(hexMac.debugDescription)")
-//
-//    return result
+    let result = item.hexaBytes
+    
+    print(">>> Mac parsing: \(result.debugDescription)")
+    
+    return result
 }
 
 extension StringProtocol {

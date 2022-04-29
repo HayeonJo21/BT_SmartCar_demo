@@ -105,13 +105,12 @@ class ViewController: UIViewController {
         
         self.navigationController?.pushViewController(scanListVC, animated: true)
         
-        print("Phone Number: \(preferences.object(forKey: "userPhoneNum").debugDescription)\n")
+        guard let phone = preferences.object(forKey: "userPhoneNum") else { return }
         
         guard let mac = preferences.object(forKey: "userMac") else { return }
         
-        parsingMacAddress(mac: mac as! String)
-        
-        print("MAC Address: \(preferences.object(forKey: "userMac").debugDescription)\n")
+        phoneMacAddr = mac as! String
+        phoneNumber = phone as! String
         
     }
     
