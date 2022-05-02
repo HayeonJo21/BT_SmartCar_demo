@@ -59,6 +59,14 @@ class LoginViewController: UIViewController{
                 
                 self.navigationController?.pushViewController(emailCertiVC, animated: true)
             }
+        }else {
+            print("=>> [LoginViewController > check_isMaster()] 미등록 핸드폰.")
+            let emailCertiVC = EmailCertificationViewController(nibName: "EmailCertificationViewController", bundle: nil)
+            
+            emailCertiVC.selectedDevice = device
+            emailCertiVC.selectedPeripheral = device_peripheral
+            
+            self.navigationController?.pushViewController(emailCertiVC, animated: true)
         }
         
     }

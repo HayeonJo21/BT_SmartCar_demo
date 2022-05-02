@@ -8,9 +8,14 @@ class EmailCertificationViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     var selectedDevice: DeviceModel!
     var selectedPeripheral: CBPeripheral!
+    
+    // flag 변수들
     var keyFlag = false
     var msgFlag = false
+    var showing = false
+    
     var certiuser = 0
+    var certiMsg = ""
     
     var resultData: [UInt8] = Array(repeating: 0x00, count: 16)
     let cmd = parseHexCode(bytes: response)
@@ -59,17 +64,17 @@ class EmailCertificationViewController: UIViewController {
             }
         }
         
-        //TODO: 복호화
+        //복호화
+        let decryptData = AES128Util().getAES128Decrypt(encoded: resultData)
         
-        
-        
+    
         print(">> [EmailCertification] 응답 Bytes: \(response.description)")
         print(">> [EmailCertification] 응답 Hex: \(response.toHexString())")
         print(">> [EmailCertification] 가공한 응답: \(resultData.toHexString())")
         print(">> [EmailCertification] 커맨드: \(cmd) \n")
         
       if cmd.caseInsensitiveCompare("A2") == ComparisonResult.orderedSame {
-            if (response[1] == 0x01) && (response[2] == 0x0F) {
+            if (response[1] == 0x01) && (response[2] == 0x0F) && keyFlag == true {
                 //TODO: 전달받은 키값이 맞다면 키값 적용
                 print("키값 적용\n")
                 CIPHER_KEY = TEMP_KEY
@@ -159,9 +164,29 @@ class EmailCertificationViewController: UIViewController {
                 serial.manager.cancelPeripheralConnection(selectedPeripheral)
                 bluetoothErrorAlert()
             }else if cmd.caseInsensitiveCompare("B1") == .orderedSame { // 인증정보 response(개인)
-
+                if decryptData[1] == 0x05 { //email fail
+                    //TODO: email fail alert
+                } else if decryptData[1] == 0x01 { //마스터 등록
+                    let length = Int(decryptData[0])
+                    var certi: [UInt8] = []
+                    
+                    for i in 0 ..< length {
+                        certi[i] = decryptData[i + 3]
+                    }
+                    certiMsg = certi.toHexString()
+                    
+                    if !showing {
+                        showing = true
+                        if decryptData[2] == 0x01 {
+                            self.masterAddAlert()
+                        }
+                    }else {
+                        masterAddFailAlert()
+                    }
+                } else if decryptData[1] == 0x02{ //사용자 등록
+                    //TODO: 사용자 등록
+                }
             }
-            
         }
     }
     
@@ -280,9 +305,29 @@ class EmailCertificationViewController: UIViewController {
     }
     
     func errorAlert(){
-        let alert = UIAlertController(title: NSLocalizedString("error alert", comment: ""), message: NSLocalizedString("error alert msg", comment: ""), preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: NSLocalizedString("error alert", comment: ""), message: NSLocalizedString("error alert msg", comment: ""), preferredStyle: .alert)
         
         let buttonAction = UIAlertAction(title: "확인", style: .cancel)
+        
+        alert.addAction(buttonAction)
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
+    func masterAddAlert(){
+        let alert = UIAlertController(title: NSLocalizedString("master add", comment: ""), message: NSLocalizedString("master add msg", comment: "") + certiMsg, preferredStyle: .alert)
+        
+        let buttonAction = UIAlertAction(title: "확인", style: .cancel)
+        
+        alert.addAction(buttonAction)
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
+    func masterAddFailAlert(){
+        let alert = UIAlertController(title: NSLocalizedString("master add fail", comment: ""), message: NSLocalizedString("master add fail msg", comment: ""), preferredStyle: .alert)
+        
+        let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.navigationController?.popToRootViewController(animated: true)})
         
         alert.addAction(buttonAction)
         self.present(alert, animated: true, completion: nil)

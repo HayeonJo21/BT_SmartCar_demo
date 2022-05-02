@@ -207,11 +207,14 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         successConnectionAlert()
         flag = 1
         
-        let msg: [UInt8] = [0x11, 0x02, 0x43, 0x4F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
-        
-        print(">> [ScanViewController] 연결 성공 시 보내는 메시지 : \(msg.toHexString())")
-        serial.sendBytesToDevice(msg)
-        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//            let msg: [UInt8] = [0x11, 0x02, 0x43, 0x4F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+//            
+//            print(">> [ScanViewController] 연결 성공 시 보내는 메시지 : \(msg.toHexString())")
+//            serial.sendBytesToDevice(msg)
+//        }
+//       
+//        
         DispatchQueue.main.async() {
             flag = 1
             LoadingSerivce.hideLoading() }
@@ -233,7 +236,7 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
     }
     
     func connectFailureAlert(){
-        let alert = UIAlertController(title: NSLocalizedString("connect failure", comment: ""), message: NSLocalizedString("connect failure msg", comment: ""), preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: NSLocalizedString("connect failure", comment: ""), message: NSLocalizedString("connect failure msg", comment: ""), preferredStyle: .alert)
         
         let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.navigationController?.popViewController(animated: true)})
         
@@ -279,8 +282,6 @@ class ScanViewController: UIViewController, BluetoothSerialDelegate {
         self.present(alert, animated: true, completion: nil)
         
     }
-    
-    
 }
 
 /**
@@ -330,7 +331,6 @@ extension ScanViewController: UITableViewDelegate, UITableViewDataSource {
             serial.stopScan()
             print("연결 시도 >>> " + selectedPeripheral.description + "<<<")
             
-            
             LoadingSerivce.showLoading()
             
             selected_peripheral = selectedPeripheral
@@ -357,39 +357,3 @@ extension ScanViewController: UITableViewDelegate, UITableViewDataSource {
 func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber){
     print("블루투스 스캔 NAME: \(String(peripheral.name ?? "null"))")
 }
-
-//func addRiskList(device: DeviceModel) -> Int{
-//        if device.risk >= 9 {
-//            var eqaul = false
-//            if !riskList.isEmpty {
-//                for dev in riskList {
-//                    if dev.name == device.name {
-//                        eqaul = true
-//                        break
-//                    }
-//                }
-//            }
-//            if !eqaul {
-//                riskList.append(device)
-//            }
-//        } else {
-//            if !riskList.isEmpty{
-//                for dev in riskList {
-//                    if dev.name == device.name{
-//                        return 10
-//                    }
-//                }
-//            }
-//        }
-//
-//        deviceList.append(device)
-//        return device.risk
-//    }
-
-
-//이미 연결됐을 때 사용
-//let peripherals = serial.manager.retrieveConnectedPeripherals(withServices: [uuid])
-//for peripheral in peripherals {
-//    serial.delegate?.serialDidDiscoverPeripheral(peripheral: peripheral, RSSI: NSNumber(value: fRSSI))
-//    print("=== peripheral: " + peripheral.description + "===")
-//}

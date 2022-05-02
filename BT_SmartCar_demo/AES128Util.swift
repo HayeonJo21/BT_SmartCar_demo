@@ -1,7 +1,7 @@
 import Foundation
 import CryptoSwift
 
-var CIPHER_KEY: [UInt8]!
+var CIPHER_KEY: [UInt8] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 var TEMP_KEY: [UInt8]!
 
 class AES128Util {
@@ -10,8 +10,8 @@ class AES128Util {
     
     func getAES128Object() -> AES { //설정 값 지정
         let keyDecodes: [UInt8] = CIPHER_KEY
+        
         print(">>> KeyDecodes(키값): \(CIPHER_KEY.debugDescription)")
-        print(">>> KeyDecodes(키값 HEX STRING): \(CIPHER_KEY.toHexString())")
 
         var ivDecodes: [UInt8] = []
         
@@ -38,7 +38,7 @@ class AES128Util {
     }
     
     //복호화
-    func getAES128Decrypt(encoded: String) -> String {
+    func getAES128DecryptString(encoded: String) -> String {
         let datas = Data(base64Encoded: encoded)
         guard datas != nil else { return "" }
     
@@ -47,5 +47,12 @@ class AES128Util {
         let decodeData = try! bytes.decrypt(cipher: getAES128Object())
         
         return String(bytes: decodeData, encoding: .utf8) ?? ""
+    }
+    
+    func getAES128Decrypt(encoded: [UInt8]) -> [UInt8] {
+        let datas = Data(encoded)
+        
+        return try! datas.decrypt(cipher: getAES128Object()).bytes
+
     }
 }
