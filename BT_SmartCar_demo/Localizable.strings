@@ -27,4 +27,7 @@
 "master add msg" = "OK 버튼을 누르시면\n인증번호를 전송합니다.\n인증번호:";
 "master add fail" = "마스터 등록 실패";
 "master add fail msg" = "차량용 키가 존재하지 않습니다.\n접속을 차단합니다.";
+"disconnected alert" = "연결 끊김";
+"disconnected alert msg" = "기기와의 연결이 끊어졌습니다.\n 처음으로 돌아갑니다.";
+
 

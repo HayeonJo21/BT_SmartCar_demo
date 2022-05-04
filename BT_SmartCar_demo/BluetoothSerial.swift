@@ -13,14 +13,14 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     
     private var writeType : CBCharacteristicWriteType = .withResponse
     private var writeType_read : CBCharacteristicWriteType = .withResponse
-
+    
     
     let characteristicUUID_read = CBUUID(string: "69799808-FAD2-4A97-8E34-B877A9D425A7")
     let characteristicUUID_write = CBUUID(string: "F0144D2E-2BAE-46DD-87A2-E588EAE9E2CD")
     var readCharacteristic: CBCharacteristic!
     weak var writeCharacteristic : CBCharacteristic?
-
-   
+    
+    
     
     //central 기기의 블루투스의 on, off상태 변화때마다 호출
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
@@ -39,7 +39,7 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
         print("=== 기기 연결 시도중... ===")
         pendingPeripheral = peripheral
         manager.connect(peripheral, options: nil)
-            
+        
     }
     
     // 기기가 검색될 때 마다 호출되는 메서드
@@ -90,7 +90,7 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?){
         if let data = characteristic.value {
             print("** [전송 받은 데이터] : \(logParsing(str: data.toHexString()).description)\n\n")
-
+            
             response = data.bytes
             
         }else{
@@ -112,9 +112,14 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     func sendBytesToDevice(_ bytes: [UInt8]){
         print(">> [Bluetooth Serial] 데이터 전송 메소드 호출\n")
         let data = Data(bytes)
-        connectedPeripheral?.readValue(for: readCharacteristic!)
         
-        connectedPeripheral!.writeValue(data, for: writeCharacteristic!, type: writeType)
+        if connectedPeripheral?.state == .connected {
+            connectedPeripheral?.readValue(for: readCharacteristic!)
+            connectedPeripheral!.writeValue(data, for: writeCharacteristic!, type: writeType)
+        }else{
+            print("연결이 끊어짐")
+            
+        }
     }
     
     //데이터를 주변 기기에 전송
@@ -128,7 +133,7 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
         stopScan()
         if let data = characteristic.value{
             response = data.bytes
-//            ControlViewController().decryptDataAndAction(response: data.bytes)
+            //            ControlViewController().decryptDataAndAction(response: data.bytes)
         }else{ return }
     }
     
@@ -142,7 +147,6 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
         print("=== Bluetooth Serial init called ===")
         manager = CBCentralManager.init(delegate: self, queue: .main)
     }
-    
 }
 
 // 블루투스를 연결하는 과정에서의 시리얼뷰와 소통을 위해 필요한 프로토콜
