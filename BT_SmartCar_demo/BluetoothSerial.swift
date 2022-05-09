@@ -71,7 +71,6 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
         stopScan()
         for characteristic in service.characteristics! {
             print("[통신을 위한 설정 시작]")
-            peripheral.readValue(for: characteristic)
             if characteristic.uuid == characteristicUUID_write{
                 print("[CHAR UUID] " + characteristic.uuid.description + "\n")
                 peripheral.setNotifyValue(true, for: characteristic)
@@ -92,6 +91,7 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
             print("** [전송 받은 데이터] : \(logParsing(str: data.toHexString()).description)\n\n")
             
             response = data.bytes
+            NotificationCenter.default.post(name: .broadcaster, object: nil)
             
         }else{
             print("XXxx 전송 받은 데이터 없음 xxXX\n")
@@ -114,11 +114,13 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
         let data = Data(bytes)
         
         if connectedPeripheral?.state == .connected {
-            connectedPeripheral?.readValue(for: readCharacteristic!)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [self] in
+                connectedPeripheral?.readValue(for: readCharacteristic!)
+            }
             connectedPeripheral!.writeValue(data, for: writeCharacteristic!, type: writeType)
         }else{
             print("연결이 끊어짐")
-            
+            return
         }
     }
     

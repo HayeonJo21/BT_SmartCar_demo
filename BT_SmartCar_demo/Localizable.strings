@@ -29,5 +29,7 @@
 "master add fail msg" = "차량용 키가 존재하지 않습니다.\n접속을 차단합니다.";
 "disconnected alert" = "연결 끊김";
 "disconnected alert msg" = "기기와의 연결이 끊어졌습니다.\n 처음으로 돌아갑니다.";
-
-
+"key confirm" = "Key Value";
+"key confirm msg" = "키 정보를 확인합니다.";
+"email fail" = "잘못된 이메일 주소입니다.";
+"email fail msg" = "이메일 주소를 다시 입력하여 진행해주세요.";

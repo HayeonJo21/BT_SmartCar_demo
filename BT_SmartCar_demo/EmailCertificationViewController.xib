@@ -63,7 +63,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q8Y-Gl-6Rv">
-                    <rect key="frame" x="30" y="746" width="354" height="45"/>
+                    <rect key="frame" x="30" y="721" width="354" height="45"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="3cJ-LR-IAI"/>
                     </constraints>
@@ -73,17 +73,6 @@
                         <action selector="sendingEmailValue:" destination="-1" eventType="touchUpInside" id="a08-ci-tYE"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yG8-7L-2EM">
-                    <rect key="frame" x="30" y="686" width="354" height="45"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="45" id="OlW-fJ-PVJ"/>
-                    </constraints>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="gray" title="Key값 전송 테스트 버튼"/>
-                    <connections>
-                        <action selector="sendingKeyValue:" destination="-1" eventType="touchUpInside" id="4KU-6U-Xjq"/>
-                    </connections>
-                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -91,21 +80,18 @@
             <constraints>
                 <constraint firstItem="HMd-gW-fal" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="7GR-fC-afZ"/>
                 <constraint firstItem="xER-lG-JiY" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="DyJ-2G-vQo"/>
-                <constraint firstItem="yG8-7L-2EM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="30" id="FdX-Th-dwW"/>
                 <constraint firstItem="288-nV-Ah9" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="GZF-06-BHT"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="yG8-7L-2EM" secondAttribute="trailing" constant="30" id="HB9-yK-DMt"/>
                 <constraint firstItem="288-nV-Ah9" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="0.98" id="K3X-Qd-Zdb"/>
-                <constraint firstItem="Q8Y-Gl-6Rv" firstAttribute="top" secondItem="yG8-7L-2EM" secondAttribute="bottom" constant="15" id="LRl-4t-Ztf"/>
                 <constraint firstItem="HMd-gW-fal" firstAttribute="top" secondItem="xER-lG-JiY" secondAttribute="bottom" constant="15" id="PSh-y3-M0K"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="HMd-gW-fal" secondAttribute="trailing" constant="20" id="S9Z-Zg-hPh"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Q8Y-Gl-6Rv" secondAttribute="trailing" constant="30" id="cRQ-Ze-aOn"/>
                 <constraint firstItem="zEl-PX-OOl" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="dVC-6S-BLp"/>
-                <constraint firstItem="yG8-7L-2EM" firstAttribute="top" secondItem="HMd-gW-fal" secondAttribute="bottom" constant="35" id="dss-fq-ad5"/>
                 <constraint firstItem="Q8Y-Gl-6Rv" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="30" id="fRt-Oc-bCX"/>
                 <constraint firstItem="xER-lG-JiY" firstAttribute="top" secondItem="288-nV-Ah9" secondAttribute="bottom" constant="80" id="l7p-qC-7uB"/>
                 <constraint firstItem="zEl-PX-OOl" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="0.6" id="oDr-gx-fCD"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="xER-lG-JiY" secondAttribute="trailing" constant="20" id="p4v-Bg-UZj"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="zEl-PX-OOl" secondAttribute="trailing" constant="20" id="sON-gE-h48"/>
+                <constraint firstItem="Q8Y-Gl-6Rv" firstAttribute="top" secondItem="HMd-gW-fal" secondAttribute="bottom" constant="70" id="ysk-wn-TW1"/>
                 <constraint firstItem="zEl-PX-OOl" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="z1r-d5-3fo"/>
             </constraints>
             <connections>
