@@ -1,6 +1,8 @@
 import UIKit
 import CoreBluetooth
 
+var showing2 = false
+
 class EmailCertificationViewController: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -209,7 +211,10 @@ class EmailCertificationViewController: UIViewController {
                         certi[i] = decryptData[i + 3]
                     }
                     certiMsg = certi
-                    
+                    print(">> certiMsg : \(certiMsg.toHexString())\n")
+                    print(">> certiMsg -> String: \(hexToStr(text: certiMsg.toHexString()))")
+                    certificateMsg = hexToStr(text: certiMsg.toHexString())
+
                     if !showing {
                         showing = true
                         if decryptData[2] == 0x01 {
@@ -231,7 +236,9 @@ class EmailCertificationViewController: UIViewController {
                                 rx_data[i] = decryptData[i + 3]
                             }
                             certiMsg = rx_data
-                            
+                            print(">> certiMsg -> String: \(hexToStr(text: certiMsg.toHexString()))")
+                            certificateMsg = hexToStr(text: certiMsg.toHexString())
+
                             smtp.send(mail)
                             
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -264,7 +271,10 @@ class EmailCertificationViewController: UIViewController {
                             rx_data[i + 13] = decryptData[i]
                         }
                         certiMsg = rx_data
-                        
+                        print(">> certiMsg : \(certiMsg.toHexString())\n")
+                        print(">> certiMsg -> String: \(hexToStr(text: certiMsg.toHexString()))")
+                        certificateMsg = hexToStr(text: certiMsg.toHexString())
+
                         smtp.send(mail)
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -295,7 +305,12 @@ class EmailCertificationViewController: UIViewController {
                         }
                         
                         certiMsg = rx_data
+                        print(">> certiMsg : \(certiMsg.toHexString())\n")
+                        print(">> certiMsg -> String : \(hexToStr(text: certiMsg.toHexString()))\n")
                         
+                        certificateMsg = hexToStr(text: certiMsg.toHexString())
+
+
                         smtp.send(mail)
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -326,7 +341,10 @@ class EmailCertificationViewController: UIViewController {
                     }
                     
                     certiMsg = rx_data
-                    
+                    print(">> certiMsg : \(certiMsg.toHexString())\n")
+                    print(">> certiMsg -> String: \(hexToStr(text: certiMsg.toHexString()))")
+                    certificateMsg = hexToStr(text: certiMsg.toHexString())
+
                     smtp.send(mail)
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -338,7 +356,36 @@ class EmailCertificationViewController: UIViewController {
             } else if cmd.caseInsensitiveCompare("C1") == .orderedSame {
                 print("------------ cmd : 0xC1\n")
                 
-                
+                if !showing2 {
+                    if decryptData[0] == 0x01 {
+                        if decryptData[1] == 0x01 {
+                            let msg = "마스터 사용자 등록을 완료했습니다."
+                            let user = 1
+                            
+                            let resultVC = ResultDialogViewController.init(nibName: "ResultDialogViewController", bundle: nil)
+                            
+                            resultVC.msg = msg
+                            resultVC.user = user
+                            resultVC.sf = true
+                            
+                            self.present(resultVC, animated: true)
+                            
+                        }
+                    } else {
+                        let msg = "등록을 실패했습니다."
+                        let user = 4
+                        
+                        let resultVC = ResultDialogViewController.init(nibName: "ResultDialogViewController", bundle: nil)
+                        
+                        resultVC.msg = msg
+                        resultVC.user = user
+                        resultVC.sf = false
+                        
+                        self.present(resultVC, animated: true)
+                    }
+                }
+            } else {
+                print("return")
             }
         }
     }
@@ -395,6 +442,10 @@ class EmailCertificationViewController: UIViewController {
             let emailHexaItem = makingHexStringToByteArray(str: emailItem)
             
             let cmdPacket:[UInt8] = [0x51]
+            
+            certiuser = 1
+            showing = false
+            send_email = false
             
             print(">> TEST TEST [EmailCertification] 이메일 데이터 전송 테스트\n ")
             self.sendRequestData(cmd: cmdPacket, data: emailHexaItem)

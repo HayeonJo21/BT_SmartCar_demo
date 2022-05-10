@@ -38,6 +38,8 @@
 		26D9CC9927EAB4500015E61C /* NumberCertificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26D9CC9727EAB4500015E61C /* NumberCertificationViewController.xib */; };
 		26DA6F7427DAFFC0001BF091 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DA6F7227DAFFC0001BF091 /* LoginViewController.swift */; };
 		26DA6F7527DAFFC0001BF091 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26DA6F7327DAFFC0001BF091 /* LoginViewController.xib */; };
+		26E2AC2D2828F14200681567 /* ResultDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E2AC2B2828F14200681567 /* ResultDialogViewController.swift */; };
+		26E2AC2E2828F14200681567 /* ResultDialogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26E2AC2C2828F14200681567 /* ResultDialogViewController.xib */; };
 		26E665C727F5984300440CB7 /* PhoneNumberModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E665C527F5984300440CB7 /* PhoneNumberModalViewController.swift */; };
 		26E665C827F5984300440CB7 /* PhoneNumberModalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26E665C627F5984300440CB7 /* PhoneNumberModalViewController.xib */; };
 		26E784AD2803B72C00B7417B /* MasterAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E784AB2803B72C00B7417B /* MasterAddViewController.swift */; };
@@ -79,6 +81,8 @@
 		26D9CC9727EAB4500015E61C /* NumberCertificationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NumberCertificationViewController.xib; sourceTree = "<group>"; };
 		26DA6F7227DAFFC0001BF091 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		26DA6F7327DAFFC0001BF091 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		26E2AC2B2828F14200681567 /* ResultDialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultDialogViewController.swift; sourceTree = "<group>"; };
+		26E2AC2C2828F14200681567 /* ResultDialogViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultDialogViewController.xib; sourceTree = "<group>"; };
 		26E4519027F6A28200DA39FA /* BT_SmartCar_demo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BT_SmartCar_demo.entitlements; sourceTree = "<group>"; };
 		26E665C527F5984300440CB7 /* PhoneNumberModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberModalViewController.swift; sourceTree = "<group>"; };
 		26E665C627F5984300440CB7 /* PhoneNumberModalViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhoneNumberModalViewController.xib; sourceTree = "<group>"; };
@@ -155,6 +159,8 @@
 				263D622427B3AD4200713574 /* Main.storyboard */,
 				26D9CC9627EAB4500015E61C /* NumberCertificationViewController.swift */,
 				26D9CC9727EAB4500015E61C /* NumberCertificationViewController.xib */,
+				26E2AC2B2828F14200681567 /* ResultDialogViewController.swift */,
+				26E2AC2C2828F14200681567 /* ResultDialogViewController.xib */,
 				263D622227B3AD4200713574 /* ViewController.swift */,
 				263D622727B3AD4300713574 /* Assets.xcassets */,
 				263D622C27B3AD4300713574 /* Info.plist */,
@@ -251,6 +257,7 @@
 				263D622B27B3AD4300713574 /* LaunchScreen.storyboard in Resources */,
 				263D622827B3AD4300713574 /* Assets.xcassets in Resources */,
 				263D622627B3AD4200713574 /* Main.storyboard in Resources */,
+				26E2AC2E2828F14200681567 /* ResultDialogViewController.xib in Resources */,
 				26B8F47827D593F10031A300 /* Localizable.strings in Resources */,
 				26D65224280662B8001C5F19 /* EmailCertificationViewController.xib in Resources */,
 				26B4FF5D27BF55BD004E05B8 /* ScanViewController.xib in Resources */,
@@ -327,6 +334,7 @@
 				263D622127B3AD4200713574 /* SceneDelegate.swift in Sources */,
 				2682B69527C753880022E627 /* DeviceModel.swift in Sources */,
 				2687C64D27BA487B006C3D63 /* BluetoothSerial.swift in Sources */,
+				26E2AC2D2828F14200681567 /* ResultDialogViewController.swift in Sources */,
 				26A17CDF27FD1CAC0051CCEC /* DirectCertificationViewController.swift in Sources */,
 				26B98EE527E02A84008BFC80 /* LoadingService.swift in Sources */,
 				26B30FF527E7FE80003B4D5A /* ControlViewController.swift in Sources */,

@@ -9,11 +9,13 @@ class NumberCertificationViewController: UIViewController {
     var user_email: String!
     var timeSet: Int = 180 // 입력시간은 3분
     var cnt = 0
+    var result_showing = false
+    var resultData: [UInt8] = Array(repeating: 0x00, count: 16)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        numberTextField.keyboardType = .numberPad
+        numberTextField.keyboardType = .default
         
         sendEmailAlert()
         showingRemainTime()
@@ -29,12 +31,36 @@ class NumberCertificationViewController: UIViewController {
     
     //인증번호 확인
     @IBAction func numberConfirm(_ sender: Any) {
+        
+        if response.endIndex > 2 {
+            for i in resultData.startIndex..<resultData.endIndex {
+                resultData[i] = response[i + 1]
+            }
+        }
+        
+        //복호화
+        let decryptData = AES128Util().getAES128Decrypt(encoded: resultData)
+        
+        
         let inputNumber = numberTextField.text
         
         if inputNumber == nil || inputNumber == "" {
             emptyNumberAlert()
         } else if inputNumber == certiNumber {
-            print("마스터 등록 다이얼로그로 넘어가야 함.")
+            if !result_showing {
+                if decryptData[0] == 0x01 {
+                    if decryptData[1] == 0x02 {
+                        print("추가, 임시 사용자 등록 완료\n")
+                    }else if decryptData[1] == 0x03 {
+                        print("임시 사용자 등록 완료\n")
+                    }else if decryptData[1] == 0x01 {
+                        print("마스터 사용자 변경 완료\n")
+                    }
+                } else {
+                    print("등록 실패\n")
+                }
+
+            }
         } else {
             cnt += 1
             if cnt == 3 {

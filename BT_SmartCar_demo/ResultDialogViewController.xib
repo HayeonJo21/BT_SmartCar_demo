@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ResultDialogViewController" customModule="BT_SmartCar_demo" customModuleProvider="target">
+            <connections>
+                <outlet property="resultImg" destination="D3l-PM-1p3" id="CEn-WA-E5z"/>
+                <outlet property="resultLabel" destination="T3M-84-XT9" id="xwF-xR-fkD"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="D3l-PM-1p3">
+                    <rect key="frame" x="107" y="124" width="200" height="200"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="200" id="QUg-9U-OUL"/>
+                        <constraint firstAttribute="height" constant="200" id="doQ-GA-IZj"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T3M-84-XT9">
+                    <rect key="frame" x="40" y="364" width="334" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="syz-fJ-Nxg"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ecM-oU-TE9">
+                    <rect key="frame" x="100" y="464" width="214" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="Cg2-Zd-trp"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="filled" title="OK">
+                        <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="22"/>
+                    </buttonConfiguration>
+                    <connections>
+                        <action selector="okButton:" destination="-1" eventType="touchUpInside" id="R54-3I-Ee2"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" red="0.63691590639080309" green="0.73583173245199007" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ecM-oU-TE9" secondAttribute="trailing" constant="100" id="6yw-Yi-HXd"/>
+                <constraint firstItem="ecM-oU-TE9" firstAttribute="top" secondItem="T3M-84-XT9" secondAttribute="bottom" constant="60" id="BW6-fT-svL"/>
+                <constraint firstItem="T3M-84-XT9" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="40" id="GJw-Gi-2Ll"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="T3M-84-XT9" secondAttribute="trailing" constant="40" id="Job-8A-rz4"/>
+                <constraint firstItem="ecM-oU-TE9" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="100" id="TXV-oS-09I"/>
+                <constraint firstItem="T3M-84-XT9" firstAttribute="top" secondItem="D3l-PM-1p3" secondAttribute="bottom" constant="40" id="WAm-JM-mRX"/>
+                <constraint firstItem="D3l-PM-1p3" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="WEe-KU-YKU"/>
+                <constraint firstItem="D3l-PM-1p3" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="80" id="qy6-tO-hAG"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="96"/>
+        </view>
+    </objects>
+</document>
