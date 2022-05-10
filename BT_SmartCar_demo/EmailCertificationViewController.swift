@@ -34,7 +34,8 @@ class EmailCertificationViewController: UIViewController {
         super.viewDidLoad()
         
         setKeyboardObserver()
-        
+        view.endEditing(true)
+
         emailTextField.keyboardType = .emailAddress
         
         self.title = "BluetoothLE Smart Car Service"
@@ -50,7 +51,7 @@ class EmailCertificationViewController: UIViewController {
         //연결 메시지 보냄
         print(">> [EmailCertification] 연결 메시지 보냄.. \n")
         self.sendConnectingData()
-        
+        LoadingSerivce.showLoading()
         NotificationCenter.default.addObserver(self, selector: #selector(self.receivingData), name: .broadcaster, object: nil)
     }
     
@@ -62,7 +63,7 @@ class EmailCertificationViewController: UIViewController {
         print(">> [EmailCertification] 연결후 이메일 인증에서 보내는 메시지 : \(msg.toHexString()) \n")
         serial.sendBytesToDevice(msg)
     }
-        
+    
     //EmailCertification
     @objc func receivingData(){
         let cmd = parseHexCode(bytes: response)
@@ -76,9 +77,11 @@ class EmailCertificationViewController: UIViewController {
         //복호화
         let decryptData = AES128Util().getAES128Decrypt(encoded: resultData)
         
-        print(">> [EmailCertification] 응답: \(logParsing(str: response.toHexString()).description)")
-        print(">> [EmailCertification] 응답 복호화: \(logParsing(str: decryptData.toHexString()).description)")
-        print(">> [EmailCertification] 커맨드: \(cmd) \n")
+        print(">> 응답: \(logParsing(str: response.toHexString()).description)")
+        print(">> 응답 복호화: \(logParsing(str: decryptData.toHexString()).description)")
+        print(">> 커맨드: \(cmd) \n")
+        print(">> certiuser: \(certiuser.description) \n")
+
         
         
         if cmd.caseInsensitiveCompare("C1") == ComparisonResult.orderedSame {
@@ -96,10 +99,11 @@ class EmailCertificationViewController: UIViewController {
             if (response[1] == 0x01) && (response[2] == 0x0F) && keyFlag == true{
                 //TODO: 전달받은 키값이 맞다면 키값 적용
                 print("키값 적용\n")
+                LoadingSerivce.hideLoading()
                 CIPHER_KEY = TEMP_KEY
             } else if (response[1] == 0x02) && (response[2] == 0x0F) {
                 //전달받은 키값이 다름
-                print("전달 받은 키값이 다름\n")
+                LoadingSerivce.hideLoading()
                 serial.manager.cancelPeripheralConnection(selectedPeripheral)
                 keyValueAlert()
             }else{
@@ -110,23 +114,8 @@ class EmailCertificationViewController: UIViewController {
                     print("[Key값 저장] \(logParsing(str: resultData.toHexString()))\n")
                     
                     if self.selectedPeripheral.state == .connected {
+                        LoadingSerivce.hideLoading()
                         keyConfirmAlert()
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                            if (response[1] == 0x01) && (response[2] == 0x0F){
-                                //TODO: 전달받은 키값이 맞다면 키값 적용
-                                print("dispatch >> 키값 적용\n")
-                                CIPHER_KEY = TEMP_KEY
-                            }else if self.selectedPeripheral.state == .disconnected{
-                                print("dispatch >> 연결이 끊김\n")
-                                self.disconnectedAlert()
-                                if response[0] == 0x13{
-                                    print("dispatch >> threat\n")
-                                }
-                            }else{
-                                print("dispatch >> 키값 다름\n")
-                            }
-                        }
                         
                     }else{
                         print("[EmailCertification] 연결이 끊어짐")
@@ -137,12 +126,12 @@ class EmailCertificationViewController: UIViewController {
                 }
             }
         } else if response[0] == 0x51 {
+            LoadingSerivce.showLoading()
             if certiuser == 1 {
                 print("----------- 0x51 - ok | send email address")
                 certiuser = 2
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    print(">> [EmailCertification] 0x52 데이터 보냄\n")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     let emailItem = stringToHex0x(data: Email_addr) + makingStringLength16(str: Email_addr)
                     
                     //sending data
@@ -158,8 +147,7 @@ class EmailCertificationViewController: UIViewController {
                 print("----------- 0x52 - ok | send phone number")
                 certiuser = 3
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    print(">> [EmailCertification] 0x53 데이터 보냄\n")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     
                     //sending data
                     let phoneItem = stringToHex0xWithoutLength(data: phoneNumber) + makingStringLength16(str: phoneNumber)
@@ -176,7 +164,7 @@ class EmailCertificationViewController: UIViewController {
                 print("----------- 0x53 - ok | send Mac Address")
                 certiuser = 4
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     
                     //sending data
                     let macPacket = parsingMacAddress(mac: phoneMacAddr) + [0x00, 0x00, 0x00, 0x00, 0x00]
@@ -194,13 +182,14 @@ class EmailCertificationViewController: UIViewController {
                 }
             }
         } else {
-            LoadingSerivce.hideLoading()
             if cmd == "00" {
                 print("Bluetooth alert")
+                LoadingSerivce.hideLoading()
                 serial.manager.cancelPeripheralConnection(selectedPeripheral)
                 bluetoothErrorAlert()
             } else if cmd.caseInsensitiveCompare("B1") == .orderedSame {
                 print("---------------- cmd: 0xB1 \n")// 인증정보 response(개인)
+                LoadingSerivce.hideLoading()
                 if decryptData[1] == 0x05 { //email fail
                     emailFailAlert()
                 } else if decryptData[1] == 0x01 { //마스터 등록
@@ -211,19 +200,18 @@ class EmailCertificationViewController: UIViewController {
                         certi[i] = decryptData[i + 3]
                     }
                     certiMsg = certi
-                    print(">> certiMsg : \(certiMsg.toHexString())\n")
-                    print(">> certiMsg -> String: \(hexToStr(text: certiMsg.toHexString()))")
-                    certificateMsg = hexToStr(text: certiMsg.toHexString())
-
+                                    
                     if !showing {
                         showing = true
                         if decryptData[2] == 0x01 {
+                            certiNumber = createEmailCode()
                             self.masterAddAlert()
                         }
                     }else {
                         masterAddFailAlert()
                     }
                 } else if decryptData[1] == 0x02{ //사용자 등록
+                    LoadingSerivce.hideLoading()
                     if !send_email{
                         rx_cnt = Int(decryptData[0])
                         print("[사용자 등록] Length: \(rx_cnt.description)\n")
@@ -238,7 +226,7 @@ class EmailCertificationViewController: UIViewController {
                             certiMsg = rx_data
                             print(">> certiMsg -> String: \(hexToStr(text: certiMsg.toHexString()))")
                             certificateMsg = hexToStr(text: certiMsg.toHexString())
-
+                            
                             smtp.send(mail)
                             
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -247,6 +235,7 @@ class EmailCertificationViewController: UIViewController {
                                 self.navigationController?.pushViewController(numberVC, animated: true)
                             }
                         } else {
+                            LoadingSerivce.hideLoading()
                             for i in 0 ..< 13 {
                                 rx_data[i] = decryptData[i + 3]
                             }
@@ -274,7 +263,7 @@ class EmailCertificationViewController: UIViewController {
                         print(">> certiMsg : \(certiMsg.toHexString())\n")
                         print(">> certiMsg -> String: \(hexToStr(text: certiMsg.toHexString()))")
                         certificateMsg = hexToStr(text: certiMsg.toHexString())
-
+                        
                         smtp.send(mail)
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -309,8 +298,8 @@ class EmailCertificationViewController: UIViewController {
                         print(">> certiMsg -> String : \(hexToStr(text: certiMsg.toHexString()))\n")
                         
                         certificateMsg = hexToStr(text: certiMsg.toHexString())
-
-
+                        
+                        
                         smtp.send(mail)
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -344,7 +333,7 @@ class EmailCertificationViewController: UIViewController {
                     print(">> certiMsg : \(certiMsg.toHexString())\n")
                     print(">> certiMsg -> String: \(hexToStr(text: certiMsg.toHexString()))")
                     certificateMsg = hexToStr(text: certiMsg.toHexString())
-
+                    
                     smtp.send(mail)
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -418,37 +407,15 @@ class EmailCertificationViewController: UIViewController {
                 self.sendRequestData(cmd: cmdPacket, data: emailHexaItem)
                 
                 LoadingSerivce.showLoading()
+                
+                //observer해제
+                view.endEditing(true)
+
+                NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+                
+                NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+                
             }
-        }
-    }
-    
-    //Test 버튼 액션 함수
-    
-    @IBAction func sendingEmailValue(_ sender: Any) {
-        if let email = emailTextField.text {
-            
-            user_email = email
-            
-            let emailArr = email.components(separatedBy: "@")
-            Email_id = emailArr[emailArr.startIndex]
-            Email_addr = emailArr[emailArr.startIndex + 1]
-            
-            
-            print("Email Slicing: \(Email_id)")
-            print("Email Hex: \(stringToHex0x(data: Email_id))\n")
-            
-            let emailItem = stringToHex0x(data: Email_id) + makingStringLength16(str: Email_id)
-            
-            let emailHexaItem = makingHexStringToByteArray(str: emailItem)
-            
-            let cmdPacket:[UInt8] = [0x51]
-            
-            certiuser = 1
-            showing = false
-            send_email = false
-            
-            print(">> TEST TEST [EmailCertification] 이메일 데이터 전송 테스트\n ")
-            self.sendRequestData(cmd: cmdPacket, data: emailHexaItem)
         }
     }
     
@@ -500,6 +467,7 @@ class EmailCertificationViewController: UIViewController {
         
         let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in
             print(">> [EmailCertification] 키값 확인 테스트\n")
+            LoadingSerivce.showLoading()
             let data = [0xA2] + self.resultData
             print(">>> data: \(data.toHexString())")
             serial.sendBytesToDevice(data)
@@ -514,7 +482,7 @@ class EmailCertificationViewController: UIViewController {
     func errorAlert(){
         let alert = UIAlertController(title: NSLocalizedString("error alert", comment: ""), message: NSLocalizedString("error alert msg", comment: ""), preferredStyle: .alert)
         
-        let buttonAction = UIAlertAction(title: "확인", style: .cancel)
+        let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.navigationController?.popToRootViewController(animated: true)})
         
         alert.addAction(buttonAction)
         self.present(alert, animated: true, completion: nil)
@@ -533,7 +501,7 @@ class EmailCertificationViewController: UIViewController {
     }
     
     func masterAddAlert(){
-        let alert = UIAlertController(title: NSLocalizedString("master add", comment: ""), message: NSLocalizedString("master add msg", comment: "") + certiMsg.toHexString(), preferredStyle: .alert)
+        let alert = UIAlertController(title: NSLocalizedString("master add", comment: ""), message: NSLocalizedString("master add msg", comment: "") + hexToStr(text: certiMsg.toHexString()), preferredStyle: .alert)
         
         let buttonAction = UIAlertAction(title: "확인", style: .cancel) { _ in
             //이메일 전송
@@ -564,7 +532,9 @@ class EmailCertificationViewController: UIViewController {
     func emailFailAlert(){
         let alert = UIAlertController(title: NSLocalizedString("email fail", comment: ""), message: NSLocalizedString("email fail msg", comment: ""), preferredStyle: .alert)
         
-        let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.navigationController?.popViewController(animated: true)})
+        let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in
+            serial.manager.cancelPeripheralConnection(self.selectedPeripheral)
+            self.navigationController?.popToRootViewController(animated: true)})
         
         alert.addAction(buttonAction)
         self.present(alert, animated: true, completion: nil)
@@ -572,4 +542,5 @@ class EmailCertificationViewController: UIViewController {
 }
 extension Notification.Name {
     static let broadcaster = Notification.Name("broadcaster")
+    static let broadcaster_1 = Notification.Name("broadcaster_1")
 }

@@ -19,7 +19,7 @@ func parseHexCode(bytes: [UInt8]) -> String {
     return String(cmd)
 }
 
-//email 문자열의 길이와 함께 이메일 주소를 hexadecimal format으로 바꾸는 함수
+//문자열의 길이와 함께 hexadecimal format으로 바꾸는 함수
 func stringToHex0x(data: String) -> String {
     var result = ""
     
@@ -90,9 +90,7 @@ func makingHexStringToByteArray(str: String) -> [UInt8] {
     for i in 0 ..< 16 {
         result.append(sliceItemByte[sliceItemByte.index(sliceItemByte.startIndex, offsetBy: i)])
     }
-    print(">>> emailHexaItem [UInt8] : \(result.description)")
-    print(">>> \(sliceItemByte.toHexString())\n")
-    
+   
     return result
 }
 

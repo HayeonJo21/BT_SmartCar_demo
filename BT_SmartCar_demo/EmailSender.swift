@@ -7,6 +7,7 @@ let title = email_title
 let codeChar = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 var user_email: String!
 var certificateMsg: String?
+var certiNumber: String?
 
 let smtp = SMTP(hostname: "smtp.gmail.com", email: email, password: pwd)
 let mail_from = Mail.User(name: "BTSmartCar 인증", email: email)
@@ -23,16 +24,13 @@ func createEmailCode() -> String{
     return certiCode
 }
 
-let certiNumber = createEmailCode()
-
 func generateEmailContent() -> String {
     var result = ""
     
     if certificateMsg != nil {
-        result += "Certification Number \n \n" + "Add User(추가 사용자 인증번호), Temp User(임시 사용자 인증번호) \n\n" + certificateMsg!
-    } else {
-        let certiCode = createEmailCode()
-        result += "Certification Number \n \n" + "[ " + certiCode + " ] \n APP에서 인증번호를 입력해주세요."
+        result += "Certification Number \n\n" + "[ " + certificateMsg! + " ]\n" + "Add User: (추가 사용자 인증번호), Temp User: (임시 사용자 인증번호) \n\n APP에서 인증번호를 입력해주세요."
+    } else if certiNumber != nil{
+        result += "Certification Number \n \n" + "[ " + certiNumber! + " ] \n APP에서 인증번호를 입력해주세요."
     }
     
     return result

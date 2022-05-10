@@ -6,6 +6,10 @@ class NumberCertificationViewController: UIViewController {
     @IBOutlet weak var numberTextField: UITextField!
     @IBOutlet weak var timeLabel: UILabel!
     
+    @IBAction func tapGesture(_ sender: Any) {
+        view.endEditing(true)
+    }
+    
     var user_email: String!
     var timeSet: Int = 180 // 입력시간은 3분
     var cnt = 0
@@ -15,10 +19,16 @@ class NumberCertificationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setKeyboardObserver()
+
         numberTextField.keyboardType = .default
         
         sendEmailAlert()
         showingRemainTime()
+        
+        view.endEditing(true)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(self.checkingCertiNum), name: .broadcaster_1, object: nil)
         
     }
     
@@ -32,44 +42,65 @@ class NumberCertificationViewController: UIViewController {
     //인증번호 확인
     @IBAction func numberConfirm(_ sender: Any) {
         
+        guard let inputText = numberTextField.text else { return }
+        
+        let hexaData = stringToHex0x(data: inputText) + makingStringLength16(str: inputText)
+        let parseData = makingHexStringToByteArray(str: hexaData)
+        
+        let aes128 = AES128Util().setAES128Encrypt(bytes: parseData)
+        
+        let sendingData = [0x61] + aes128
+        
+        print("[Number Certification] 입력된 인증번호 전송(original): \(hexaData)\n")
+        
+        serial.sendBytesToDevice(sendingData)
+        
+        //observer해제
+        view.endEditing(true)
+
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        
+    }
+    
+   @objc func checkingCertiNum(){
+        let cmd = parseHexCode(bytes: response)
+        
         if response.endIndex > 2 {
             for i in resultData.startIndex..<resultData.endIndex {
                 resultData[i] = response[i + 1]
             }
         }
         
-        //복호화
         let decryptData = AES128Util().getAES128Decrypt(encoded: resultData)
         
-        
-        let inputNumber = numberTextField.text
-        
-        if inputNumber == nil || inputNumber == "" {
-            emptyNumberAlert()
-        } else if inputNumber == certiNumber {
+        if cmd.caseInsensitiveCompare("C1") == .orderedSame {
             if !result_showing {
                 if decryptData[0] == 0x01 {
                     if decryptData[1] == 0x02 {
-                        print("추가, 임시 사용자 등록 완료\n")
-                    }else if decryptData[1] == 0x03 {
-                        print("임시 사용자 등록 완료\n")
-                    }else if decryptData[1] == 0x01 {
-                        print("마스터 사용자 변경 완료\n")
+                        transition(msg: "추가 사용자 등록을 완료했습니다.", sf: true, user: 2)
+                    } else if decryptData[1] == 0x03 {
+                        transition(msg: "임시 사용자 등록을 완료했습니다.", sf: true, user: 3)
+                    } else if decryptData[1] == 0x01 {
+                        transition(msg: "마스터 사용자 변경을 완료했습니다.", sf: true, user: 1)
                     }
-                } else {
-                    print("등록 실패\n")
+                }else {
+                    transition(msg: "등록을 실패했습니다.", sf: false, user: 4)
                 }
-
-            }
-        } else {
-            cnt += 1
-            if cnt == 3 {
-                threeTimeWrongNumberAlert()
-                cnt = 0
-            } else{
-                wrongNumberAlert()
-            }
+            } 
         }
+    }
+    
+    func transition(msg: String, sf: Bool, user: Int) {
+        let resultVC = ResultDialogViewController.init(nibName: "ResultDialogViewController", bundle: nil)
+        
+        resultVC.msg = msg
+        resultVC.user = user
+        resultVC.sf = sf
+        
+        self.present(resultVC, animated: true)
     }
     
     

@@ -25,6 +25,7 @@ class ResultDialogViewController: UIViewController {
         
         showing2 = true
         //NumberCertification result_showing -> true로
+        NumberCertificationViewController().result_showing = true
     }
 
     @IBAction func okButton(_ sender: Any) {
@@ -36,6 +37,7 @@ class ResultDialogViewController: UIViewController {
                 preferences.set("in", forKey: phoneMacAddr)
             }
             
+            print("정보 저장 후 control view로 이동\n")
             //정보 저장 후 control view로 이동
             
         } else {

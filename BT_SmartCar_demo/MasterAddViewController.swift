@@ -15,6 +15,8 @@ class MasterAddViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(patternImage: (UIImage(named: "dpbgblue_00")!))
         showingRemainTime()
+        
+        certiNumField.keyboardType = .numberPad
     }
     
     //인증번호 확인
@@ -25,7 +27,7 @@ class MasterAddViewController: UIViewController {
             emptyNumberAlert()
         } else if inputNumber == certiNumber {
             print(">> [Master Add] 마스터 등록\n")
-            
+            masterAddDialog()
         } else {
             cnt += 1
             if cnt == 3 {
@@ -96,7 +98,7 @@ class MasterAddViewController: UIViewController {
         
     }
     
-    func masterAddDialog(msg: String){
+    func masterAddDialog(){
         let alert = UIAlertController(title: "마스터 등록", message: NSLocalizedString("master add msg", comment: "") + certiMsg.toHexString(), preferredStyle: .alert)
         
         let buttonAction = UIAlertAction(title: "확인", style: .default, handler: { _ in
