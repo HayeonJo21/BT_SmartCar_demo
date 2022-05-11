@@ -1,10 +1,13 @@
 import UIKit
+import CoreBluetooth
 
+let emailPreferences = UserDefaults.standard
 class ResultDialogViewController: UIViewController {
 
     var sf: Bool!
     var msg: String!
     var user: Int!
+    var connectedPeripheral: CBPeripheral!
     
     @IBOutlet weak var resultLabel: UILabel!
     @IBOutlet weak var resultImg: UIImageView!
@@ -32,13 +35,21 @@ class ResultDialogViewController: UIViewController {
         showing2 = false
         
         if sf {
+            print("정보 저장 후 control view로 이동\n")
+
+            let controlVC = ControlViewController.init(nibName: "ControlViewController", bundle: nil)
+            
+            controlVC.connectedPeripheral = self.connectedPeripheral
             
             if user < 3 {
                 preferences.set("in", forKey: phoneMacAddr)
+                emailPreferences.set(Email_id + Email_addr, forKey: phoneMacAddr)
             }
             
-            print("정보 저장 후 control view로 이동\n")
-            //정보 저장 후 control view로 이동
+            _ = preferences.synchronize()
+            _ = emailPreferences.synchronize()
+            
+            self.navigationController?.pushViewController(controlVC, animated: true)
             
         } else {
             self.dismiss(animated: true)

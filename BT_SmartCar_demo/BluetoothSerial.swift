@@ -92,6 +92,7 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
             
             response = data.bytes
             NotificationCenter.default.post(name: .broadcaster, object: nil)
+            NotificationCenter.default.post(name: .broadcaster_1, object: nil)
             
         }else{
             print("XXxx 전송 받은 데이터 없음 xxXX\n")
@@ -114,7 +115,7 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
         let data = Data(bytes)
         
         if connectedPeripheral?.state == .connected {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [self] in
                 connectedPeripheral?.readValue(for: readCharacteristic!)
             }
             connectedPeripheral!.writeValue(data, for: writeCharacteristic!, type: writeType)

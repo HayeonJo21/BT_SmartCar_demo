@@ -14,7 +14,6 @@ import CoreBluetooth
 import TAKUUID
 
 let preferences = UserDefaults.standard
-
 class ViewController: UIViewController {
     
     override func viewDidLoad() {

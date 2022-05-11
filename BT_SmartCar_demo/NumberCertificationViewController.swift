@@ -1,10 +1,12 @@
 
 import UIKit
+import CoreBluetooth
 
 class NumberCertificationViewController: UIViewController {
     
     @IBOutlet weak var numberTextField: UITextField!
     @IBOutlet weak var timeLabel: UILabel!
+    var connectedPeripheral: CBPeripheral!
     
     @IBAction func tapGesture(_ sender: Any) {
         view.endEditing(true)
@@ -55,6 +57,8 @@ class NumberCertificationViewController: UIViewController {
         
         serial.sendBytesToDevice(sendingData)
         
+        LoadingSerivce.showLoading()
+        
         //observer해제
         view.endEditing(true)
 
@@ -95,10 +99,11 @@ class NumberCertificationViewController: UIViewController {
     
     func transition(msg: String, sf: Bool, user: Int) {
         let resultVC = ResultDialogViewController.init(nibName: "ResultDialogViewController", bundle: nil)
-        
+        LoadingSerivce.hideLoading()
         resultVC.msg = msg
         resultVC.user = user
         resultVC.sf = sf
+        resultVC.connectedPeripheral = self.connectedPeripheral
         
         self.present(resultVC, animated: true)
     }

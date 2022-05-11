@@ -232,6 +232,8 @@ class EmailCertificationViewController: UIViewController {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                                 let numberVC = NumberCertificationViewController.init(nibName: "NumberCertificationViewController", bundle: nil)
                                 
+                                numberVC.connectedPeripheral = self.selectedPeripheral
+                                
                                 self.navigationController?.pushViewController(numberVC, animated: true)
                             }
                         } else {
@@ -269,6 +271,8 @@ class EmailCertificationViewController: UIViewController {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                             let numberVC = NumberCertificationViewController.init(nibName: "NumberCertificationViewController", bundle: nil)
                             
+                            numberVC.connectedPeripheral = self.selectedPeripheral
+                            
                             self.navigationController?.pushViewController(numberVC, animated: true)
                         }
                         
@@ -305,6 +309,8 @@ class EmailCertificationViewController: UIViewController {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                             let numberVC = NumberCertificationViewController.init(nibName: "NumberCertificationViewController", bundle: nil)
                             
+                            numberVC.connectedPeripheral = self.selectedPeripheral
+                            
                             self.navigationController?.pushViewController(numberVC, animated: true)
                         }
                     } else {
@@ -339,6 +345,8 @@ class EmailCertificationViewController: UIViewController {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         let numberVC = NumberCertificationViewController.init(nibName: "NumberCertificationViewController", bundle: nil)
                         
+                        numberVC.connectedPeripheral = self.selectedPeripheral
+                        
                         self.navigationController?.pushViewController(numberVC, animated: true)
                     }
                 }
@@ -356,6 +364,7 @@ class EmailCertificationViewController: UIViewController {
                             resultVC.msg = msg
                             resultVC.user = user
                             resultVC.sf = true
+                            resultVC.connectedPeripheral = selectedPeripheral
                             
                             self.present(resultVC, animated: true)
                             
@@ -369,6 +378,7 @@ class EmailCertificationViewController: UIViewController {
                         resultVC.msg = msg
                         resultVC.user = user
                         resultVC.sf = false
+                        resultVC.connectedPeripheral = selectedPeripheral
                         
                         self.present(resultVC, animated: true)
                     }
@@ -386,6 +396,7 @@ class EmailCertificationViewController: UIViewController {
                 user_email = email
                 
                 let emailArr = email.components(separatedBy: "@")
+                
                 Email_id = emailArr[emailArr.startIndex]
                 Email_addr = emailArr[emailArr.startIndex + 1]
                 
