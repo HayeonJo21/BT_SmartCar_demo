@@ -10,7 +10,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MasterAddViewController" customModule="BT_SmartCar_demo" customModuleProvider="target">
             <connections>
-                <outlet property="backgroundView" destination="SEy-Jz-L3V" id="bVd-UW-Lgm"/>
                 <outlet property="certiNumField" destination="ggb-LA-s5Z" id="qet-zB-s8X"/>
                 <outlet property="timeLabel" destination="RFY-1c-425" id="IiC-PW-HC8"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -52,7 +51,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.90122059237221852" green="1" blue="0.99429351723515758" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <color key="backgroundColor" red="0.53527086732707629" green="0.61861971067988208" blue="0.84625614050662878" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="V7L-J3-33Z" firstAttribute="leading" secondItem="SEy-Jz-L3V" secondAttribute="leading" constant="120" id="H26-Rq-4ZC"/>
                         <constraint firstAttribute="trailing" secondItem="V7L-J3-33Z" secondAttribute="trailing" constant="120" id="Hvp-SJ-DAM"/>
@@ -74,13 +73,13 @@
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="입력된 이메일로 전송된" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N1z-C5-Uq8">
                     <rect key="frame" x="30" y="633" width="354" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="인증번호를 입력해 주세요." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fs8-T9-Vrm">
                     <rect key="frame" x="30" y="662" width="354" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>

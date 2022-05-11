@@ -24,7 +24,8 @@
 "error alert" = "Error";
 "error alert msg" = "다시 시도해주세요.";
 "master add" = "마스터 등록";
-"master add msg" = "OK 버튼을 누르시면\n인증번호를 전송합니다.\n인증번호:";
+"master add msg" = "OK 버튼을 누르시면\n인증번호를 전송합니다.\n인증번호: ";
+"master add msg2" = "OK 버튼을 누르시면\n마스터 등록을 진행합니다. ";
 "master add fail" = "마스터 등록 실패";
 "master add fail msg" = "차량용 키가 존재하지 않습니다.\n접속을 차단합니다.";
 "disconnected alert" = "연결 끊김";

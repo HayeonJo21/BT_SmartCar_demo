@@ -99,13 +99,13 @@ class MasterAddViewController: UIViewController {
     }
     
     func masterAddDialog(){
-        let alert = UIAlertController(title: "마스터 등록", message: NSLocalizedString("master add msg", comment: "") + certiMsg.toHexString(), preferredStyle: .alert)
+        let alert = UIAlertController(title: "마스터 등록", message: NSLocalizedString("master add msg2", comment: ""), preferredStyle: .alert)
         
         let buttonAction = UIAlertAction(title: "확인", style: .default, handler: { _ in
             let sData = [0x05] + self.certiMsg + [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
             
             print(">>[Master Add] Certi num 보냄: \(sData.toHexString())")
-            self.sendRequestData(cmd: [0x61], data: sData)
+            self.sendRequestData(cmd: RESPONSE_CERT_NUM_CMD, data: sData)
         })
         
         alert.addAction(buttonAction)

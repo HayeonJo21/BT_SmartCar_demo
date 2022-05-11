@@ -6,6 +6,12 @@ class ControlViewController: UIViewController {
     var connectedPeripheral: CBPeripheral!
     var start: Bool = false
     let AESUtil = AES128Util()
+    var resultData: [UInt8] = Array(repeating: 0x00, count: 16)
+    var devUser = 0
+    
+    @IBOutlet weak var masterDelete: UIView!
+    @IBOutlet weak var masterDeleteIMG: UIImageView!
+    @IBOutlet weak var masterDeleteBtn: UIButton!
     
     //status flags
     var horn_push = false
@@ -23,6 +29,15 @@ class ControlViewController: UIViewController {
         DispatchQueue.main.async {
             LoadingSerivce.hideLoading()
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.decryptDataAndAction), name: .broadcaster_2, object: nil)
+
+        if devUser != 1 {
+            masterDelete.isHidden = true
+            masterDeleteBtn.isHidden = true
+            masterDeleteIMG.isHidden = true
+        }
+        
     }
     
     func checkStatus(){
@@ -37,13 +52,13 @@ class ControlViewController: UIViewController {
     }
     
     //암호화해서 데이터를 보내는 함수
-    func sendRequestData(cmd: String, data: String){
-        var sendDataByte: [UInt8] = []
+    func sendRequestData(cmd: [UInt8], data: [UInt8]){
+
+        let encryptData = AESUtil.setAES128Encrypt(bytes: data)
         
-        let encryptData = AESUtil.setAES128EncryptString(string: data)
+        let sendDataByte = cmd + encryptData
         
-        sendDataByte += cmd.bytes
-        sendDataByte += encryptData.bytes
+        print(">>>> [Control] data 전송: \(sendDataByte.toHexString())")
 
         serial.sendBytesToDevice(sendDataByte)
     }
@@ -78,6 +93,11 @@ class ControlViewController: UIViewController {
     
     @IBAction func disconnect(_ sender: Any) {
         serial.manager.cancelPeripheralConnection(connectedPeripheral)
+        guard let pvc = presentingViewController as? UINavigationController else { return }
+        
+        dismiss(animated: true){
+            pvc.popToRootViewController(animated: true)
+        }
     }
     
     @IBAction func masterDelete(_ sender: Any) {
@@ -90,9 +110,17 @@ class ControlViewController: UIViewController {
     
     
     // 응답을 받아 처리하는 부분
-    func decryptDataAndAction(response: [UInt8]){
-        let decryptData = AESUtil.getAES128Decrypt(encoded: response)
-        let cmd = parseCMDCode(bytes: response)
+    @objc func decryptDataAndAction(){
+        let cmd = parseHexCode(bytes: response)
+        
+        if response.endIndex > 2 {
+            for i in resultData.startIndex..<resultData.endIndex {
+                resultData[i] = response[i + 1]
+            }
+        }
+        
+        //복호화
+        let decryptData = AES128Util().getAES128Decrypt(encoded: resultData)
         let type = parseCMDCode(bytes: decryptData)
         
         if cmd.caseInsensitiveCompare("A4") == ComparisonResult.orderedSame {
@@ -136,16 +164,16 @@ class ControlViewController: UIViewController {
                     }else {
                         print("소문자")
                     }
-                    sendRequestData(cmd: RESPONSE_JOG_CMD, data: "0xB1" + SUCCESS)
+                    sendRequestData(cmd: RESPONSE_JOG_CMD, data: [0xB1] + SUCCESS)
                 }else{
-                    sendRequestData(cmd: RESPONSE_JOG_CMD, data: "0xB1" + FAIL)
+                    sendRequestData(cmd: RESPONSE_JOG_CMD, data: [0xB1] + FAIL)
                 }
             } else if type.caseInsensitiveCompare("B2") == ComparisonResult.orderedSame {
                 if decryptData[2] == 0x00 {
                     print("표시된 내용을 입력해주세요.")
-                    sendRequestData(cmd: RESPONSE_JOG_CMD, data: "0xB2" + SUCCESS)
+                    sendRequestData(cmd: RESPONSE_JOG_CMD, data: [0xB2] + SUCCESS)
                 }else{
-                    sendRequestData(cmd: RESPONSE_JOG_CMD, data: "0xB2" + FAIL)
+                    sendRequestData(cmd: RESPONSE_JOG_CMD, data: [0xB2] + FAIL)
                 }
             } else if type.caseInsensitiveCompare("B3") == ComparisonResult.orderedSame {
                 if decryptData[1] == 0x31 {
@@ -190,11 +218,11 @@ class ControlViewController: UIViewController {
                     } else if value.caseInsensitiveCompare("4E") == ComparisonResult.orderedSame {
                         print("ㅎ")
                     } else {
-                        sendRequestData(cmd: RESPONSE_JOG_CMD, data: "0xB3" + FAIL)
+                        sendRequestData(cmd: RESPONSE_JOG_CMD, data: [0xB3] + FAIL)
                     }
-                    sendRequestData(cmd: RESPONSE_JOG_CMD, data: "0xB3" + SUCCESS)
+                    sendRequestData(cmd: RESPONSE_JOG_CMD, data: [0xB3] + SUCCESS)
                 } else {
-                    sendRequestData(cmd: RESPONSE_JOG_CMD, data: "0xB3" + FAIL)
+                    sendRequestData(cmd: RESPONSE_JOG_CMD, data: [0xB3] + FAIL)
                     
                 }
             } else if type.caseInsensitiveCompare("B4") == ComparisonResult.orderedSame {
@@ -205,10 +233,10 @@ class ControlViewController: UIViewController {
                 } else if decryptData[1] == 0x02 {
                     print("오른쪽 방향으로 \(turnCnt)회 돌려주세요.")
                 } else {
-                    sendRequestData(cmd: RESPONSE_JOG_CMD, data: "0xB4" + FAIL)
+                    sendRequestData(cmd: RESPONSE_JOG_CMD, data: [0xB4] + FAIL)
                     return
                 }
-                sendRequestData(cmd: RESPONSE_JOG_CMD, data: "0xB4" + SUCCESS)
+                sendRequestData(cmd: RESPONSE_JOG_CMD, data: [0xB4] + SUCCESS)
             } else if type.caseInsensitiveCompare("B5") == ComparisonResult.orderedSame {
                 if decryptData[1] == 0x11 {
                     print("왼쪽 방향으로 움직여주세요.")
@@ -219,10 +247,10 @@ class ControlViewController: UIViewController {
                 } else if decryptData[1] == 0x14 {
                     print("아래쪽 방향으로 움직여주세요.")
                 } else {
-                    sendRequestData(cmd: RESPONSE_JOG_CMD, data: "0xB5" + FAIL)
+                    sendRequestData(cmd: RESPONSE_JOG_CMD, data: [0xB5] + FAIL)
                     return
                 }
-                sendRequestData(cmd: RESPONSE_JOG_CMD, data: "0xB5" + SUCCESS)
+                sendRequestData(cmd: RESPONSE_JOG_CMD, data: [0xB5] + SUCCESS)
             } else if type.caseInsensitiveCompare("B6") == ComparisonResult.orderedSame
                         && decryptData[2] == 0x00 {
                 let value = parseHexCode(bytes: decryptData)
@@ -240,11 +268,11 @@ class ControlViewController: UIViewController {
                 } else if value.caseInsensitiveCompare("A6") == ComparisonResult.orderedSame {
                     print("NAVI 버튼을 세게 눌러주세요.")
                 } else {
-                    sendRequestData(cmd: RESPONSE_JOG_CMD, data: "0xB6" + FAIL)
+                    sendRequestData(cmd: RESPONSE_JOG_CMD, data: [0xB6] + FAIL)
                     return
                 }
                 
-                sendRequestData(cmd: RESPONSE_JOG_CMD, data: "0xB6" + SUCCESS)
+                sendRequestData(cmd: RESPONSE_JOG_CMD, data: [0xB6] + SUCCESS)
             } else {
                 print("ERROR 처리")
             }

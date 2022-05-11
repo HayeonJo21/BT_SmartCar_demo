@@ -49,7 +49,9 @@ class ResultDialogViewController: UIViewController {
             _ = preferences.synchronize()
             _ = emailPreferences.synchronize()
             
-            self.navigationController?.pushViewController(controlVC, animated: true)
+            controlVC.modalPresentationStyle = .fullScreen
+            self.present(controlVC, animated: true)
+        
             
         } else {
             self.dismiss(animated: true)

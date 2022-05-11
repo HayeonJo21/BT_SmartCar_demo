@@ -35,7 +35,7 @@ class EmailCertificationViewController: UIViewController {
         
         setKeyboardObserver()
         view.endEditing(true)
-
+        
         emailTextField.keyboardType = .emailAddress
         
         self.title = "BluetoothLE Smart Car Service"
@@ -81,21 +81,9 @@ class EmailCertificationViewController: UIViewController {
         print(">> 응답 복호화: \(logParsing(str: decryptData.toHexString()).description)")
         print(">> 커맨드: \(cmd) \n")
         print(">> certiuser: \(certiuser.description) \n")
-
         
         
-        if cmd.caseInsensitiveCompare("C1") == ComparisonResult.orderedSame {
-            if decryptData[0] == 0x01 {
-                if decryptData[1] == 0x01 {
-                    //TODO: 마스터 사용자 등록 완료 표시
-                    print("마스터 사용자 등록 완료 표시")
-                }else {
-                    //TODO: 등록 실패 표시
-                    print("마스터 사용자 등록 실패 표시")
-                }
-            }
-            
-        }else if cmd.caseInsensitiveCompare("A2") == ComparisonResult.orderedSame {
+        if cmd.caseInsensitiveCompare("A2") == ComparisonResult.orderedSame {
             if (response[1] == 0x01) && (response[2] == 0x0F) && keyFlag == true{
                 //TODO: 전달받은 키값이 맞다면 키값 적용
                 print("키값 적용\n")
@@ -194,13 +182,13 @@ class EmailCertificationViewController: UIViewController {
                     emailFailAlert()
                 } else if decryptData[1] == 0x01 { //마스터 등록
                     let length = Int(decryptData[0])
-                    var certi: [UInt8] = []
+                    var certi: [UInt8] = Array(repeating: 0x00, count: length)
                     
                     for i in 0 ..< length {
                         certi[i] = decryptData[i + 3]
                     }
                     certiMsg = certi
-                                    
+                    
                     if !showing {
                         showing = true
                         if decryptData[2] == 0x01 {
@@ -249,6 +237,28 @@ class EmailCertificationViewController: UIViewController {
                 } else {
                     if decryptData[1] == 0x03 || decryptData[1] == 0x04 { //현상태 유지 마스터
                         print("현상태 유지 마스터\n")
+                        
+                        let controlVC = ControlViewController.init(nibName: "ControlViewController", bundle: nil)
+                        
+                        controlVC.connectedPeripheral = self.selectedPeripheral
+                        
+                        if decryptData[1] == 0x03 {
+                            controlVC.devUser = 1
+                        }else{
+                            controlVC.devUser = 2
+                        }
+                        
+                        preferences.set("in", forKey: phoneMacAddr)
+                        emailPreferences.set(Email_id + Email_addr, forKey: phoneMacAddr)
+                        
+                        
+                        _ = preferences.synchronize()
+                        _ = emailPreferences.synchronize()
+                        
+                        controlVC.modalPresentationStyle = .fullScreen
+                        self.present(controlVC, animated: true)
+                    } else {
+                        print("[현상태 유지 마스터] DATA ERROR\n")
                     }
                 }
             } else if cmd.caseInsensitiveCompare("1B") == .orderedSame {
@@ -421,7 +431,7 @@ class EmailCertificationViewController: UIViewController {
                 
                 //observer해제
                 view.endEditing(true)
-
+                
                 NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
                 
                 NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -523,7 +533,7 @@ class EmailCertificationViewController: UIViewController {
             let masterAddVC = MasterAddViewController.init(nibName: "MasterAddViewController", bundle: nil)
             masterAddVC.certiMsg = self.certiMsg
             
-            self.navigationController?.pushViewController(masterAddVC, animated: true)
+            self.present(masterAddVC, animated: true)
         }
         alert.addAction(buttonAction)
         self.present(alert, animated: true, completion: nil)
@@ -554,4 +564,5 @@ class EmailCertificationViewController: UIViewController {
 extension Notification.Name {
     static let broadcaster = Notification.Name("broadcaster")
     static let broadcaster_1 = Notification.Name("broadcaster_1")
+    static let broadcaster_2 = Notification.Name("broadcaster_2")
 }
