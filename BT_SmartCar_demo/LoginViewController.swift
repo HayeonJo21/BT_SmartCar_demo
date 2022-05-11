@@ -41,6 +41,7 @@ class LoginViewController: UIViewController{
     func check_isMaster(){
         print("== 사용자 정보 체크 ==")
         if let loginInfo = preferences.object(forKey: phoneMacAddr){
+            print("loginInfo: \(loginInfo as! String)")
             if loginInfo as! String == login {
                 print("=>> [LoginViewController > check_isMaster()] 등록된 핸드폰.")
                 
@@ -60,7 +61,7 @@ class LoginViewController: UIViewController{
                 self.navigationController?.pushViewController(emailCertiVC, animated: true)
             }
         }else {
-            print("=>> [LoginViewController > check_isMaster()] 미등록 핸드폰.")
+            print("=>> [LoginViewController > check_isMaster()] (2) 미등록 핸드폰.")
             let emailCertiVC = EmailCertificationViewController(nibName: "EmailCertificationViewController", bundle: nil)
             
             emailCertiVC.selectedDevice = device

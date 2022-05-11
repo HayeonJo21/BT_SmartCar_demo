@@ -62,11 +62,6 @@ class ViewController: UIViewController {
             print("[ViewController > settingUserInfo()] Phone번호 입력됨.\n")
         }
         
-        //login 정보
-        if preferences.object(forKey: phoneMacAddr) == nil {
-            preferences.set("out", forKey: phoneMacAddr)
-        }
-        
         let didSave = preferences.synchronize()
         
         

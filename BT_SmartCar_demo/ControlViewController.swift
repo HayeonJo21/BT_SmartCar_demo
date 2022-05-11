@@ -95,7 +95,7 @@ class ControlViewController: UIViewController {
         serial.manager.cancelPeripheralConnection(connectedPeripheral)
         guard let pvc = presentingViewController as? UINavigationController else { return }
         
-        dismiss(animated: true){
+        self.dismiss(animated: true){
             pvc.popToRootViewController(animated: true)
         }
     }

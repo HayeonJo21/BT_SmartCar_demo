@@ -106,6 +106,8 @@ class MasterAddViewController: UIViewController {
             
             print(">>[Master Add] Certi num 보냄: \(sData.toHexString())")
             self.sendRequestData(cmd: RESPONSE_CERT_NUM_CMD, data: sData)
+
+            self.dismiss(animated: true)
         })
         
         alert.addAction(buttonAction)

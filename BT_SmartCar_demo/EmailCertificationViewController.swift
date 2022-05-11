@@ -361,7 +361,7 @@ class EmailCertificationViewController: UIViewController {
                     }
                 }
             } else if cmd.caseInsensitiveCompare("C1") == .orderedSame {
-                print("------------ cmd : 0xC1\n")
+                print("------------ cmd : 0xC1\n showing2: \(showing2.description)")
                 
                 if !showing2 {
                     if decryptData[0] == 0x01 {
