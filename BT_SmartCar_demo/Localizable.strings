@@ -34,3 +34,5 @@
 "key confirm msg" = "키 정보를 확인합니다.";
 "email fail" = "잘못된 이메일 주소입니다.";
 "email fail msg" = "이메일 주소를 다시 입력하여 진행해주세요.";
+"saving key fail" = "키값 저장 실패";
+"saving key fail msg" = "키값 저장을 실패했습니다. \n 처음으로 돌아갑니다.";

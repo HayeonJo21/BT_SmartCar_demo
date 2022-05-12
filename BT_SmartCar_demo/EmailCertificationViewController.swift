@@ -111,6 +111,7 @@ class EmailCertificationViewController: UIViewController {
                     }
                 } else {
                     print("키값이 저장되지 않음")
+                    savingKeyFailAlert()
                 }
             }
         } else if response[0] == 0x51 {
@@ -483,6 +484,16 @@ class EmailCertificationViewController: UIViewController {
         
     }
     
+    func savingKeyFailAlert(){
+        let alert = UIAlertController(title: NSLocalizedString("saving key fail", comment: ""), message: NSLocalizedString("saving key fail msg", comment: ""), preferredStyle: .alert)
+        
+        let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.navigationController?.popToRootViewController(animated: true)})
+        
+        alert.addAction(buttonAction)
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
     func keyConfirmAlert(){
         let alert = UIAlertController(title: NSLocalizedString("key confirm", comment: ""), message: NSLocalizedString("key confirm msg", comment: ""), preferredStyle: .alert)
         
@@ -565,4 +576,6 @@ extension Notification.Name {
     static let broadcaster = Notification.Name("broadcaster")
     static let broadcaster_1 = Notification.Name("broadcaster_1")
     static let broadcaster_2 = Notification.Name("broadcaster_2")
+    static let broadcaster_3 = Notification.Name("broadcaster_3")
+
 }

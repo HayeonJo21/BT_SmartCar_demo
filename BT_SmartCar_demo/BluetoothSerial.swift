@@ -94,6 +94,7 @@ class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
             NotificationCenter.default.post(name: .broadcaster, object: nil)
             NotificationCenter.default.post(name: .broadcaster_1, object: nil)
             NotificationCenter.default.post(name: .broadcaster_2, object: nil)
+            NotificationCenter.default.post(name: .broadcaster_3, object: nil)
 
         }else{
             print("XXxx 전송 받은 데이터 없음 xxXX\n")
