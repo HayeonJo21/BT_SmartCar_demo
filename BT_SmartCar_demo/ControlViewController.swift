@@ -96,6 +96,7 @@ class ControlViewController: UIViewController {
         guard let pvc = presentingViewController as? UINavigationController else { return }
         
         self.dismiss(animated: true){
+            print("Dismiss\n")
             pvc.popToRootViewController(animated: true)
         }
     }

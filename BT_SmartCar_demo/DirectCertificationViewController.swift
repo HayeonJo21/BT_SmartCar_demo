@@ -22,7 +22,8 @@ class DirectCertificationViewController: UIViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor(patternImage: (UIImage(named: "dpbgblue_00")!))
-        view.isUserInteractionEnabled = true
+        
+        view.isUserInteractionEnabled = false
         
         //연결 메시지 보냄
         print(">> [Direct Certification] 연결 메시지 보냄.. \n")
@@ -40,11 +41,19 @@ class DirectCertificationViewController: UIViewController {
         keyFlag = false
         
         print(">> [Direct Certification] 연결 후 보내는 메시지 : \(msg.toHexString()) \n")
+        
+        if selectedPeripheral.state == .connected{
         serial.sendBytesToDevice(msg)
+        }else{
+            print("[Direct Certification] 블루투스 연결이 끊김/n")
+            disconnectedAlert()
+        }
     }
     
     // 응답을 받아 처리하는 부분
    @objc func decryptDataAndAction(){
+       LoadingSerivce.showLoading()
+       
         let cmd = parseHexCode(bytes: response)
         
         if response.endIndex > 2 {
@@ -205,6 +214,7 @@ class DirectCertificationViewController: UIViewController {
             break
             
         case "B1", "b1":
+            LoadingSerivce.hideLoading()
             if decryptData[1] == 0x03 || decryptData[1] == 0x04 {
                 var cuser = 2
                 if decryptData[1] == 0x03 {

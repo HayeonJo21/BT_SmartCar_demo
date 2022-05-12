@@ -200,7 +200,6 @@ class EmailCertificationViewController: UIViewController {
                         masterAddFailAlert()
                     }
                 } else if decryptData[1] == 0x02{ //사용자 등록
-                    LoadingSerivce.hideLoading()
                     if !send_email{
                         rx_cnt = Int(decryptData[0])
                         print("[사용자 등록] Length: \(rx_cnt.description)\n")
@@ -238,7 +237,8 @@ class EmailCertificationViewController: UIViewController {
                 } else {
                     if decryptData[1] == 0x03 || decryptData[1] == 0x04 { //현상태 유지 마스터
                         print("현상태 유지 마스터\n")
-                        
+                        LoadingSerivce.hideLoading()
+
                         let controlVC = ControlViewController.init(nibName: "ControlViewController", bundle: nil)
                         
                         controlVC.connectedPeripheral = self.selectedPeripheral
@@ -280,6 +280,8 @@ class EmailCertificationViewController: UIViewController {
                         smtp.send(mail)
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            LoadingSerivce.hideLoading()
+
                             let numberVC = NumberCertificationViewController.init(nibName: "NumberCertificationViewController", bundle: nil)
                             
                             numberVC.connectedPeripheral = self.selectedPeripheral
@@ -318,6 +320,8 @@ class EmailCertificationViewController: UIViewController {
                         smtp.send(mail)
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            LoadingSerivce.hideLoading()
+
                             let numberVC = NumberCertificationViewController.init(nibName: "NumberCertificationViewController", bundle: nil)
                             
                             numberVC.connectedPeripheral = self.selectedPeripheral
@@ -354,6 +358,8 @@ class EmailCertificationViewController: UIViewController {
                     smtp.send(mail)
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        LoadingSerivce.hideLoading()
+
                         let numberVC = NumberCertificationViewController.init(nibName: "NumberCertificationViewController", bundle: nil)
                         
                         numberVC.connectedPeripheral = self.selectedPeripheral
