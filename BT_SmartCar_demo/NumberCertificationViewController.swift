@@ -13,14 +13,14 @@ class NumberCertificationViewController: UIViewController {
     }
     
     var user_email: String!
-    var timeSet: Int = 180 // 입력시간은 3분
+    var timeSet: Int = 180 // 입력 제한시간 3분
     var cnt = 0
     var result_showing = false
     var resultData: [UInt8] = Array(repeating: 0x00, count: 16)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         setKeyboardObserver()
 
         numberTextField.keyboardType = .default

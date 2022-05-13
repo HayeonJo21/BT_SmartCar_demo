@@ -17,7 +17,6 @@ class DirectCertificationViewController: UIViewController {
     
     var resultData: [UInt8] = Array(repeating: 0x00, count: 16)
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,17 +42,17 @@ class DirectCertificationViewController: UIViewController {
         print(">> [Direct Certification] 연결 후 보내는 메시지 : \(msg.toHexString()) \n")
         
         if selectedPeripheral.state == .connected{
-        serial.sendBytesToDevice(msg)
+            serial.sendBytesToDevice(msg)
         }else{
-            print("[Direct Certification] 블루투스 연결이 끊김/n")
+            print("!!! [Direct Certification] 블루투스 연결이 끊김/n")
             disconnectedAlert()
         }
     }
     
     // 응답을 받아 처리하는 부분
-   @objc func decryptDataAndAction(){
-       LoadingSerivce.showLoading()
-       
+    @objc func decryptDataAndAction(){
+        LoadingSerivce.showLoading()
+        
         let cmd = parseHexCode(bytes: response)
         
         if response.endIndex > 2 {
@@ -64,7 +63,7 @@ class DirectCertificationViewController: UIViewController {
         
         //복호화
         let decryptData = AES128Util().getAES128Decrypt(encoded: resultData)
-        
+        print("---- [Direct Certification] 응답 복호화: \(logParsing(str: decryptData.toHexString()))\n")
         
         //블루투스 상태
         let status = selectedPeripheral.state
@@ -164,6 +163,7 @@ class DirectCertificationViewController: UIViewController {
                     }
                 }
             }
+            
             break
             
         case "52":
@@ -181,7 +181,7 @@ class DirectCertificationViewController: UIViewController {
                     
                     self.sendRequestData(cmd: cmdPacket, data: phoneHexaItem)
                     self.directMsg.text = "인증 데이터를 전송 중입니다...(4)"
-
+                    
                 }
             }
             break
@@ -198,7 +198,7 @@ class DirectCertificationViewController: UIViewController {
                     let cmdPacket:[UInt8] = [0x54]
                     self.sendRequestData(cmd: cmdPacket, data: macPacket)
                     self.directMsg.text = "인증 데이터를 전송 중입니다...(5)"
-
+                    
                 }
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
@@ -235,11 +235,11 @@ class DirectCertificationViewController: UIViewController {
                     self.present(controlVC, animated: true)
                 }
                 
-                
             } else {
                 directMsg.text = "인증에 실패하였습니다."
                 directMsg.textColor = .red
-                UserfailureAlert()            }
+                UserfailureAlert()
+            }
             break
             
         default:
@@ -265,7 +265,9 @@ class DirectCertificationViewController: UIViewController {
     func failureAlert(){
         let alert = UIAlertController(title: NSLocalizedString("connect failure", comment: ""), message: NSLocalizedString("connect failure msg", comment: ""), preferredStyle: .actionSheet)
         
-        let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.presentingViewController?.dismiss(animated: true)})
+        let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in
+            serial.manager.cancelPeripheralConnection(self.selectedPeripheral)
+            self.navigationController?.popToRootViewController(animated: true)})
         
         alert.addAction(buttonAction)
         self.present(alert, animated: true, completion: nil)
@@ -275,7 +277,9 @@ class DirectCertificationViewController: UIViewController {
     func UserfailureAlert(){
         let alert = UIAlertController(title: NSLocalizedString("user failure", comment: ""), message: NSLocalizedString("user failure msg", comment: ""), preferredStyle: .actionSheet)
         
-        let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.presentingViewController?.dismiss(animated: true)})
+        let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in
+            serial.manager.cancelPeripheralConnection(self.selectedPeripheral)
+            self.navigationController?.popToRootViewController(animated: true)})
         
         alert.addAction(buttonAction)
         self.present(alert, animated: true, completion: nil)
@@ -285,13 +289,15 @@ class DirectCertificationViewController: UIViewController {
     func keyValueAlert(){
         let alert = UIAlertController(title: NSLocalizedString("key value", comment: ""), message: NSLocalizedString("key value msg", comment: ""), preferredStyle: .actionSheet)
         
-        let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.navigationController?.popToRootViewController(animated: true)})
+        let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in
+            serial.manager.cancelPeripheralConnection(self.selectedPeripheral)
+            self.navigationController?.popToRootViewController(animated: true)})
         
         alert.addAction(buttonAction)
         self.present(alert, animated: true, completion: nil)
         
     }
-    
+
     func savingKeyFailAlert(){
         let alert = UIAlertController(title: NSLocalizedString("saving key fail", comment: ""), message: NSLocalizedString("saving key fail msg", comment: ""), preferredStyle: .alert)
         
@@ -317,7 +323,6 @@ class DirectCertificationViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
         
     }
-    
     func disconnectedAlert(){
         
         let alert = UIAlertController(title: NSLocalizedString("disconnected alert", comment: ""), message: NSLocalizedString("disconnected alert msg", comment: ""), preferredStyle: .alert)
@@ -328,7 +333,6 @@ class DirectCertificationViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
         
     }
-    
     func errorAlert(){
         let alert = UIAlertController(title: NSLocalizedString("error alert", comment: ""), message: NSLocalizedString("error alert msg", comment: ""), preferredStyle: .alert)
         
@@ -338,5 +342,4 @@ class DirectCertificationViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
         
     }
-    
 }

@@ -108,8 +108,7 @@ class ControlViewController: UIViewController {
         
         sendRequestData(cmd: cmd, data: data)
     }
-    
-    
+        
     // 응답을 받아 처리하는 부분
     @objc func decryptDataAndAction(){
         let cmd = parseHexCode(bytes: response)

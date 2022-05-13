@@ -153,7 +153,6 @@
                         <constraint firstAttribute="bottom" secondItem="33A-Ys-BUf" secondAttribute="bottom" constant="18" id="M6K-yM-SuF"/>
                         <constraint firstItem="33A-Ys-BUf" firstAttribute="leading" secondItem="bE4-JL-oQG" secondAttribute="leading" constant="10" id="Rbz-44-RRP"/>
                         <constraint firstItem="l6S-Se-aTf" firstAttribute="top" secondItem="bE4-JL-oQG" secondAttribute="top" constant="10" id="Xb7-W5-08n"/>
-                        <constraint firstAttribute="width" constant="300" id="avg-WC-CdZ"/>
                         <constraint firstItem="l6S-Se-aTf" firstAttribute="leading" secondItem="33A-Ys-BUf" secondAttribute="trailing" constant="1" id="dpO-xh-uGP"/>
                     </constraints>
                 </view>
@@ -205,19 +204,19 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Fn2-Z1-GFQ" secondAttribute="trailing" constant="55" id="BOu-j9-Gik"/>
                 <constraint firstItem="j8L-Vn-Syu" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="55" id="Cxa-i5-XIR"/>
                 <constraint firstItem="YQc-ey-zro" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="55" id="GvW-rd-43z"/>
+                <constraint firstItem="bE4-JL-oQG" firstAttribute="leading" secondItem="j8L-Vn-Syu" secondAttribute="leading" id="HCh-1f-mU4"/>
                 <constraint firstItem="nLZ-mo-z7N" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" multiplier="1.6" id="I6K-FR-OGt"/>
                 <constraint firstItem="Fn2-Z1-GFQ" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="0.5" id="Jxd-FD-HA7"/>
                 <constraint firstItem="nLZ-mo-z7N" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="1.92" id="Ldj-m9-pTw"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="j8L-Vn-Syu" secondAttribute="trailing" constant="55" id="My1-AV-fit"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="bE4-JL-oQG" secondAttribute="trailing" constant="55" id="RUR-gH-Mwv"/>
                 <constraint firstItem="3Xn-gb-B2e" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="0.75" id="Vl1-0Y-aQ7"/>
                 <constraint firstItem="bE4-JL-oQG" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="1.25" id="Wcm-6x-iJe"/>
                 <constraint firstItem="3Xn-gb-B2e" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="55" id="auy-eJ-g0K"/>
-                <constraint firstItem="bE4-JL-oQG" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="55" id="bfc-fY-807"/>
                 <constraint firstItem="j8L-Vn-Syu" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="hRz-Ax-BO2"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="3Xn-gb-B2e" secondAttribute="trailing" constant="55" id="igb-wZ-exo"/>
                 <constraint firstItem="YQc-ey-zro" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="1.5" id="k0x-TP-t5v"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="YQc-ey-zro" secondAttribute="trailing" constant="55" id="mn5-oj-i9S"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="bE4-JL-oQG" secondAttribute="trailing" constant="55" id="p7g-xe-7kx"/>
                 <constraint firstItem="Fn2-Z1-GFQ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="55" id="zvA-z0-hwv"/>
             </constraints>
             <point key="canvasLocation" x="65" y="106"/>
