@@ -1,6 +1,7 @@
 import UIKit
 import CoreBluetooth
 
+var controllerFlag = 0
 class ControlViewController: UIViewController {
     
     var connectedPeripheral: CBPeripheral!
@@ -18,48 +19,33 @@ class ControlViewController: UIViewController {
     var open_push = false
     var close_push = false
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor(patternImage: (UIImage(named: "dpbgblue_00")!))
-        self.title = "Control Center"
-        self.navigationController?.navigationBar.prefersLargeTitles = false
-        
+       
         DispatchQueue.main.async {
             LoadingSerivce.hideLoading()
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.decryptDataAndAction), name: .broadcaster_2, object: nil)
-
+        
         if devUser != 1 {
             masterDelete.isHidden = true
             masterDeleteBtn.isHidden = true
             masterDeleteIMG.isHidden = true
         }
-        
-    }
-    
-    func checkStatus(){
-        if connectedPeripheral.state == .disconnected {
-            print("연결되지 않은 상태")
-            disconnectedAlert()
-        }
-        else if connectedPeripheral.state == .connected {
-            print("연결된 상태")
-            start = true
-        }
     }
     
     //암호화해서 데이터를 보내는 함수
     func sendRequestData(cmd: [UInt8], data: [UInt8]){
-
+        
         let encryptData = AESUtil.setAES128Encrypt(bytes: data)
         
         let sendDataByte = cmd + encryptData
         
         print(">>>> [Control] data 전송: \(sendDataByte.toHexString())")
-
+        
         serial.sendBytesToDevice(sendDataByte)
     }
     
@@ -93,12 +79,17 @@ class ControlViewController: UIViewController {
     
     @IBAction func disconnect(_ sender: Any) {
         serial.manager.cancelPeripheralConnection(connectedPeripheral)
-        guard let pvc = presentingViewController as? UINavigationController else { return }
         
-        self.dismiss(animated: true){
-            print("Dismiss\n")
-            pvc.popToRootViewController(animated: true)
-        }
+        controllerFlag = 1
+        
+        self.dismiss(animated: true)
+//        guard let pvc = presentingViewController as? UINavigationController else { return }
+//
+//
+//        self.dismiss(animated: true){
+//            print("[Control View Controller] Dismiss\n")
+//            pvc.popToRootViewController(animated: true)
+//        }
     }
     
     @IBAction func masterDelete(_ sender: Any) {
@@ -108,9 +99,30 @@ class ControlViewController: UIViewController {
         
         sendRequestData(cmd: cmd, data: data)
     }
+    
+    @IBAction func masterDeleteTest(_ sender: Any) {
         
+        let cmd = REQUEST_MASTER_INIT_CMD
+        let data = REQUEST_MASTER_INIT
+        
+        sendRequestData(cmd: cmd, data: data)
+        
+    }
+    
+    
     // 응답을 받아 처리하는 부분
     @objc func decryptDataAndAction(){
+        
+        //연결 상태 확인
+        if connectedPeripheral.state == .disconnected {
+            print("연결되지 않은 상태")
+            disconnectedAlert()
+        }
+        else if connectedPeripheral.state == .connected {
+            print("연결된 상태")
+            start = true
+        }
+        
         let cmd = parseHexCode(bytes: response)
         
         if response.endIndex > 2 {
@@ -149,9 +161,9 @@ class ControlViewController: UIViewController {
                 close_push = false
             } else if decryptData[0] == 0x24 { //master init
                 if decryptData[1] == 0x01 && decryptData[2] == 0x0F {
-                    print("마스터 등록해제를 완료했습니다.")
+                    print("마스터 등록해제를 완료했습니다.\n")
                 } else if decryptData[1] == 0x02 && decryptData[2] == 0x0F {
-                    print("마스터 등록해제를 실패하였습니다.")
+                    print("마스터 등록해제를 실패하였습니다.\n")
                 }
             }
         }else if cmd.caseInsensitiveCompare("A3") == ComparisonResult.orderedSame {
@@ -160,9 +172,9 @@ class ControlViewController: UIViewController {
                     let alphabet = decryptData[1]
                     
                     if alphabet > 64 && alphabet < 91 {
-                        print("대문자")
+                        print("대문자\n")
                     }else {
-                        print("소문자")
+                        print("소문자\n")
                     }
                     sendRequestData(cmd: RESPONSE_JOG_CMD, data: [0xB1] + SUCCESS)
                 }else{
@@ -278,7 +290,7 @@ class ControlViewController: UIViewController {
             }
         }
     }
-        
+    
     
     /*
      Alert 함수

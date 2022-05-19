@@ -39,6 +39,10 @@ class NumberCertificationViewController: UIViewController {
         self.title = "BluetoothLE Smart Car Service"
         self.view.backgroundColor = UIColor(patternImage: (UIImage(named: "dpbgblue_00")!))
         self.navigationController?.navigationBar.prefersLargeTitles = false
+        
+        if controllerFlag == 1 {
+            self.navigationController?.popToRootViewController(animated: true)
+        }
     }
     
     //인증번호 확인

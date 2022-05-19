@@ -1,6 +1,5 @@
 /*
  첫 화면
- 
  sharedPreferences 정보
  - Mac주소 : userMac
  - Phone number : userPhoneNum

@@ -65,7 +65,7 @@ class DirectCertificationViewController: UIViewController {
         let decryptData = AES128Util().getAES128Decrypt(encoded: resultData)
         print("---- [Direct Certification] 응답 복호화: \(logParsing(str: decryptData.toHexString()))\n")
         
-        //블루투스 상태
+        //블루투스 연결 상태 확인
         let status = selectedPeripheral.state
         
         if status == .connected {
@@ -81,7 +81,7 @@ class DirectCertificationViewController: UIViewController {
             failureAlert()
         }
         
-        //응답에 따른 처리
+        //응답 처리
         switch cmd{
         case "00":
             break
@@ -207,7 +207,7 @@ class DirectCertificationViewController: UIViewController {
                 
             } else if certiuser == 4 {
                 if msgFlag{
-                    //TODO: retry 해도 되고 안해도 되고
+                    //TODO: 연결이 안됐을 때 retry (해도 되고 안해도 되고)
                     errorAlert()
                 }
             }

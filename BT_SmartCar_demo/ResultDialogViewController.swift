@@ -30,6 +30,14 @@ class ResultDialogViewController: UIViewController {
         NumberCertificationViewController().result_showing = true
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if controllerFlag == 1 {
+            self.dismiss(animated: true)
+        }
+    }
+    
     @IBAction func okButton(_ sender: Any) {
         showing2 = false
         

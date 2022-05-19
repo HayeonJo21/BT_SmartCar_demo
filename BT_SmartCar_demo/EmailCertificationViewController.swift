@@ -66,6 +66,16 @@ class EmailCertificationViewController: UIViewController {
     
     //EmailCertification
     @objc func receivingData(){
+        
+        //연결 상태 확인
+        if selectedPeripheral.state == .disconnected {
+            print("연결되지 않은 상태")
+            disconnectedAlert()
+        }
+        else if selectedPeripheral.state == .connected {
+            print("연결된 상태")
+        }
+        
         let cmd = parseHexCode(bytes: response)
         
         if response.endIndex > 2 {
