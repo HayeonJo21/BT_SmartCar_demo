@@ -212,43 +212,43 @@ class ControlViewController: UIViewController {
                     let value = parseHexCode(bytes: decryptData)
                     
                     if value.caseInsensitiveCompare("31") == ComparisonResult.orderedSame {
-                        print("ㄱ")
+                        jog_control(control: CONTROL_EMPTY, msg: "ㄱ", text: MSG_INPUT)
                     } else if value.caseInsensitiveCompare("32") == ComparisonResult.orderedSame {
-                        print("ㄲ")
+                        jog_control(control: CONTROL_EMPTY, msg: "ㄲ", text: MSG_INPUT)
                     } else if value.caseInsensitiveCompare("34") == ComparisonResult.orderedSame {
-                        print("ㄴ")
+                        jog_control(control: CONTROL_EMPTY, msg: "ㄴ", text: MSG_INPUT)
                     } else if value.caseInsensitiveCompare("37") == ComparisonResult.orderedSame {
-                        print("ㄷ")
+                        jog_control(control: CONTROL_EMPTY, msg: "ㄷ", text: MSG_INPUT)
                     } else if value.caseInsensitiveCompare("38") == ComparisonResult.orderedSame {
-                        print("ㄸ")
+                        jog_control(control: CONTROL_EMPTY, msg: "ㄸ", text: MSG_INPUT)
                     } else if value.caseInsensitiveCompare("39") == ComparisonResult.orderedSame {
-                        print("ㄹ")
+                        jog_control(control: CONTROL_EMPTY, msg: "ㄹ", text: MSG_INPUT)
                     } else if value.caseInsensitiveCompare("41") == ComparisonResult.orderedSame {
-                        print("ㅁ")
+                        jog_control(control: CONTROL_EMPTY, msg: "ㅁ", text: MSG_INPUT)
                     } else if value.caseInsensitiveCompare("42") == ComparisonResult.orderedSame {
-                        print("ㅂ")
+                        jog_control(control: CONTROL_EMPTY, msg: "ㅂ", text: MSG_INPUT)
                     } else if value.caseInsensitiveCompare("43") == ComparisonResult.orderedSame {
-                        print("ㅃ")
+                        jog_control(control: CONTROL_EMPTY, msg: "ㅃ", text: MSG_INPUT)
                     } else if value.caseInsensitiveCompare("45") == ComparisonResult.orderedSame {
-                        print("ㅅ")
+                        jog_control(control: CONTROL_EMPTY, msg: "ㅅ", text: MSG_INPUT)
                     } else if value.caseInsensitiveCompare("46") == ComparisonResult.orderedSame {
-                        print("ㅆ")
+                        jog_control(control: CONTROL_EMPTY, msg: "ㅆ", text: MSG_INPUT)
                     } else if value.caseInsensitiveCompare("47") == ComparisonResult.orderedSame {
-                        print("ㅇ")
+                        jog_control(control: CONTROL_EMPTY, msg: "ㅇ", text: MSG_INPUT)
                     } else if value.caseInsensitiveCompare("48") == ComparisonResult.orderedSame {
-                        print("ㅈ")
+                        jog_control(control: CONTROL_EMPTY, msg: "ㅈ", text: MSG_INPUT)
                     } else if value.caseInsensitiveCompare("49") == ComparisonResult.orderedSame {
-                        print("ㅉ")
+                        jog_control(control: CONTROL_EMPTY, msg: "ㅉ", text: MSG_INPUT)
                     } else if value.caseInsensitiveCompare("4A") == ComparisonResult.orderedSame {
-                        print("ㅊ")
+                        jog_control(control: CONTROL_EMPTY, msg: "ㅊ", text: MSG_INPUT)
                     } else if value.caseInsensitiveCompare("4B") == ComparisonResult.orderedSame {
-                        print("ㅋ")
+                        jog_control(control: CONTROL_EMPTY, msg: "ㅋ", text: MSG_INPUT)
                     } else if value.caseInsensitiveCompare("4C") == ComparisonResult.orderedSame {
-                        print("ㅌ")
+                        jog_control(control: CONTROL_EMPTY, msg: "ㅌ", text: MSG_INPUT)
                     } else if value.caseInsensitiveCompare("4D") == ComparisonResult.orderedSame {
-                        print("ㅍ")
+                        jog_control(control: CONTROL_EMPTY, msg: "ㅍ", text: MSG_INPUT)
                     } else if value.caseInsensitiveCompare("4E") == ComparisonResult.orderedSame {
-                        print("ㅎ")
+                        jog_control(control: CONTROL_EMPTY, msg: "ㅎ", text: MSG_INPUT)
                     } else {
                         sendRequestData(cmd: RESPONSE_JOG_CMD, data: [0xB3] + FAIL)
                     }

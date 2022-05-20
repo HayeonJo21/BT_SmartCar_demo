@@ -14,7 +14,7 @@ let BTN_HOME_PUSH = 10;
 let BTN_NAVI_TOUCH = 11;
 let BTN_NAVI_PUSH = 12;
 let CONTROL_EMPTY = 13;
-
+let MSG_INPUT = "표시된 내용을 입력해 주세요";
 
 // CMD -------------------------------------------------------------------------
 // RESPONSE
