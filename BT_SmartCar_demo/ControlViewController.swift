@@ -1,6 +1,25 @@
 import UIKit
 import CoreBluetooth
 
+enum bgImg: Int64 {
+    case back
+    case home
+    case navi
+}
+
+extension bgImg {
+    var image: UIImage {
+        switch self{
+        case .back:
+            return UIImage(named: "ico_msg_bg_back.png")!
+        case .home:
+            return UIImage(named: "ico_msg_bg_home.png")!
+        case .navi:
+            return UIImage(named: "ico_msg_bg_navi.png")!
+        }
+    }
+}
+
 var controllerFlag = 0
 class ControlViewController: UIViewController {
     
@@ -167,6 +186,7 @@ class ControlViewController: UIViewController {
                 }
             }
         }else if cmd.caseInsensitiveCompare("A3") == ComparisonResult.orderedSame {
+            
             if type.caseInsensitiveCompare("B1") == ComparisonResult.orderedSame {
                 if decryptData[2] == 0x00 {
                     let alphabet = decryptData[1]
@@ -241,9 +261,9 @@ class ControlViewController: UIViewController {
                 let turnCnt = decryptData[2].description
                 
                 if decryptData[1] == 0x01 {
-                    print("왼쪽 방향으로 \(turnCnt)회 돌려주세요.")
+                    jog_control(control: JOG_LEFT, msg: turnCnt, text: "왼쪽 방향으로 \(turnCnt)회 돌려주세요.")
                 } else if decryptData[1] == 0x02 {
-                    print("오른쪽 방향으로 \(turnCnt)회 돌려주세요.")
+                    jog_control(control: JOG_RIGHT, msg: turnCnt, text: "오른쪽 방향으로 \(turnCnt)회 돌려주세요.")
                 } else {
                     sendRequestData(cmd: RESPONSE_JOG_CMD, data: [0xB4] + FAIL)
                     return
@@ -251,13 +271,13 @@ class ControlViewController: UIViewController {
                 sendRequestData(cmd: RESPONSE_JOG_CMD, data: [0xB4] + SUCCESS)
             } else if type.caseInsensitiveCompare("B5") == ComparisonResult.orderedSame {
                 if decryptData[1] == 0x11 {
-                    print("왼쪽 방향으로 움직여주세요.")
+                    jog_control(control: GESTURE_LEFT, msg: "", text: "왼쪽 방향으로 움직여주세요.")
                 } else if decryptData[1] == 0x12 {
-                    print("오른쪽 방향으로 움직여주세요.")
+                    jog_control(control: GESTURE_RIGHT, msg: "", text: "오른쪽 방향으로 움직여주세요.")
                 } else if decryptData[1] == 0x13 {
-                    print("위쪽 방향으로 움직여주세요.")
+                    jog_control(control: GESTURE_UP, msg: "", text: "위쪽 방향으로 움직여주세요.")
                 } else if decryptData[1] == 0x14 {
-                    print("아래쪽 방향으로 움직여주세요.")
+                    jog_control(control: GESTURE_DOWN, msg: "", text: "아래쪽 방향으로 움직여주세요.")
                 } else {
                     sendRequestData(cmd: RESPONSE_JOG_CMD, data: [0xB5] + FAIL)
                     return
@@ -268,27 +288,69 @@ class ControlViewController: UIViewController {
                 let value = parseHexCode(bytes: decryptData)
                 
                 if value.caseInsensitiveCompare("A1") == ComparisonResult.orderedSame {
-                    print("BACK 버튼을 터치해주세요.")
+                    jog_control(control: BTN_BACK_TOUCH, msg: "", text: "BACK 버튼을 터치해주세요.")
                 } else if value.caseInsensitiveCompare("A2") == ComparisonResult.orderedSame {
-                    print("BACK 버튼을 세게 눌러주세요.")
+                    jog_control(control: BTN_BACK_PUSH, msg: "", text: "BACK 버튼을 세게 눌러주세요.")
                 } else if value.caseInsensitiveCompare("A3") == ComparisonResult.orderedSame {
-                    print("HOME 버튼을 터치해주세요.")
+                    jog_control(control: BTN_HOME_TOUCH, msg: "", text: "HOME 버튼을 터치해주세요.")
                 } else if value.caseInsensitiveCompare("A4") == ComparisonResult.orderedSame {
-                    print("HOME 버튼을 세게 눌러주세요.")
+                    jog_control(control: BTN_HOME_PUSH, msg: "", text: "HOME 버튼을 세게 눌러주세요.")
                 } else if value.caseInsensitiveCompare("A5") == ComparisonResult.orderedSame {
-                    print("NAVI 버튼을 터치해주세요.")
+                    jog_control(control: BTN_NAVI_TOUCH, msg: "", text: "NAVI 버튼을 터치해주세요.")
                 } else if value.caseInsensitiveCompare("A6") == ComparisonResult.orderedSame {
-                    print("NAVI 버튼을 세게 눌러주세요.")
+                    jog_control(control: BTN_NAVI_PUSH, msg: "", text: "NAVI 버튼을 세게 눌러주세요.")
                 } else {
                     sendRequestData(cmd: RESPONSE_JOG_CMD, data: [0xB6] + FAIL)
                     return
                 }
-                
                 sendRequestData(cmd: RESPONSE_JOG_CMD, data: [0xB6] + SUCCESS)
             } else {
                 print("ERROR 처리")
             }
         }
+    }
+    
+    func jog_control(control:Int, msg: String, text: String){
+        //timer = true
+        
+        let jogDialogVC = ControlDialogViewController.init(nibName: "ControlDialogViewController", bundle: nil)
+        
+        if control <= 2 {
+            if control == JOG_LEFT {
+                jogDialogVC.directionImage = UIImage(named: "dialspin2")
+            } else if control == JOG_RIGHT {
+                jogDialogVC.directionImage = UIImage(named: "dialspin1")
+            }
+        } else if control > 2 && control <= 6 {
+            if control == GESTURE_LEFT {
+                jogDialogVC.directionImage = UIImage(named: "icon_l_sparrow")
+            }else if control == GESTURE_RIGHT {
+                jogDialogVC.directionImage = UIImage(named: "icon_r_sparrow")
+
+            }else if control == GESTURE_UP {
+                jogDialogVC.directionImage = UIImage(named: "icon_u_sparrow")
+
+            }else if control == GESTURE_DOWN {
+                jogDialogVC.directionImage = UIImage(named: "icon_d_sparrow")
+
+            }
+        } else if control > 6 && control <= 12 {
+            if control == BTN_BACK_TOUCH || control == BTN_BACK_PUSH {
+                jogDialogVC.img = .back
+                
+            }else if control == BTN_HOME_TOUCH || control == BTN_HOME_PUSH {
+                jogDialogVC.img = .home
+                
+            }else if control == BTN_NAVI_PUSH || control == BTN_NAVI_TOUCH {
+                jogDialogVC.img = .navi
+            }
+        }
+        //text 및 메시지 다 설정해서 controlDialogViewController로 보내기
+        
+        jogDialogVC.msg = msg
+        jogDialogVC.text = text
+        
+        self.present(jogDialogVC, animated: true)
     }
     
     

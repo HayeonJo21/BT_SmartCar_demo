@@ -1,6 +1,21 @@
 import Foundation
 
 
+let JOG_LEFT = 1;
+let JOG_RIGHT = 2;
+let GESTURE_LEFT = 3;
+let GESTURE_RIGHT = 4;
+let GESTURE_UP = 5;
+let GESTURE_DOWN = 6;
+let BTN_BACK_TOUCH = 7;
+let BTN_BACK_PUSH = 8;
+let BTN_HOME_TOUCH = 9;
+let BTN_HOME_PUSH = 10;
+let BTN_NAVI_TOUCH = 11;
+let BTN_NAVI_PUSH = 12;
+let CONTROL_EMPTY = 13;
+
+
 // CMD -------------------------------------------------------------------------
 // RESPONSE
 let RESPONSE_JOG_CMD:[UInt8] = [0x44]

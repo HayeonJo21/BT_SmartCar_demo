@@ -10,7 +10,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ControlDialogViewController" customModule="BT_SmartCar_demo" customModuleProvider="target">
             <connections>
+                <outlet property="dialText" destination="LFl-DN-Pow" id="IJg-mM-M5P"/>
                 <outlet property="imageView" destination="eqU-LX-PoU" id="LY6-LT-cn1"/>
+                <outlet property="jogText" destination="QIz-Ws-x5E" id="Cv0-rw-bjb"/>
+                <outlet property="sparrowImg" destination="KvD-VZ-jTK" id="BlT-jH-PWq"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,13 +23,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" text="Controller" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p9K-f5-4H6">
-                    <rect key="frame" x="25" y="79" width="364" height="31.5"/>
+                    <rect key="frame" x="25" y="69" width="364" height="31.5"/>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="26"/>
                     <color key="textColor" red="0.67089093924879606" green="0.85898849059954507" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="ico_msg_bg" translatesAutoresizingMaskIntoConstraints="NO" id="eqU-LX-PoU">
-                    <rect key="frame" x="25" y="140.5" width="364" height="691.5"/>
+                    <rect key="frame" x="25" y="120.5" width="364" height="580"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="580" id="D4j-1x-8bH"/>
+                    </constraints>
                 </imageView>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="norma_logo" translatesAutoresizingMaskIntoConstraints="NO" id="uhd-Bv-PO5">
                     <rect key="frame" x="281" y="840" width="100" height="40"/>
@@ -35,21 +41,56 @@
                         <constraint firstAttribute="height" constant="40" id="l4e-tg-rC4"/>
                     </constraints>
                 </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="jog text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QIz-Ws-x5E">
+                    <rect key="frame" x="15" y="710.5" width="384" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="f01-4T-Cvw"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KvD-VZ-jTK">
+                    <rect key="frame" x="45" y="320" width="324" height="273"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="273" id="kZH-uC-IsT"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dial text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LFl-DN-Pow">
+                    <rect key="frame" x="20" y="590.5" width="374" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="8dT-QJ-rZE"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                    <color key="textColor" systemColor="systemRedColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="KvD-VZ-jTK" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="320" id="343-tS-0sr"/>
                 <constraint firstItem="uhd-Bv-PO5" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" multiplier="1.6" id="34D-Hp-CJU"/>
+                <constraint firstItem="LFl-DN-Pow" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="6Ts-as-gpH"/>
+                <constraint firstItem="QIz-Ws-x5E" firstAttribute="top" secondItem="LFl-DN-Pow" secondAttribute="bottom" constant="80" id="BOC-i8-OBl"/>
                 <constraint firstItem="p9K-f5-4H6" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="25" id="Dfv-LQ-1b9"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="KvD-VZ-jTK" secondAttribute="trailing" constant="45" id="EFi-qK-pTT"/>
+                <constraint firstItem="KvD-VZ-jTK" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="EX7-f7-QLC"/>
                 <constraint firstItem="uhd-Bv-PO5" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="1.92" id="G5N-sf-Fx6"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="p9K-f5-4H6" secondAttribute="trailing" constant="25" id="ITR-bT-Xgw"/>
                 <constraint firstItem="eqU-LX-PoU" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="25" id="T30-F7-xpV"/>
-                <constraint firstItem="p9K-f5-4H6" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="35" id="TWA-6l-k86"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="eqU-LX-PoU" secondAttribute="bottom" constant="30" id="U0S-1D-sCJ"/>
+                <constraint firstItem="p9K-f5-4H6" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="25" id="TWA-6l-k86"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="eqU-LX-PoU" secondAttribute="trailing" constant="25" id="Y5u-5T-9YM"/>
-                <constraint firstItem="eqU-LX-PoU" firstAttribute="top" secondItem="p9K-f5-4H6" secondAttribute="bottom" constant="30" id="rSv-Au-Plo"/>
+                <constraint firstItem="QIz-Ws-x5E" firstAttribute="top" secondItem="eqU-LX-PoU" secondAttribute="bottom" constant="10" id="mXc-D6-EPw"/>
+                <constraint firstItem="KvD-VZ-jTK" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="45" id="oB5-6e-zKZ"/>
+                <constraint firstItem="eqU-LX-PoU" firstAttribute="top" secondItem="p9K-f5-4H6" secondAttribute="bottom" constant="20" id="rSv-Au-Plo"/>
+                <constraint firstItem="QIz-Ws-x5E" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="15" id="ruA-Mq-TGA"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="LFl-DN-Pow" secondAttribute="trailing" constant="20" id="s24-Va-Lso"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="QIz-Ws-x5E" secondAttribute="trailing" constant="15" id="w5K-im-toU"/>
             </constraints>
-            <point key="canvasLocation" x="294" y="6"/>
+            <point key="canvasLocation" x="292.75362318840581" y="5.3571428571428568"/>
         </view>
     </objects>
     <resources>
@@ -57,6 +98,9 @@
         <image name="norma_logo" width="774" height="209"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

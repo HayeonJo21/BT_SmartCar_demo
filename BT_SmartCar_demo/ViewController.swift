@@ -93,6 +93,11 @@ class ViewController: UIViewController {
         return String(sliced_mac)
     }
     
+    func jogControl(){
+        
+    }
+    
+    
     @IBAction func btScanBtn(_ sender: Any) {
                 
         let scanListVC = ScanViewController(nibName: "ScanViewController", bundle: nil)
