@@ -28,11 +28,11 @@ class ResultDialogViewController: UIViewController {
         
         showing2 = true
         NumberCertificationViewController().result_showing = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.dismissView), name: .broadcaster_4, object: nil)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
+    @objc func dismissView(){
         if controllerFlag == 1 {
             self.dismiss(animated: true)
         }

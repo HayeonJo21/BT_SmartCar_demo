@@ -1,6 +1,5 @@
 import Foundation
 
-
 let JOG_LEFT = 1;
 let JOG_RIGHT = 2;
 let GESTURE_LEFT = 3;
@@ -52,6 +51,3 @@ let  master_email = "rndtest@norma.co.kr"
 let  master_pwd = "normarnd123"
 let  email_title = "[BT SMART CAR] E-MAIL VERIFICATION"
 var response: [UInt8] = [0]
-
-
-

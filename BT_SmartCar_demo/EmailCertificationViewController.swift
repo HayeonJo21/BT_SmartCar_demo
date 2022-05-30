@@ -593,5 +593,7 @@ extension Notification.Name {
     static let broadcaster_1 = Notification.Name("broadcaster_1")
     static let broadcaster_2 = Notification.Name("broadcaster_2")
     static let broadcaster_3 = Notification.Name("broadcaster_3")
+    static let broadcaster_4 = Notification.Name("broadcaster_4")
+
 
 }

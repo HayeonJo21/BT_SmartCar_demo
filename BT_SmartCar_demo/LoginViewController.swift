@@ -29,12 +29,19 @@ class LoginViewController: UIViewController{
         
         titleText.textColor = .white
         deviceNameLabel.textColor = .white
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.dismissView), name: .broadcaster_4, object: nil)
+
             
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         check_isMaster()
 
+    }
+    
+    @objc func dismissView(){
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     //사용자 정보 체크해서 email, direct로 화면 전환

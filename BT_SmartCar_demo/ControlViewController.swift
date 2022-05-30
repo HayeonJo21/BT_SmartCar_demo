@@ -11,11 +11,11 @@ extension bgImg {
     var image: UIImage {
         switch self{
         case .back:
-            return UIImage(named: "ico_msg_bg_back.png")!
+            return UIImage(named: "ico_msg_bg_back")!
         case .home:
-            return UIImage(named: "ico_msg_bg_home.png")!
+            return UIImage(named: "ico_msg_bg_home")!
         case .navi:
-            return UIImage(named: "ico_msg_bg_navi.png")!
+            return UIImage(named: "ico_msg_bg_navi")!
         }
     }
 }
@@ -85,7 +85,6 @@ class ControlViewController: UIViewController {
         
         close_push = true
         sendRequestData(cmd: cmd, data: data)
-        
     }
     
     @IBAction func carHorn(_ sender: Any) {
@@ -100,7 +99,7 @@ class ControlViewController: UIViewController {
         serial.manager.cancelPeripheralConnection(connectedPeripheral)
         
         controllerFlag = 1
-        
+        NotificationCenter.default.post(name: .broadcaster_4, object: nil)
         self.dismiss(animated: true)
 //        guard let pvc = presentingViewController as? UINavigationController else { return }
 //
@@ -125,12 +124,13 @@ class ControlViewController: UIViewController {
         let data = REQUEST_MASTER_INIT
         
         sendRequestData(cmd: cmd, data: data)
-        
     }
     
     
     // 응답을 받아 처리하는 부분
     @objc func decryptDataAndAction(){
+        
+        LoadingSerivce.hideLoading()
         
         //연결 상태 확인
         if connectedPeripheral.state == .disconnected {
@@ -152,7 +152,11 @@ class ControlViewController: UIViewController {
         
         //복호화
         let decryptData = AES128Util().getAES128Decrypt(encoded: resultData)
-        let type = parseCMDCode(bytes: decryptData)
+        print("---- [Control View] 응답 복호화: \(logParsing(str: decryptData.toHexString()))\n")
+
+        let type = parseHexCode(bytes: decryptData)
+        
+        print("---- [Control View] TYPE: \(type)\n")
         
         if cmd.caseInsensitiveCompare("A4") == ComparisonResult.orderedSame {
             if decryptData[0] == 0x21 && horn_push {
@@ -186,14 +190,16 @@ class ControlViewController: UIViewController {
                 }
             }
         }else if cmd.caseInsensitiveCompare("A3") == ComparisonResult.orderedSame {
-            
+            print("-------------- cmd: a3 \n type: \(type)\n")
             if type.caseInsensitiveCompare("B1") == ComparisonResult.orderedSame {
                 if decryptData[2] == 0x00 {
                     let alphabet = decryptData[1]
                     
                     if alphabet > 64 && alphabet < 91 {
+                        jog_control(control: CONTROL_EMPTY, msg: alphabet.description.utf8.description + "\n대문자", text: MSG_INPUT)
                         print("대문자\n")
                     }else {
+                        jog_control(control: CONTROL_EMPTY, msg: alphabet.description.utf8.description + "\n소문자", text: MSG_INPUT)
                         print("소문자\n")
                     }
                     sendRequestData(cmd: RESPONSE_JOG_CMD, data: [0xB1] + SUCCESS)
@@ -202,15 +208,18 @@ class ControlViewController: UIViewController {
                 }
             } else if type.caseInsensitiveCompare("B2") == ComparisonResult.orderedSame {
                 if decryptData[2] == 0x00 {
-                    print("표시된 내용을 입력해주세요.")
+                    let responData = decryptData[1]
+                    jog_control(control: CONTROL_EMPTY, msg: responData.description.utf8.description , text: MSG_INPUT)
+                    print("----- success 표시된 내용을 입력해주세요.")
                     sendRequestData(cmd: RESPONSE_JOG_CMD, data: [0xB2] + SUCCESS)
                 }else{
                     sendRequestData(cmd: RESPONSE_JOG_CMD, data: [0xB2] + FAIL)
                 }
-            } else if type.caseInsensitiveCompare("B3") == ComparisonResult.orderedSame {
+            } else if type.caseInsensitiveCompare("B3") == .orderedSame {
+                print("--------------- type: b3 \n")
                 if decryptData[1] == 0x31 {
-                    let value = parseHexCode(bytes: decryptData)
-                    
+                    let value = parseHexCode(bytes: [decryptData[1]])
+
                     if value.caseInsensitiveCompare("31") == ComparisonResult.orderedSame {
                         jog_control(control: CONTROL_EMPTY, msg: "ㄱ", text: MSG_INPUT)
                     } else if value.caseInsensitiveCompare("32") == ComparisonResult.orderedSame {
@@ -285,7 +294,7 @@ class ControlViewController: UIViewController {
                 sendRequestData(cmd: RESPONSE_JOG_CMD, data: [0xB5] + SUCCESS)
             } else if type.caseInsensitiveCompare("B6") == ComparisonResult.orderedSame
                         && decryptData[2] == 0x00 {
-                let value = parseHexCode(bytes: decryptData)
+                let value = parseHexCode(bytes: [decryptData[1]])
                 
                 if value.caseInsensitiveCompare("A1") == ComparisonResult.orderedSame {
                     jog_control(control: BTN_BACK_TOUCH, msg: "", text: "BACK 버튼을 터치해주세요.")
@@ -312,6 +321,8 @@ class ControlViewController: UIViewController {
     
     func jog_control(control:Int, msg: String, text: String){
         //timer = true
+        
+        LoadingSerivce.hideLoading()
         
         let jogDialogVC = ControlDialogViewController.init(nibName: "ControlDialogViewController", bundle: nil)
         
@@ -345,8 +356,7 @@ class ControlViewController: UIViewController {
                 jogDialogVC.img = .navi
             }
         }
-        //text 및 메시지 다 설정해서 controlDialogViewController로 보내기
-        
+                
         jogDialogVC.msg = msg
         jogDialogVC.text = text
         
