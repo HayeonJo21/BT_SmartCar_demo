@@ -7,7 +7,6 @@
  
  를 키로 저장함
  */
-
 import UIKit
 import CoreBluetooth
 import TAKUUID
@@ -93,24 +92,22 @@ class ViewController: UIViewController {
         return String(sliced_mac)
     }
     
-    func jogControl(){
-        
-    }
-    
-    
     @IBAction func btScanBtn(_ sender: Any) {
                 
         let scanListVC = ScanViewController(nibName: "ScanViewController", bundle: nil)
         
         self.navigationController?.pushViewController(scanListVC, animated: true)
         
-        guard let phone = preferences.object(forKey: "userPhoneNum") else { return }
+        guard let phone = preferences.object(forKey: "userPhoneNum") else {
+            emptySettingInfoAlert()
+            return
+        }
         
         guard let mac = preferences.object(forKey: "userMac") else { return }
         
         phoneMacAddr = mac as! String
         phoneNumber = phone as! String
-        
+                
     }
     
     @IBAction func exitAction(_ sender: Any) {

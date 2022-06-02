@@ -269,7 +269,7 @@ class EmailCertificationViewController: UIViewController {
                         controlVC.modalPresentationStyle = .fullScreen
                         self.present(controlVC, animated: true)
                     } else {
-                        print("[현상태 유지 마스터] DATA ERROR\n")
+                        print("[Email Certification 현상태 유지 마스터] DATA ERROR\n")
                     }
                 }
             } else if cmd.caseInsensitiveCompare("1B") == .orderedSame {

@@ -19,8 +19,8 @@ extension bgImg {
         }
     }
 }
+var controllerFlag = 1
 
-var controllerFlag = 0
 class ControlViewController: UIViewController {
     
     var connectedPeripheral: CBPeripheral!
@@ -98,7 +98,6 @@ class ControlViewController: UIViewController {
     @IBAction func disconnect(_ sender: Any) {
         serial.manager.cancelPeripheralConnection(connectedPeripheral)
         
-        controllerFlag = 1
         NotificationCenter.default.post(name: .broadcaster_4, object: nil)
         self.dismiss(animated: true)
 //        guard let pvc = presentingViewController as? UINavigationController else { return }
@@ -115,17 +114,20 @@ class ControlViewController: UIViewController {
         let cmd = REQUEST_MASTER_INIT_CMD
         let data = REQUEST_MASTER_INIT
         
-        sendRequestData(cmd: cmd, data: data)
-    }
-    
-    @IBAction func masterDeleteTest(_ sender: Any) {
+        preferences.removeObject(forKey: "userMac")
+        preferences.removeObject(forKey: "userPhoneNum")
+        preferences.removeObject(forKey: phoneMacAddr)
+
+        let didSave = preferences.synchronize()
         
-        let cmd = REQUEST_MASTER_INIT_CMD
-        let data = REQUEST_MASTER_INIT
+        if !didSave {
+            return
+        }
         
         sendRequestData(cmd: cmd, data: data)
+        
+        masterDeleteAlert()
     }
-    
     
     // 응답을 받아 처리하는 부분
     @objc func decryptDataAndAction(){
@@ -371,6 +373,20 @@ class ControlViewController: UIViewController {
         let alert = UIAlertController(title: NSLocalizedString("disconnect", comment: ""), message: NSLocalizedString("connect disconnect msg", comment: ""), preferredStyle: .actionSheet)
         
         let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in self.navigationController?.popViewController(animated: true)})
+        
+        alert.addAction(buttonAction)
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
+    func masterDeleteAlert(){
+        let alert = UIAlertController(title: NSLocalizedString("master delete", comment: ""), message: NSLocalizedString("master delete msg", comment: ""), preferredStyle: .alert)
+        
+        let buttonAction = UIAlertAction(title: "확인", style: .cancel, handler: { _ in
+            controllerFlag = 1
+            NotificationCenter.default.post(name: .broadcaster_4, object: nil)
+            self.dismiss(animated: true)
+        })
         
         alert.addAction(buttonAction)
         self.present(alert, animated: true, completion: nil)

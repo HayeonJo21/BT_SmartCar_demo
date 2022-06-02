@@ -4,7 +4,6 @@ class MasterAddViewController: UIViewController {
     
     var certiMsg: [UInt8]!
     var timeSet: Int = 180
-    
     var cnt = 0
     
     @IBOutlet weak var timeLabel: UILabel!
@@ -51,6 +50,7 @@ class MasterAddViewController: UIViewController {
             if self.timeSet > 0 {
                 self.timeLabel.text = "⏰ \(min)분 \(sec)초 남음"
             }else{
+                
                 self.timeLabel.text = "인증 시간 만료"
                 self.navigationController?.popViewController(animated: true)
             }

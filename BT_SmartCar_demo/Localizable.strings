@@ -36,3 +36,5 @@
 "email fail msg" = "이메일 주소를 다시 입력하여 진행해주세요.";
 "saving key fail" = "키값 저장 실패";
 "saving key fail msg" = "키값 저장을 실패했습니다. \n 처음으로 돌아갑니다.";
+"master delete" = "마스터 사용자 삭제";
+"master delete msg" = "마스터 사용자를 삭제합니다.";

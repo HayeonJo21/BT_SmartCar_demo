@@ -15,7 +15,7 @@ class PhoneNumberModalViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         phoneNumberTextFelid.delegate = self
-        
+        phoneNumberTextFelid.keyboardType = .numberPad
     }
     
     override func viewWillAppear(_ animated: Bool) {

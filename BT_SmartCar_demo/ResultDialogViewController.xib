@@ -27,18 +27,18 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T3M-84-XT9">
-                    <rect key="frame" x="40" y="364" width="334" height="40"/>
+                    <rect key="frame" x="40" y="364" width="334" height="45"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="40" id="syz-fJ-Nxg"/>
+                        <constraint firstAttribute="height" constant="45" id="syz-fJ-Nxg"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ecM-oU-TE9">
-                    <rect key="frame" x="100" y="464" width="214" height="45"/>
+                    <rect key="frame" x="100" y="469" width="214" height="48"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="45" id="Cg2-Zd-trp"/>
+                        <constraint firstAttribute="height" constant="48" id="Cg2-Zd-trp"/>
                     </constraints>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="filled" title="OK">

@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  BT_SmartCar_demo
-//
-//  Created by Norma on 2022/02/09.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -46,7 +39,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
 
 }
 

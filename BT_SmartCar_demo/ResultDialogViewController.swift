@@ -36,12 +36,15 @@ class ResultDialogViewController: UIViewController {
         if controllerFlag == 1 {
             self.dismiss(animated: true)
         }
+        
+        self.dismiss(animated: true)
     }
     
     @IBAction func okButton(_ sender: Any) {
         showing2 = false
         
         if sf {
+
             print("정보 저장 후 control view로 이동\n")
             
             let controlVC = ControlViewController.init(nibName: "ControlViewController", bundle: nil)
@@ -54,7 +57,6 @@ class ResultDialogViewController: UIViewController {
                 preferences.set(login, forKey: phoneMacAddr)
                 emailPreferences.set(Email_id, forKey: phoneMacAddr + "eid")
                 emailPreferences.set(Email_addr, forKey: phoneMacAddr + "addr")
-
             }
             
             let didSave1 = preferences.synchronize()
